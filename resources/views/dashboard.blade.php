@@ -1,5 +1,5 @@
 <!-- -->
-@extends('master')
+@extends('login_master')
  
 @section('main')
  

@@ -114,13 +114,13 @@
                 </div><!--dropdown-->
                 
                 <div class="dropdown userinfo">
-                    <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="http://themepixels.com/page.html">Hi, ThemePixels! <b class="caret"></b></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="http://themepixels.com/page.html">Hi, {!! Auth::User()->name !!}! <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="editprofile.html"><span class="icon-edit"></span> Edit Profile</a></li>
                         <li><a href="#"><span class="icon-wrench"></span> Account Settings</a></li>
                         <li><a href="#"><span class="icon-eye-open"></span> Privacy Settings</a></li>
                         <li class="divider"></li>
-                        <li><a href="index.html"><span class="icon-off"></span> Sign Out</a></li>
+                        <li><a href="{!! URL::TO('/logout') !!}"><span class="icon-off"></span> Sign Out</a></li>
                     </ul>
                 </div><!--dropdown-->
             
