@@ -13,9 +13,10 @@
 
 // dimensions resources
 Route::resource('dimensions','DimensionController');
+// objectives resources
+Route::resource('objectives','ObjectiveController');
 
 Route::get('/',['as'=>'home','uses'=>'HomeController@index']);
 Route::get('/dash-board',['as'=>'dash-board','uses'=>"DashBoardController@index"]);
- 
-Route::controller('/','Auth\AuthController');
 
+Route::controller('/','Auth\AuthController');

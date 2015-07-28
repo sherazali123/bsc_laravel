@@ -54,10 +54,10 @@
                             <li><a href="{{url('/dimensions')}}">Dimensions</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown"><a href="#"><span class="icon-briefcase"></span> Objectives</a>
+                    <li class="dropdown"><a href="{{url('/objectives/create')}}"><span class="icon-briefcase"></span> Objectives</a>
                         <ul>
-                            <li><a href="#">Add new</a></li>
-                            <li><a href="#">Objectives</a></li>
+                            <li><a href="{{url('/objectives/create')}}">Add new</a></li>
+                            <li><a href="{{url('/objectives')}}">Objectives</a></li>
                         </ul>
                     </li>
                     <li class="dropdown"><a href="#"><span class="icon-briefcase"></span> Initiatives</a>

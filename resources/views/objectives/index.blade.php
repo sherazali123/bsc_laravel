@@ -31,7 +31,7 @@
                      	       <td>{{ $row->name }}</td>
                      	       <td>{{ $row->description }}</td>
                      	       <td>
-                     	       		<a href="{{route('dimensions.edit',$row->id)}}" class="btn" style="float: left;">Edit</a>
+                     	       		<a href="{{route($controller_name.'.edit',$row->id)}}" class="btn" style="float: left;">Edit</a>
                      	       		{!! Form::open(['method' => 'DELETE', 'route'=>[$controller_name.'.destroy', $row->id]]) !!}
 						            {!! Form::submit('Delete', ['style' => 'margin-left: 15px;']) !!}
 						            {!! Form::close() !!}
