@@ -1,0 +1,53 @@
+@extends($controller_name.'.master')
+
+@section('custom_assets')
+    {!!HTML::script('/js/jquery.uniform.min.js')!!}
+    {!!HTML::script('/js/jquery.dataTables.min.js')!!}
+@endsection
+
+@section('main')
+
+        <div class="maincontent">
+        	<div class="contentinner">
+
+            	<h4 class="widgettitle">Dimensions <a href="{{url('/dimensions/create')}}">Add new</a></h4>
+            	<table class="table table-bordered" id="index_1">
+                    <colgroup>
+                        <col class="con0" />
+                        <col class="con1" />
+                        <col class="con0" />
+                        <col class="con1" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th class="head1">Name</th>
+                            <th class="head1">Description</th>
+                            <th class="head1">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    	@foreach ($list as $row)
+                     	   <tr class="gradeX">
+                     	       <td>{{ $row->name }}</td>
+                     	       <td>{{ $row->description }}</td>
+                     	       <td>
+                     	       		<a href="{{route('dimensions.edit',$row->id)}}" class="btn" style="float: left;">Edit</a>
+                     	       		{!! Form::open(['method' => 'DELETE', 'route'=>['dimensions.destroy', $row->id]]) !!}
+						            {!! Form::submit('Delete', ['style' => 'margin-left: 15px;']) !!}
+						            {!! Form::close() !!}
+
+                     	       </td>
+                     	   </tr>
+                     	@endforeach
+                    </tbody>
+                </table>
+
+            </div><!--contentinner-->
+        </div><!--maincontent-->
+
+@endsection
+@section('footer_js')
+ 	{!!HTML::script('/js/views/dimensions/index.js')!!}
+@endsection
+
+@stop
