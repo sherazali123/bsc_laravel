@@ -15,6 +15,8 @@
 Route::resource('dimensions','DimensionController');
 // objectives resources
 Route::resource('objectives','ObjectiveController');
+// users resources
+Route::resource('users','UserController');
 
 Route::get('/',['as'=>'home','uses'=>'HomeController@index']);
 Route::get('/dash-board',['as'=>'dash-board','uses'=>"DashBoardController@index"]);

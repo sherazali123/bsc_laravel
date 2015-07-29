@@ -22,7 +22,7 @@
         <div class="leftpanel">
 
             <div class="logopanel">
-                <h1><a href="dashboard.html">Katniss <span>v1.0</span></a></h1>
+                <h1><a href="dashboard.html">BSC <span>v1.0</span></a></h1>
             </div><!--logopanel-->
 
             <div class="datewidget">Today is {{ Carbon\Carbon::today()->format('l, M j, Y h:i a') }}</div>
@@ -99,9 +99,9 @@
                 <div class="dropdown userinfo">
                     <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="http://themepixels.com/page.html">Hi, {!! Auth::User()->name !!}! <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="editprofile.html"><span class="icon-edit"></span> Edit Profile</a></li>
-                        <li><a href="#"><span class="icon-wrench"></span> Account Settings</a></li>
-                        <li><a href="#"><span class="icon-eye-open"></span> Privacy Settings</a></li>
+                        <li><a href="{{route('users.edit',Auth::User()->id) }}"><span class="icon-edit"></span> Edit Profile</a></li>
+                        <!-- <li><a href="#"><span class="icon-wrench"></span> Account Settings</a></li>
+                        <li><a href="#"><span class="icon-eye-open"></span> Privacy Settings</a></li> -->
                         <li class="divider"></li>
                         <li><a href="{!! URL::TO('/logout') !!}"><span class="icon-off"></span> Sign Out</a></li>
                     </ul>

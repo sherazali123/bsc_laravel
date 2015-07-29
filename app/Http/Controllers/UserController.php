@@ -6,16 +6,16 @@ namespace App\Http\Controllers;
 use Request;
 use Auth;
 use Session;
-use App\Dimension as _MODEL;
+use App\User as _MODEL;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class DimensionController extends Controller
+class UserController extends Controller
 {
     /*
      * This controller as crud
      */
-    public $controller = "dimensions";
+    public $controller = "users";
 
     /*
      * This controller common view data
@@ -31,11 +31,10 @@ class DimensionController extends Controller
     public function __construct()
     {
        $this->middleware('auth');
-       $this->viewData['user_id'] = Auth::User()->id;
 
-       $this->viewData['controller_heading'] = 'Dimensions';
+       $this->viewData['controller_heading'] = 'Users';
        $this->viewData['controller_name'] = $this->controller;
-       $this->viewData['whatisit'] = 'Dimension';
+       $this->viewData['whatisit'] = 'User';
 
        $this->viewData['breadcrumb'] = array(
          array('name' => 'Home', 'href' => '/'),
@@ -52,7 +51,7 @@ class DimensionController extends Controller
      */
     public function index()
     {
-        $list = _MODEL::where('user_id', '=', (int)$this->viewData['user_id'])->get();
+        $list = _MODEL::all();
 
         array_push($this->viewData['breadcrumb'], array());
 
@@ -78,13 +77,8 @@ class DimensionController extends Controller
     public function store(Request $request)
     {
         $row = Request::all();
-        $row['user_id'] = (int) Auth::User()->id;
 
-        $model = new _MODEL();
-        $model->user_id = $row['user_id'];
-        $model->name = $row['name'];
-        $model->description = $row['description'];
-        $model->save();
+        _MODEL::create($row);
 
         Session::flash('message', $this->viewData['whatisit'].' created!');
         Session::flash('alert-class', 'alert-success');
@@ -133,7 +127,7 @@ class DimensionController extends Controller
         Session::flash('alert-class', 'alert-success');
 
 
-        return redirect($this->controller);
+        return redirect($this->controller.'/'.$id.'/edit');
     }
 
     /**
@@ -144,10 +138,9 @@ class DimensionController extends Controller
      */
     public function destroy($id)
     {
-         _MODEL::find($id)->delete();
-
-         Session::flash('message', $this->viewData['whatisit'].' deleted!');
-         Session::flash('alert-class', 'alert-danger');
+        //  _MODEL::find($id)->delete();
+        //  Session::flash('message', $this->viewData['whatisit'].' deleted!');
+        //  Session::flash('alert-class', 'alert-danger');
 
          return redirect($this->controller);
     }
