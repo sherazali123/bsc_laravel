@@ -11,4 +11,9 @@ class Dimension extends Model
         'description',
         'status'
     ];
+    
+    public function objectives()
+    {
+        return $this->hasMany('App\Objective');
+    }
 }

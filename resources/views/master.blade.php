@@ -119,6 +119,9 @@
             </div><!--headerright-->
 
         </div><!--headerpanel-->
+        @if(Session::has('message'))
+        <p style="margin: 12px;" class="alert {{ Session::get('alert-class', 'alert-info') }}">{!! Session::get('message') !!}</p>
+        @endif
         @yield('breadcrumbwidget')
         @yield('main')
 

@@ -22,9 +22,7 @@
  <div class="pagetitle">
    <h1>{{{ $controller_heading or '' }}}</h1> <span>Add/edit/delete {{{ $controller_name or '' }}} from here</span>
  </div><!--pagetitle-->
- @if(Session::has('message'))
- <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{!! Session::get('message') !!}</p>
- @endif
+
 @endsection
  @section('before_footerjs')
   	{!!HTML::script('/js/views/'.$controller_name.'/master.js')!!}

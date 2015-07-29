@@ -22,6 +22,7 @@
                         <tr>
                             <th class="head1">Name</th>
                             <th class="head1">Description</th>
+                            <th class="head1">Dimension</th>
                             <th class="head1">Actions</th>
                         </tr>
                     </thead>
@@ -30,11 +31,12 @@
                      	   <tr class="gradeX">
                      	       <td>{{ $row->name }}</td>
                      	       <td>{{ $row->description }}</td>
+                              <td>{{ $row->dimension->name }}</td>
                      	       <td>
                      	       		<a href="{{route($controller_name.'.edit',$row->id)}}" class="btn" style="float: left;">Edit</a>
                      	       		{!! Form::open(['method' => 'DELETE', 'route'=>[$controller_name.'.destroy', $row->id]]) !!}
-						            {!! Form::submit('Delete', ['style' => 'margin-left: 15px;']) !!}
-						            {!! Form::close() !!}
+        						            {!! Form::submit('Delete', ['style' => 'margin-left: 15px;']) !!}
+        						            {!! Form::close() !!}
 
                      	       </td>
                      	   </tr>

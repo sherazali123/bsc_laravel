@@ -12,4 +12,9 @@ class Objective extends Model
         'description',
         'status'
     ];
+
+    public function dimension()
+    {
+        return $this->belongsTo('App\Dimension');
+    }
 }
