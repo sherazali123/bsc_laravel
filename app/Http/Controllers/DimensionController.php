@@ -36,6 +36,11 @@ class DimensionController extends Controller
        $this->viewData['controller_name'] = $this->controller;
        $this->viewData['whatisit'] = 'Dimension';
 
+       $this->viewData['breadcrumb'] = array(
+         array('name' => 'Home', 'href' => '/'),
+         array('name' =>  $this->viewData['controller_heading'], 'href' => $this->controller),
+       );
+
     }
 
 
@@ -47,6 +52,9 @@ class DimensionController extends Controller
     public function index()
     {
         $list = _MODEL::all();
+
+        array_push($this->viewData['breadcrumb'], array());
+
         return view($this->controller.'.index',compact('list'), $this->viewData);
     }
 

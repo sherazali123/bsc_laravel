@@ -25,8 +25,7 @@
                 <h1><a href="dashboard.html">Katniss <span>v1.0</span></a></h1>
             </div><!--logopanel-->
 
-            <div class="datewidget">Today is Tuesday, Dec 25, 2012 5:30pm</div>
-
+            <div class="datewidget">Today is {{ Carbon\Carbon::today()->format('l, M j, Y h:i a') }}</div>
             <div class="searchwidget">
                 <form action="http://themepixels.com/main/themes/demo/webpage/katniss/results.html" method="post">
                     <div class="input-append">
@@ -35,14 +34,6 @@
                     </div>
                 </form>
             </div><!--searchwidget-->
-
-            <div class="plainwidget">
-                <small>Using 16.8 GB of your 51.7 GB </small>
-                <div class="progress progress-info">
-                    <div class="bar" style="width: 20%"></div>
-                </div>
-                <small><strong>38% full</strong></small>
-            </div><!--plainwidget-->
 
             <div class="leftmenu">
                 <ul class="nav nav-tabs nav-stacked">
