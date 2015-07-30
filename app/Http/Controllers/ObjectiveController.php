@@ -52,7 +52,10 @@ class ObjectiveController extends Controller
     public function index()
     {
         // $list = _MODEL::all();
-        $list = _MODEL::leftJoin('dimensions', 'dimensions.id', '=', 'objectives.dimension_id')->where('dimensions.user_id', '=', (int)$this->viewData['user_id'])->get();
+        $list = _MODEL::leftJoin('dimensions', 'dimensions.id', '=', 'objectives.dimension_id')
+                      ->where('dimensions.user_id', '=', (int)$this->viewData['user_id'])
+                      ->select('objectives.*')
+                      ->get();
         return view($this->controller.'.index',compact('list'), $this->viewData);
     }
 
