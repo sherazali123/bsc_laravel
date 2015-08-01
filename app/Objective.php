@@ -17,4 +17,9 @@ class Objective extends Model
     {
         return $this->belongsTo('App\Dimension');
     }
+
+    public function initiatives()
+    {
+        return $this->hasMany('App\Initiative');
+    }
 }

@@ -17,6 +17,11 @@ Route::resource('dimensions','DimensionController');
 Route::resource('objectives','ObjectiveController');
 // users resources
 Route::resource('users','UserController');
+// initiatives resources
+Route::resource('initiatives','InitiativeController');
+// measures resources
+Route::resource('measures','MeasureController');
+
 
 Route::get('/',['as'=>'home','uses'=>'HomeController@index']);
 Route::get('/dash-board',['as'=>'dash-board','uses'=>"DashBoardController@index"]);

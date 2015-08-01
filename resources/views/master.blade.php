@@ -51,16 +51,16 @@
                             <li><a href="{{url('/objectives')}}">Objectives</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown"><a href="#"><span class="icon-briefcase"></span> Initiatives</a>
+                    <li class="dropdown"><a href="{{url('/initiatives/create')}}"><span class="icon-briefcase"></span> Initiatives</a>
                         <ul>
-                            <li><a href="#">Add new</a></li>
-                            <li><a href="#">Initiatives</a></li>
+                            <li><a href="{{url('/initiatives/create')}}">Add new</a></li>
+                            <li><a href="{{url('/initiatives')}}">Initiatives</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown"><a href="#"><span class="icon-briefcase"></span> Measures</a>
+                    <li class="dropdown"><a href="{{url('/measures/create')}}"><span class="icon-briefcase"></span> Measures</a>
                         <ul>
-                            <li><a href="#">Add new</a></li>
-                            <li><a href="#">Measures</a></li>
+                            <li><a href="{{url('/measures/create')}}">Add new</a></li>
+                            <li><a href="{{url('/measures')}}">Measures</a></li>
                         </ul>
                     </li>
                 </ul>
