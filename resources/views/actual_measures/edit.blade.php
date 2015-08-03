@@ -4,9 +4,9 @@
         <div class="maincontent">
             <div class="contentinner">
 
-              <h4 class="widgettitle"> {{{ $controller_heading or '' }}} <a href="{{url('/'.$controller_name.'/create')}}">Add new</a></h4>
-                  {!! Form::model($row,['method' => 'PATCH','id' => 'edit_new','route'=>[$controller_name.'.update',$row->id]]) !!}
-                    @include($controller_name.'._form')
+              <h4 class="widgettitle"> {{{ $controller_heading or '' }}} <a href="/measures/{{ $measure_id }}/actual_measures/create">Add new</a></h4>
+                  {!! Form::model($row,['method' => 'PATCH','id' => 'edit_new','route'=>['measures.actual_measures.update', $measure_id,$row->id]]) !!}
+                  @include($controller_name.'._form')
                     {!! Form::close() !!}
             </div><!--contentinner-->
         </div><!--maincontent-->

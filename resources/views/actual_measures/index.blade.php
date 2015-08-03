@@ -7,38 +7,39 @@
 
 @section('main')
 
+
+
+
         <div class="maincontent">
+
+
+
         	<div class="contentinner">
 
-            	<h4 class="widgettitle"> {{{ $controller_heading or '' }}} <a href="{{url('/'.$controller_name.'/create')}}">Add new</a></h4>
+
+              @include('actual_measures.measure')
+            	<h4 class="widgettitle"> {{{ $controller_heading or '' }}} <a href="/measures/{{ $measure_id }}/actual_measures/create">Add new</a></h4>
             	<table class="table table-bordered" id="index_1">
                     <colgroup>
-                        <col class="con0" />
-                        <col class="con1" style="align: center; width: 30%" />
                         <col class="con0" />
                         <col class="con1" />
                         <col class="con0" />
                     </colgroup>
                     <thead>
                         <tr>
-                            <th class="head1">Name</th>
-                            <th class="head1">Description</th>
-                            <th class="head1">Initiative</th>
-                            <th class="head1">Target</th>
+                            <th class="head1">Month</th>
+                            <th class="head1">Actual</th>
                             <th class="head1">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                     	@foreach ($list as $row)
                      	   <tr class="gradeX">
-                     	       <td>{{ $row->name }}</td>
-                     	       <td>{{ $row->description }}</td>
-                              <td>{{ $row->initiative->name }}</td>
-                              <td>{{ $row->target }}</td>
+                     	       <td>{{ $row->month }}</td>
+                     	       <td>{{ $row->actual_measure }}</td>
                      	       <td>
-                                <a href="/measures/{{ $row->id }}/actual_measures" class="btn  btn-primary" style="float: left;">Actual Measures</a>
-                     	       		<a href="{{route($controller_name.'.edit',$row->id)}}" class="btn" style="float: left;">Edit</a>
-                     	       		{!! Form::open(['method' => 'DELETE', 'route'=>[$controller_name.'.destroy', $row->id]]) !!}
+                     	       		<a href="/measures/{{ $measure_id }}/actual_measures/{{ $row->id }}/edit" class="btn" style="float: left;">Edit</a>
+                     	       		{!! Form::open(['method' => 'DELETE', 'route'=>['measures.actual_measures.destroy', $measure_id, $row->id]]) !!}
         						            {!! Form::submit('Delete', ['class' => 'btn', 'style' => 'margin-left: 15px;']) !!}
         						            {!! Form::close() !!}
 

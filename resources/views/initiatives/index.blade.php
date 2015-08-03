@@ -14,7 +14,7 @@
             	<table class="table table-bordered" id="index_1">
                     <colgroup>
                         <col class="con0" />
-                        <col class="con1" />
+                        <col class="con1" style="align: center; width: 30%" />
                         <col class="con0" />
                         <col class="con1" />
                     </colgroup>
@@ -35,7 +35,7 @@
                      	       <td>
                      	       		<a href="{{route($controller_name.'.edit',$row->id)}}" class="btn" style="float: left;">Edit</a>
                      	       		{!! Form::open(['method' => 'DELETE', 'route'=>[$controller_name.'.destroy', $row->id]]) !!}
-        						            {!! Form::submit('Delete', ['style' => 'margin-left: 15px;']) !!}
+        						            {!! Form::submit('Delete', ['class' => 'btn', 'style' => 'margin-left: 15px;']) !!}
         						            {!! Form::close() !!}
 
                      	       </td>

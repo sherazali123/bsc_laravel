@@ -21,6 +21,8 @@ Route::resource('users','UserController');
 Route::resource('initiatives','InitiativeController');
 // measures resources
 Route::resource('measures','MeasureController');
+// actual measures measures resources
+Route::resource('measures.actual_measures','ActualMeasureController');
 
 
 Route::get('/',['as'=>'home','uses'=>'HomeController@index']);

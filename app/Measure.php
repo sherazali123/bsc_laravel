@@ -20,4 +20,9 @@ class Measure extends Model
     {
         return $this->belongsTo('App\Initiative');
     }
+
+    public function actual_measures()
+    {
+        return $this->hasMany('App\ActualMeasure');
+    }
 }
