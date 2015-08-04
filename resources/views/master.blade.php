@@ -76,9 +76,7 @@
 
             <div class="headerright">
                 <div class="dropdown notification">
-                    <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="http://themepixels.com/page.html">
-                        <span class="iconsweets-globe iconsweets-white"></span>
-                    </a>
+                 
                     <ul class="dropdown-menu">
                         <li class="nav-header">Notifications</li>
                         <li>
