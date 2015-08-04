@@ -14,10 +14,11 @@
             	<table class="table table-bordered" id="index_1">
                     <colgroup>
                         <col class="con0" />
-                        <col class="con1" style="align: center; width: 30%" />
+                        <col class="con1" style="align: center; width: 20%" />
                         <col class="con0" />
                         <col class="con1" />
                         <col class="con0" />
+                        <col class="con1" />
                     </colgroup>
                     <thead>
                         <tr>
@@ -38,9 +39,9 @@
                               <td>{{ $row->initiative->name }}</td>
                               <td>{{ $row->target }}</td>
                               <td>{{ $row->actual }}</td>
-                              <td>{{ $row->percent }}%</td>
+                              <td>{{ round($row->percent,2) }}%</td>
                      	       <td>
-                                <a href="/measures/{{ $row->id }}/actual_measures" class="btn  btn-primary" style="float: left;">Actual Measures</a>
+                                <a href="{{ URL::to('/measures/'.$row->id.'/actual_measures') }}" class="btn  btn-primary" style="float: left;">Actual Measures</a>
                      	       		<a href="{{route($controller_name.'.edit',$row->id)}}" class="btn" style="float: left;">Edit</a>
                      	       		{!! Form::open(['method' => 'DELETE', 'route'=>[$controller_name.'.destroy', $row->id]]) !!}
         						            {!! Form::submit('Delete', ['class' => 'btn', 'style' => 'margin-left: 15px;']) !!}
