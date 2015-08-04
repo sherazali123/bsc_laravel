@@ -35,7 +35,7 @@
                     <tbody>
                     	@foreach ($list as $row)
                      	   <tr class="gradeX">
-                     	       <td>{{ $row->month }}</td>
+                     	       <td>{{ $months[$row->month] }}</td>
                      	       <td>{{ $row->actual_measure }}</td>
                      	       <td>
                      	       		<a href="/measures/{{ $measure_id }}/actual_measures/{{ $row->id }}/edit" class="btn" style="float: left;">Edit</a>
