@@ -1,5 +1,5 @@
 <div class="row-fluid" style="margin-bottom: 20px;">
-        <div class="span6">
+        <div class="span12">
           <table class="table table-bordered table-invoice">
               <tbody>
                 <tr>
