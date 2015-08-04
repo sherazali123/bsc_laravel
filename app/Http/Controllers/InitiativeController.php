@@ -6,16 +6,17 @@ namespace App\Http\Controllers;
 use Request;
 use Auth;
 use Session;
-use App\Dimension as _MODEL;
+use App\Initiative as _MODEL;
+use App\Objective;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class DimensionController extends Controller
+class InitiativeController extends Controller
 {
     /*
      * This controller as crud
      */
-    public $controller = "dimensions";
+    public $controller = "initiatives";
 
     /*
      * This controller common view data
@@ -31,17 +32,19 @@ class DimensionController extends Controller
     public function __construct()
     {
        $this->middleware('auth');
+       $this->viewData['user_id'] = Auth::User()->id;
 
-
-       $this->viewData['controller_heading'] = 'Dimensions';
+       $this->viewData['controller_heading'] = 'Initiatives';
        $this->viewData['controller_name'] = $this->controller;
-       $this->viewData['whatisit'] = 'Dimension';
+       $this->viewData['whatisit'] = 'Initiative';
 
-       $this->viewData['breadcrumb'] = array(
-         array('name' => 'Home', 'href' => '/'),
-         array('name' =>  $this->viewData['controller_heading'], 'href' => $this->controller),
-       );
 
+      $this->viewData['objectives'] = Objective::leftJoin('dimensions', 'dimensions.id', '=', 'objectives.dimension_id')
+                                              ->where('dimensions.user_id', '=', (int)$this->viewData['user_id'])
+                                              ->where('objectives.status', 0)
+                                              ->orderBy('objectives.name')
+                                              ->select('objectives.*')
+                                              ->lists('objectives.name','objectives.id');
     }
 
 
@@ -52,12 +55,12 @@ class DimensionController extends Controller
      */
     public function index()
     {
-        $this->viewData['user_id'] = Auth::User()->id;
-
-        $list = _MODEL::where('user_id', '=', (int)$this->viewData['user_id'])->get();
-
-        array_push($this->viewData['breadcrumb'], array());
-
+        // $list = _MODEL::all();
+        $list = _MODEL::leftJoin('objectives', 'objectives.id', '=', 'initiatives.objective_id')
+                      ->leftJoin('dimensions', 'dimensions.id', '=', 'objectives.dimension_id')
+                      ->where('dimensions.user_id', '=', (int)$this->viewData['user_id'])
+                      ->select('initiatives.*')
+                      ->get();
         return view($this->controller.'.index',compact('list'), $this->viewData);
     }
 
@@ -80,13 +83,8 @@ class DimensionController extends Controller
     public function store(Request $request)
     {
         $row = Request::all();
-        $this->viewData['user_id'] = (int)Auth::User()->id;
 
-        $model = new _MODEL();
-        $model->user_id = $this->viewData['user_id'];
-        $model->name = $row['name'];
-        $model->description = $row['description'];
-        $model->save();
+        _MODEL::create($row);
 
         Session::flash('message', $this->viewData['whatisit'].' created!');
         Session::flash('alert-class', 'alert-success');

@@ -17,12 +17,14 @@
                         <col class="con1" style="align: center; width: 30%" />
                         <col class="con0" />
                         <col class="con1" />
+                        <col class="con0" />
                     </colgroup>
                     <thead>
                         <tr>
                             <th class="head1">Name</th>
                             <th class="head1">Description</th>
-                            <th class="head1">Dimension</th>
+                            <th class="head1">Initiative</th>
+                            <th class="head1">Target</th>
                             <th class="head1">Actions</th>
                         </tr>
                     </thead>
@@ -31,8 +33,10 @@
                      	   <tr class="gradeX">
                      	       <td>{{ $row->name }}</td>
                      	       <td>{{ $row->description }}</td>
-                              <td>{{ $row->dimension->name }}</td>
+                              <td>{{ $row->initiative->name }}</td>
+                              <td>{{ $row->target }}</td>
                      	       <td>
+                                <a href="/measures/{{ $row->id }}/actual_measures" class="btn  btn-primary" style="float: left;">Actual Measures</a>
                      	       		<a href="{{route($controller_name.'.edit',$row->id)}}" class="btn" style="float: left;">Edit</a>
                      	       		{!! Form::open(['method' => 'DELETE', 'route'=>[$controller_name.'.destroy', $row->id]]) !!}
         						            {!! Form::submit('Delete', ['class' => 'btn', 'style' => 'margin-left: 15px;']) !!}
@@ -49,7 +53,7 @@
 
 @endsection
 @section('footer_js')
- 	{!!HTML::script('/js/views/dimensions/index.js')!!}
+ 	{!!HTML::script('/js/views/'.$controller_name.'/index.js')!!}
 @endsection
 
 @stop
