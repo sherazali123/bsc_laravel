@@ -25,6 +25,8 @@
                             <th class="head1">Description</th>
                             <th class="head1">Initiative</th>
                             <th class="head1">Target</th>
+                            <th class="head1">Actual</th>
+                            <th class="head1">%</th>
                             <th class="head1">Actions</th>
                         </tr>
                     </thead>
@@ -35,6 +37,8 @@
                      	       <td>{{ $row->description }}</td>
                               <td>{{ $row->initiative->name }}</td>
                               <td>{{ $row->target }}</td>
+                              <td>{{ $row->actual }}</td>
+                              <td>{{ $row->percent }}%</td>
                      	       <td>
                                 <a href="/measures/{{ $row->id }}/actual_measures" class="btn  btn-primary" style="float: left;">Actual Measures</a>
                      	       		<a href="{{route($controller_name.'.edit',$row->id)}}" class="btn" style="float: left;">Edit</a>

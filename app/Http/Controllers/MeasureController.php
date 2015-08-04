@@ -8,6 +8,7 @@ use Auth;
 use Session;
 use App\Measure as _MODEL;
 use App\Initiative;
+use App\ActualMeasure;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -65,6 +66,10 @@ class MeasureController extends Controller
                       ->where('dimensions.user_id', '=', (int)$this->viewData['user_id'])
                       ->select('measures.*')
                       ->get();
+        foreach ($list as $row){
+         $row->actual=ActualMeasure::where('actual_measures.measure_id', '=', (int)$row->id)->sum('actual_measures.actual_measure');
+         $row->percent=(($row->actual/$row->target)*100);
+        }
         return view($this->controller.'.index',compact('list'), $this->viewData);
     }
 
