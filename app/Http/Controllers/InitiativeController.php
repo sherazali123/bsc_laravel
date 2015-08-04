@@ -8,14 +8,16 @@ use Auth;
 use Session;
 use App\Initiative as _MODEL;
 use App\Objective;
+use App\Measure;
+use App\ActualMeasure;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class InitiativeController extends Controller
-{
+class InitiativeController extends Controller {
     /*
      * This controller as crud
      */
+
     public $controller = "initiatives";
 
     /*
@@ -23,45 +25,61 @@ class InitiativeController extends Controller
      */
     public $viewData = array();
 
-
     /**
-    * Create a new controller instance.
-    *
-    * @return void
-    */
-    public function __construct()
-    {
-       $this->middleware('auth');
-       $this->viewData['user_id'] = Auth::User()->id;
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct() {
+        $this->middleware('auth');
+        $this->viewData['user_id'] = Auth::User()->id;
 
-       $this->viewData['controller_heading'] = 'Initiatives';
-       $this->viewData['controller_name'] = $this->controller;
-       $this->viewData['whatisit'] = 'Initiative';
+        $this->viewData['controller_heading'] = 'Initiatives';
+        $this->viewData['controller_name'] = $this->controller;
+        $this->viewData['whatisit'] = 'Initiative';
 
 
-      $this->viewData['objectives'] = Objective::leftJoin('dimensions', 'dimensions.id', '=', 'objectives.dimension_id')
-                                              ->where('dimensions.user_id', '=', (int)$this->viewData['user_id'])
-                                              ->where('objectives.status', 0)
-                                              ->orderBy('objectives.name')
-                                              ->select('objectives.*')
-                                              ->lists('objectives.name','objectives.id');
+        $this->viewData['objectives'] = Objective::leftJoin('dimensions', 'dimensions.id', '=', 'objectives.dimension_id')
+                ->where('dimensions.user_id', '=', (int) $this->viewData['user_id'])
+                ->where('objectives.status', 0)
+                ->orderBy('objectives.name')
+                ->select('objectives.*')
+                ->lists('objectives.name', 'objectives.id');
     }
-
 
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-    public function index()
-    {
+    public function index() {
         // $list = _MODEL::all();
         $list = _MODEL::leftJoin('objectives', 'objectives.id', '=', 'initiatives.objective_id')
-                      ->leftJoin('dimensions', 'dimensions.id', '=', 'objectives.dimension_id')
-                      ->where('dimensions.user_id', '=', (int)$this->viewData['user_id'])
-                      ->select('initiatives.*')
-                      ->get();
-        return view($this->controller.'.index',compact('list'), $this->viewData);
+                ->leftJoin('dimensions', 'dimensions.id', '=', 'objectives.dimension_id')
+                ->where('dimensions.user_id', '=', (int) $this->viewData['user_id'])
+                ->select('initiatives.*')
+                ->get();
+        foreach ($list as $row) {
+
+            //get measures related to initiative
+            $measures = Measure::where('measures.initiative_id', '=', (int) $row->id)
+                    ->select('*')
+                    ->get();
+
+            $percent = 0;
+            $row->AVERAGE = 0;
+            $measure_count = 0;
+            foreach ($measures as $measure) {
+                $measure->actual = ActualMeasure::where('actual_measures.measure_id', '=', (int) $measure->id)->sum('actual_measures.actual_measure');
+                if ($measure->target != 0)
+                    $percent+=(($measure->actual / $measure->target) * 100);
+                $measure_count++;
+            }
+            //end initiative
+            if ($measure_count != 0)
+                $row->AVERAGE = $percent / $measure_count;
+        }
+        return view($this->controller . '.index', compact('list'), $this->viewData);
     }
 
     /**
@@ -69,9 +87,8 @@ class InitiativeController extends Controller
      *
      * @return Response
      */
-    public function create()
-    {
-        return view($this->controller.'.create', $this->viewData);
+    public function create() {
+        return view($this->controller . '.create', $this->viewData);
     }
 
     /**
@@ -80,13 +97,12 @@ class InitiativeController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $row = Request::all();
 
         _MODEL::create($row);
 
-        Session::flash('message', $this->viewData['whatisit'].' created!');
+        Session::flash('message', $this->viewData['whatisit'] . ' created!');
         Session::flash('alert-class', 'alert-success');
 
         return redirect($this->controller);
@@ -98,10 +114,9 @@ class InitiativeController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         $row = _MODEL::find($id);
-        return view($this->controller.'.show',compact('row'));
+        return view($this->controller . '.show', compact('row'));
     }
 
     /**
@@ -110,10 +125,9 @@ class InitiativeController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $row = _MODEL::find($id);
-        return view($this->controller.'.edit',compact('row'), $this->viewData);
+        return view($this->controller . '.edit', compact('row'), $this->viewData);
     }
 
     /**
@@ -123,13 +137,12 @@ class InitiativeController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         $rowUpdate = Request::all();
         $row = _MODEL::find($id);
         $row->update($rowUpdate);
 
-        Session::flash('message', $this->viewData['whatisit'].' updated!');
+        Session::flash('message', $this->viewData['whatisit'] . ' updated!');
         Session::flash('alert-class', 'alert-success');
 
 
@@ -142,13 +155,13 @@ class InitiativeController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
-    {
-         _MODEL::find($id)->delete();
+    public function destroy($id) {
+        _MODEL::find($id)->delete();
 
-         Session::flash('message', $this->viewData['whatisit'].' deleted!');
-         Session::flash('alert-class', 'alert-danger');
+        Session::flash('message', $this->viewData['whatisit'] . ' deleted!');
+        Session::flash('alert-class', 'alert-danger');
 
-         return redirect($this->controller);
+        return redirect($this->controller);
     }
+
 }

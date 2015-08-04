@@ -23,6 +23,7 @@
                             <th class="head1">Name</th>
                             <th class="head1">Description</th>
                             <th class="head1">Objective</th>
+                            <th class="head1">AVERAGE %</th>
                             <th class="head1">Actions</th>
                         </tr>
                     </thead>
@@ -32,6 +33,7 @@
                      	       <td>{{ $row->name }}</td>
                      	       <td>{{ $row->description }}</td>
                               <td>{{ $row->objective->name }}</td>
+                               <td>{{ round($row->AVERAGE,2) }}%</td>
                      	       <td>
                      	       		<a href="{{route($controller_name.'.edit',$row->id)}}" class="btn" style="float: left;">Edit</a>
                      	       		{!! Form::open(['method' => 'DELETE', 'route'=>[$controller_name.'.destroy', $row->id]]) !!}

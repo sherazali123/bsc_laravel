@@ -7,6 +7,10 @@ use Request;
 use Auth;
 use Session;
 use App\Dimension as _MODEL;
+use App\Objective;
+use App\Initiative;
+use App\Measure;
+use App\ActualMeasure;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -57,6 +61,55 @@ class DimensionController extends Controller
         $list = _MODEL::where('user_id', '=', (int)$this->viewData['user_id'])->get();
 
         array_push($this->viewData['breadcrumb'], array());
+        
+           foreach ($list as $row) {
+            $row->AVERAGE = 0;
+            // get objectives list related to dimension
+            $objectives = Objective::where('objectives.dimension_id', '=', (int) $row->id)
+                    ->select('*')
+                    ->get();
+            $objective_AVERAGE = 0;
+            $objective_count = 0;
+            
+             foreach ($objectives as $objective) {
+                 
+                 //get initiatives related to objective
+                 $initiatives = Initiative::where('initiatives.objective_id', '=', (int) $objective->id)
+                    ->select('*')
+                    ->get();
+            $initiative_AVERAGE = 0;
+            $initiative_count = 0;
+            foreach ($initiatives as $initiative) {
+                
+                //get measures related to initiative
+                $measures = Measure::where('measures.initiative_id', '=', (int) $initiative->id)
+                        ->select('*')
+                        ->get();
+                $measure_count = 0;
+                $percent = 0;
+                foreach ($measures as $measure) {
+                    $measure->actual = ActualMeasure::where('actual_measures.measure_id', '=', (int) $measure->id)->sum('actual_measures.actual_measure');
+                    if ($measure->target != 0)
+                        $percent+=(($measure->actual / $measure->target) * 100);
+                    $measure_count++;
+                }
+                //end measures
+                if ($measure_count != 0)
+                    $initiative_AVERAGE+=$percent / $measure_count;
+
+                $initiative_count++;
+            }
+            //end initiative
+                if ($initiative_count != 0)
+                $objective_AVERAGE+= $initiative_AVERAGE / $initiative_count;
+                 
+            $objective_count++;
+             }
+             
+            if ($objective_count != 0)
+                $row->AVERAGE= $objective_AVERAGE / $objective_count;
+           }
+           
 
         return view($this->controller.'.index',compact('list'), $this->viewData);
     }
