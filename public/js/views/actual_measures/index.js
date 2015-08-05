@@ -16,7 +16,6 @@ jQuery(document).ready(function(){
 
 
 	// actual measure graph
-	console.log(graphData);  
 	 jQuery('#actualMeasureGraph').highcharts({
         chart: {
             zoomType: 'xy'
