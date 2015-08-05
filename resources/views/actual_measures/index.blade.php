@@ -3,6 +3,7 @@
 @section('custom_assets')
     {!!HTML::script('/js/jquery.uniform.min.js')!!}
     {!!HTML::script('/js/jquery.dataTables.min.js')!!}
+    
 @endsection
 
 @section('main')
@@ -48,12 +49,17 @@
                      	@endforeach
                     </tbody>
                 </table>
-
+                @include($controller_name.'._graph')
             </div><!--contentinner-->
         </div><!--maincontent-->
 
 @endsection
 @section('footer_js')
+    <script type="text/javascript">
+        var graphData = {!! $graph !!};
+        
+    </script>
+    {!!HTML::script('/js/highchart.js')!!}
  	{!!HTML::script('/js/views/'.$controller_name.'/index.js')!!}
 @endsection
 

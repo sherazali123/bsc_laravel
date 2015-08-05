@@ -11,6 +11,7 @@
     {!!HTML::script('/js/jquery-ui-1.9.2.min.js')!!}
     {!!HTML::script('/js/jquery.validate.min.js')!!}
     {!!HTML::script('/js/bootstrap.min.js')!!}
+    {!!HTML::script('/js/dev.js')!!}
     {!!HTML::script('/js/custom.js')!!}
 
     @yield('custom_assets')

@@ -10,6 +10,7 @@ use App\ActualMeasure as _MODEL;
 use App\Measure;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use DB;
 
 class ActualMeasureController extends Controller
 {
@@ -73,6 +74,10 @@ class ActualMeasureController extends Controller
                       ->where('dimensions.user_id', '=', (int)$this->viewData['user_id'])
                       ->select('actual_measures.*')
                       ->get();
+
+                              
+        $this->populateActualMeasureGraph();
+
         return view($this->controller.'.index',compact('list'), $this->viewData);
     }
 
@@ -172,4 +177,41 @@ class ActualMeasureController extends Controller
 
          return redirect('measures'.'/'.$measureId.'/'.$this->controller);
     }
+
+
+    /**
+     * Populate graph for actual measures
+     *
+     * @return void
+     */
+    public function populateActualMeasureGraph()
+    {
+          $measure = $this->viewData['measure'];
+          $graph = [];  
+
+
+          $list = DB::select('call getActualMeasuresReport('.$this->viewData['user_id'].','.$this->viewData['measure_id'].');');
+          // var_dump($list);die;
+
+          $graph['title'] = "BSC Report: ".$measure->name;
+          $graph['subtitle'] = "Comparison of actuals and targets";
+          
+          $graph['columnName'] = "Target";
+          $graph['columnValueSuffix'] = " $";
+          $graph['columnData'] = [];
+          
+          $graph['splineName'] = "Actual";
+          $graph['splineValueSuffix'] = " $";
+          $graph['splineData'] = [];
+          foreach ($list as $key => $value) {
+              $target = is_null($value->target) ? 0.00 : (float) $value->target;
+              $actual = is_null($value->actual_measure) ? 0.00 : (float) $value->actual_measure;
+              array_push($graph['columnData'], $target);
+              array_push($graph['splineData'], $actual);
+          }
+
+
+          $this->viewData['graph'] = json_encode($graph);
+    }
+
 }
