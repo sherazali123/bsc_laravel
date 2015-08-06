@@ -32,7 +32,7 @@ class UserController extends Controller
     {
        $this->middleware('auth');
 
-       $this->viewData['controller_heading'] = 'Users';
+       $this->viewData['controller_heading'] = 'Manage Users';
        $this->viewData['controller_name'] = $this->controller;
        $this->viewData['whatisit'] = 'User';
 
@@ -51,7 +51,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $list = _MODEL::all();
+        $list = _MODEL::where('role', '=', '2')->get();
 
         array_push($this->viewData['breadcrumb'], array());
 
@@ -121,6 +121,9 @@ class UserController extends Controller
     {
         $rowUpdate = Request::all();
         $row = _MODEL::find($id);
+
+        $rowUpdate['password']= bcrypt($rowUpdate['password']);
+
         $row->update($rowUpdate);
 
         Session::flash('message', $this->viewData['whatisit'].' updated!');
@@ -138,10 +141,44 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //  _MODEL::find($id)->delete();
-        //  Session::flash('message', $this->viewData['whatisit'].' deleted!');
-        //  Session::flash('alert-class', 'alert-danger');
+         _MODEL::find($id)->delete();
+         Session::flash('message', $this->viewData['whatisit'].' deleted!');
+         Session::flash('alert-class', 'alert-danger');
 
          return redirect($this->controller);
     }
+
+
+    // /**
+    //  * Show the form for editing the specified resource.
+    //  *
+    //  * @param  int  $id
+    //  * @return Response
+    //  */
+    // public function showBlock($id)
+    // {
+    //     $row = _MODEL::find($id);
+    //     die;
+    //     return view($this->controller.'.edit',compact('row'), $this->viewData);
+    // }
+
+    // /**
+    //  * Update the specified resource in storage.
+    //  *
+    //  * @param  Request  $request
+    //  * @param  int  $id
+    //  * @return Response
+    //  */
+    // public function block(Request $request, $id)
+    // {
+    //     $rowUpdate = Request::all();
+    //     $row = _MODEL::find($id);
+    //     $row->update($rowUpdate);
+
+    //     Session::flash('message', $this->viewData['whatisit'].' updated!');
+    //     Session::flash('alert-class', 'alert-success');
+
+
+    //     return redirect($this->controller.'/'.$id.'/edit');
+    // }
 }

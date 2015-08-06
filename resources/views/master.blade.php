@@ -23,7 +23,7 @@
         <div class="leftpanel">
 
             <div class="logopanel">
-                <h1><a href="dashboard.html">BSC <span>v1.0</span></a></h1>
+                <h1><a href="{{URL::to('/dash-board')}}">BSC <span>v1.0</span></a></h1>
             </div><!--logopanel-->
 
             <div class="datewidget">Today is {{ Carbon\Carbon::today()->format('l, M j, Y h:i a') }}</div>
@@ -39,8 +39,16 @@
             <div class="leftmenu">
                 <ul class="nav nav-tabs nav-stacked">
                     <li class="nav-header">Main Navigation</li>
-                    <li class="active"><a href="dashboard.html"><span class="icon-align-justify"></span> Dashboard</a></li>
-                    <li class="dropdown"><a href="{{url('/dimensions')}}"><span class="icon-briefcase"></span> Dimensions</a>
+                    <li class="active"><a href="{{URL::to('/dash-board')}}"><span class="icon-align-justify"></span> Dashboard</a></li>
+                    @if (Auth::User()->role == 1)
+                        <li class="dropdown"><a href="{{url('/users')}}"><span class="icon-briefcase"></span> Users</a>
+                        <ul>
+                            <!-- <li><a href="{{url('/measures/create')}}">Add new</a></li> -->
+                            <li><a href="{{url('/users')}}">Users</a></li>
+                        </ul>
+                    </li>
+                    @elseif (Auth::User()->role == 2)
+                        <li class="dropdown"><a href="{{url('/dimensions')}}"><span class="icon-briefcase"></span> Dimensions</a>
                         <ul>
                             <li><a href="{{url('/dimensions/create')}}">Add new</a></li>
                             <li><a href="{{url('/dimensions')}}">Dimensions</a></li>
@@ -64,6 +72,11 @@
                             <li><a href="{{url('/measures')}}">Measures</a></li>
                         </ul>
                     </li>
+                    @else
+                        
+                    @endif
+                    
+                    
                 </ul>
             </div><!--leftmenu-->
 

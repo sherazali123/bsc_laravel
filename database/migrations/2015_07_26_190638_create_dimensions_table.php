@@ -20,7 +20,11 @@ class CreateDimensionsTable extends Migration
             $table->integer('status')->default(0);
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users')
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
         });
     }
 

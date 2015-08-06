@@ -29,3 +29,9 @@ Route::get('/',['as'=>'home','uses'=>'HomeController@index']);
 Route::get('/dash-board',['as'=>'dash-board','uses'=>"DashBoardController@index"]);
 
 Route::controller('/','Auth\AuthController');
+
+
+Route::group(['prefix' => 'admin'], function () {
+    // users resources
+	// Route::resource('users','UserController');
+});
