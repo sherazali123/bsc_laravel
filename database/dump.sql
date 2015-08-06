@@ -44,7 +44,7 @@ CREATE TABLE `actual_measures` (
 
 LOCK TABLES `actual_measures` WRITE;
 /*!40000 ALTER TABLE `actual_measures` DISABLE KEYS */;
-INSERT INTO `actual_measures` VALUES (2,2,1,34.00,0,'2015-08-03 13:47:48','2015-08-03 14:16:53'),(3,2,1,123333.00,0,'2015-08-03 13:48:13','2015-08-03 14:18:11'),(6,2,4,3434.00,0,'2015-08-03 14:15:42','2015-08-03 14:18:21'),(7,2,12,3434.00,0,'2015-08-03 14:16:46','2015-08-03 14:16:46'),(8,2,7,3434.00,0,'2015-08-03 15:01:24','2015-08-03 15:01:24');
+INSERT INTO `actual_measures` VALUES (2,2,8,150.00,0,'2015-08-03 13:47:48','2015-08-05 16:06:29'),(3,2,7,123.00,0,'2015-08-03 13:48:13','2015-08-05 16:06:21'),(6,2,5,34.00,0,'2015-08-03 14:15:42','2015-08-05 16:05:57'),(7,2,9,200.00,0,'2015-08-03 14:16:46','2015-08-05 16:06:37'),(8,2,6,234.00,0,'2015-08-03 15:01:24','2015-08-05 16:06:10');
 /*!40000 ALTER TABLE `actual_measures` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -140,7 +140,7 @@ CREATE TABLE `measures` (
 
 LOCK TABLES `measures` WRITE;
 /*!40000 ALTER TABLE `measures` DISABLE KEYS */;
-INSERT INTO `measures` VALUES (2,2,'Cost reducing factors','See the link I posted above. If i\'m not wrong, you should tell Laravel what fields needs to be converted. By default, just created_at and updated_at are converted.',2,34.00,'2014-10-01',0,'2015-08-01 16:07:58','2015-08-03 14:52:15'),(3,2,'Measure 2','',1,34.00,'2015-08-20',0,'2015-08-03 15:06:09','2015-08-03 15:06:09'),(4,2,'Measue 4','',3,76.00,'2015-08-14',0,'2015-08-03 15:06:37','2015-08-03 15:07:26');
+INSERT INTO `measures` VALUES (2,2,'Cost reducing factors','See the link I posted above. If i\'m not wrong, you should tell Laravel what fields needs to be converted. By default, just created_at and updated_at are converted.',2,1000.00,'2014-05-01',0,'2015-08-01 16:07:58','2015-08-05 16:05:43'),(3,2,'Measure 2','',1,34.00,'2015-08-20',0,'2015-08-03 15:06:09','2015-08-03 15:06:09'),(4,2,'Measue 4','',3,76.00,'2015-08-14',0,'2015-08-03 15:06:37','2015-08-03 15:07:26');
 /*!40000 ALTER TABLE `measures` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -163,8 +163,32 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES ('2014_10_12_000000_create_users_table',1),('2014_10_12_100000_create_password_resets_table',1),('2015_07_26_190638_create_dimensions_table',1),('2015_07_28_183647_create_objectives',1),('2015_08_01_183242_create_initiatives_table',1),('2015_08_01_194621_create_measures_table',2),('2015_08_01_194647_create_actual_measures_table',2);
+INSERT INTO `migrations` VALUES ('2014_10_12_000000_create_users_table',1),('2014_10_12_100000_create_password_resets_table',1),('2015_07_26_190638_create_dimensions_table',1),('2015_07_28_183647_create_objectives',1),('2015_08_01_183242_create_initiatives_table',1),('2015_08_01_194621_create_measures_table',2),('2015_08_01_194647_create_actual_measures_table',2),('2015_08_05_200851_create_months',3);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `months`
+--
+
+DROP TABLE IF EXISTS `months`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `months` (
+  `mid` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  UNIQUE KEY `months_mid_unique` (`mid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `months`
+--
+
+LOCK TABLES `months` WRITE;
+/*!40000 ALTER TABLE `months` DISABLE KEYS */;
+INSERT INTO `months` VALUES (1,'Jan'),(2,'Feb'),(3,'Mar'),(4,'Apr'),(5,'May'),(6,'Jun'),(7,'July'),(8,'Aug'),(9,'Sept'),(10,'Oct'),(11,'Nov'),(12,'Dec');
+/*!40000 ALTER TABLE `months` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -255,8 +279,68 @@ INSERT INTO `users` VALUES (1,'Emaago Inc','sheraz.ali342@gmail.com','$2y$10$zqe
 UNLOCK TABLES;
 
 --
+-- Dumping events for database 'bsc_development'
+--
+
+--
 -- Dumping routines for database 'bsc_development'
 --
+/*!50003 DROP PROCEDURE IF EXISTS `getActualMeasuresReport` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getActualMeasuresReport`(IN user_id INT, IN measure_id INT)
+BEGIN
+select
+	mon.mid as month_id,
+	mon.`name` as month_name,
+    report.*
+	
+from
+    months mon
+        left join
+    (select 
+        am.id as actual_measure_id,
+            sum(am.actual_measure) as actual_measure,
+            am.measure_id as measure_id,
+            am.`month` as actual_measure_month,
+            am.`status` as actual_measure_status,
+            m.period as period,
+            m.target as target,
+            m.starting_date as starting_date,
+            i.id as initiative_id,
+            i.`name` as initiative_name,
+            o.id as objective_id,
+            o.`name` as objective_name,
+            d.id as dimension_id,
+            d.`name` as dimension_name,
+            u.id as user_id,
+            u.`name` as user_name
+    from
+        actual_measures am
+    inner join measures m ON am.measure_id = m.id
+        and am.measure_id = measure_id
+    inner join initiatives i ON m.initiative_id = i.id
+    inner join objectives o ON i.objective_id = o.id
+    inner join dimensions d ON o.dimension_id = d.id
+    inner join users u ON d.user_id = u.id
+    where
+        u.id = user_id
+    group by am.`month`
+    order by am.`month`) as report ON mon.mid = report.actual_measure_month
+order by mon.mid;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -267,4 +351,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-04 22:43:58
+-- Dump completed on 2015-08-06 20:26:57

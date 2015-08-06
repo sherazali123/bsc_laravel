@@ -190,7 +190,49 @@ class ActualMeasureController extends Controller
           $graph = [];  
 
 
-          $list = DB::select('call getActualMeasuresReport('.$this->viewData['user_id'].','.$this->viewData['measure_id'].');');
+          //$list = DB::select('call getActualMeasuresReport('.$this->viewData['user_id'].','.$this->viewData['measure_id'].');');
+
+          $sql = "select
+                    mon.mid as month_id,
+                    mon.`name` as month_name,
+                    report.*
+                    
+                from
+                    months mon
+                        left join
+                    (select 
+                        am.id as actual_measure_id,
+                            sum(am.actual_measure) as actual_measure,
+                            am.measure_id as measure_id,
+                            am.`month` as actual_measure_month,
+                            am.`status` as actual_measure_status,
+                            m.period as period,
+                            m.target as target,
+                            m.starting_date as starting_date,
+                            i.id as initiative_id,
+                            i.`name` as initiative_name,
+                            o.id as objective_id,
+                            o.`name` as objective_name,
+                            d.id as dimension_id,
+                            d.`name` as dimension_name,
+                            u.id as user_id,
+                            u.`name` as user_name
+                    from
+                        actual_measures am
+                    inner join measures m ON am.measure_id = m.id
+                        and am.measure_id = ".$this->viewData['measure_id']."
+                    inner join initiatives i ON m.initiative_id = i.id
+                    inner join objectives o ON i.objective_id = o.id
+                    inner join dimensions d ON o.dimension_id = d.id
+                    inner join users u ON d.user_id = u.id
+                    where
+                        u.id = ".$this->viewData['user_id']."
+                    group by am.`month`
+                    order by am.`month`) as report ON mon.mid = report.actual_measure_month
+                    order by mon.mid;";
+
+          $list = DB::select($sql);
+
           // var_dump($list);die;
 
           $graph['title'] = "BSC Report: ".$measure->name;
