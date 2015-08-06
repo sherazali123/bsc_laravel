@@ -8,7 +8,7 @@ var rules_ = {
   },
 
   password_confirmation: {
-    equalTo: "#password",password_confirmation
+    equalTo: "#password",
     minlength: 6,
   }
 };
