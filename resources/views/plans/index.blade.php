@@ -42,8 +42,8 @@
                                     @endif
                                </td>
                                 <td>{{ $periods[$row->period] }}</td>
-                                <td>{{ $row->starting_date }}</td>
-                                <td>{{ $row->ending_date }}</td>
+                                <td>{{ Carbon\Carbon::createFromFormat('Y-m-d', $row->starting_date)->format('M j, Y') }}</td>
+                                <td>{{ Carbon\Carbon::createFromFormat('Y-m-d', $row->ending_date)->format('M j, Y') }}</td>
                      	       <td>
                                     <a href="{{route($controller_name.'.show',$row->id)}}" class="btn btn-primary" style="float: left;">View</a>
                      	       		<a href="{{route($controller_name.'.edit',$row->id)}}" class="btn" style="float: left;">Edit</a>
