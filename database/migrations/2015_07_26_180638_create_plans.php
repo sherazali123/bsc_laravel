@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDimensionsTable extends Migration
+class CreatePlans extends Migration
 {
     /**
      * Run the migrations.
@@ -12,17 +12,20 @@ class CreateDimensionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('dimensions', function (Blueprint $table) {
+        Schema::create('plans', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('plan_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->string('name');
             $table->longText('description')->nullable();
+            $table->integer('period');
+            $table->date('starting_date');
+            $table->date('ending_date')->nullable();
             $table->integer('status')->default(0);
             $table->timestamps();
 
-            $table->foreign('plan_id')
+            $table->foreign('user_id')
                   ->references('id')
-                  ->on('plans')
+                  ->on('users')
                   ->onUpdate('cascade')
                   ->onDelete('cascade');
         });
@@ -35,6 +38,6 @@ class CreateDimensionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('dimensions');
+        Schema::drop("plans");
     }
 }

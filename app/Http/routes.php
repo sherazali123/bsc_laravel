@@ -11,6 +11,9 @@
 |
 */
 
+// plans resources
+Route::resource('plans','PlanController');
+
 // dimensions resources
 Route::resource('dimensions','DimensionController');
 // objectives resources

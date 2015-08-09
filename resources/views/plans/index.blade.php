@@ -14,16 +14,19 @@
             	<table class="table table-bordered" id="index_1">
                     <colgroup>
                         <col class="con0" />
-                        <col class="con1" style="align: center; width: 30%" />
+                        <col class="con1" style="align: center; width: 20%" />
                         <col class="con0" />
-                        <col class="con1" style="align: center; width: 10%"/>
+                        <col class="con1" />
+                        <col class="con0" />
+                        <col class="con1" />
                     </colgroup>
                     <thead>
                         <tr>
                             <th class="head1">Name</th>
                             <th class="head1">Description</th>
-                            <th class="head1">Dimension</th>
-                             <th class="head1">AVERAGE %</th>
+                            <th class="head1">Period</th>
+                            <th class="head1">Starting date</th>
+                            <th class="head1">Ending date</th>
                             <th class="head1">Actions</th>
                         </tr>
                     </thead>
@@ -31,14 +34,22 @@
                     	@foreach ($list as $row)
                      	   <tr class="gradeX">
                      	       <td>{{ $row->name }}</td>
-                     	       <td>{{ $row->description }}</td>
-                              <td>{{ $row->dimension->name }}</td>
-                              <td>{{ round($row->AVERAGE,2) }}%</td>
                      	       <td>
+                                    @if (strlen($row->description) > 30)
+                                        {{ substr($row->description, 0 ,27).'...' }}
+                                    @else
+                                        {{ $row->description }}
+                                    @endif
+                               </td>
+                                <td>{{ $periods[$row->period] }}</td>
+                                <td>{{ $row->starting_date }}%</td>
+                                <td>{{ $row->ending_date }}%</td>
+                     	       <td>
+                                    <a href="{{route($controller_name.'.show',$row->id)}}" class="btn btn-primary" style="float: left;">View</a>
                      	       		<a href="{{route($controller_name.'.edit',$row->id)}}" class="btn" style="float: left;">Edit</a>
                      	       		{!! Form::open(['method' => 'DELETE', 'route'=>[$controller_name.'.destroy', $row->id]]) !!}
-        						            {!! Form::submit('Delete', ['class' => 'btn', 'style' => 'margin-left: 15px;']) !!}
-        						            {!! Form::close() !!}
+						            {!! Form::submit('Delete', ['class' => 'btn', 'style' => 'margin-left: 15px;']) !!}
+						            {!! Form::close() !!}
 
                      	       </td>
                      	   </tr>
@@ -51,7 +62,7 @@
 
 @endsection
 @section('footer_js')
- 	{!!HTML::script('/js/views/dimensions/index.js')!!}
+ 	{!!HTML::script('/js/views/'.$controller_name.'/index.js')!!}
 @endsection
 
 @stop

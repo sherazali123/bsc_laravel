@@ -1459,6 +1459,25 @@ body.loginbody { background: #f7f7f7 url(../img/gray_jean.png); }
 
 .last{ margin-right:0 !important; clear:right; }
 
+/***** COLUMN STYLES *****/
+/*************************/
+
+.dim_row {
+	  background: rgba(0, 0, 0, 0.54);
+  color: white;
+}
+.obj_row {
+	  background: rgba(77, 73, 73, 0.54);
+  color: white;
+}
+.ini_row {
+	  background: rgba(158, 158, 158, 0.54);
+  color: rgb(55, 54, 54);
+}
+.mea_row{
+	   background: rgba(237, 237, 237, 1);
+  color: rgb(27, 27, 27);
+}
 
 
 /***** MEDIA QUERIES *****/

@@ -31,7 +31,7 @@ class MeasureController extends Controller {
      */
     public function __construct() {
         $this->middleware('auth');
-        $this->viewData['user_id'] = Auth::User()->id;
+        $this->viewData['user_id'] = (int) Auth::User()->id;
 
         $this->viewData['controller_heading'] = 'Measures';
         $this->viewData['controller_name'] = $this->controller;
@@ -42,7 +42,8 @@ class MeasureController extends Controller {
 
         $this->viewData['initiatives'] = Initiative::leftJoin('objectives', 'objectives.id', '=', 'initiatives.objective_id')
                 ->leftJoin('dimensions', 'dimensions.id', '=', 'objectives.dimension_id')
-                ->where('dimensions.user_id', '=', (int) $this->viewData['user_id'])
+                ->leftJoin('plans', 'plans.id', '=', 'dimensions.plan_id')
+                ->where('plans.user_id', '=', $this->viewData['user_id'])
                 ->where('initiatives.status', 0)
                 ->orderBy('initiatives.name')
                 ->select('initiatives.*')
@@ -59,9 +60,11 @@ class MeasureController extends Controller {
         $list = _MODEL::leftJoin('initiatives', 'initiatives.id', '=', 'measures.initiative_id')
                 ->leftJoin('objectives', 'objectives.id', '=', 'initiatives.objective_id')
                 ->leftJoin('dimensions', 'dimensions.id', '=', 'objectives.dimension_id')
-                ->where('dimensions.user_id', '=', (int) $this->viewData['user_id'])
+                ->leftJoin('plans', 'plans.id', '=', 'dimensions.plan_id')
+                ->where('plans.user_id', '=', $this->viewData['user_id'])
                 ->select('measures.*')
                 ->get();
+                
         foreach ($list as $row) {
             //Calculate actual 
             $row->actual = ActualMeasure::where('actual_measures.measure_id', '=', (int) $row->id)->sum('actual_measures.actual_measure');

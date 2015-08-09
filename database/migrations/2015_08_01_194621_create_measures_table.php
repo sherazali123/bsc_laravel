@@ -17,9 +17,7 @@ class CreateMeasuresTable extends Migration
           $table->integer('initiative_id')->unsigned();
           $table->string('name');
           $table->longText('description')->nullable();
-          $table->integer('period');
           $table->double('target', 15, 2);
-          $table->date('starting_date')->nullable();
           $table->integer('status')->default(0);
           $table->timestamps();
 

@@ -33,7 +33,7 @@ class ActualMeasureController extends Controller
     public function __construct()
     {
        $this->middleware('auth');
-       $this->viewData['user_id'] = Auth::User()->id;
+       $this->viewData['user_id'] = (int)Auth::User()->id;
 
        $this->viewData['controller_heading'] = 'Actual Measures';
        $this->viewData['controller_name'] = $this->controller;
@@ -45,7 +45,8 @@ class ActualMeasureController extends Controller
        $this->viewData['measures'] = Measure::leftJoin('initiatives', 'initiatives.id', '=', 'measures.initiative_id')
                                                   ->leftJoin('objectives', 'objectives.id', '=', 'initiatives.objective_id')
                                                   ->leftJoin('dimensions', 'dimensions.id', '=', 'objectives.dimension_id')
-                                                  ->where('dimensions.user_id', '=', (int)$this->viewData['user_id'])
+                                                  ->leftJoin('plans', 'plans.id', '=', 'dimensions.plan_id')
+                                                  ->where('plans.user_id', '=', $this->viewData['user_id'])
                                                   ->where('initiatives.status', 0)
                                                   ->orderBy('initiatives.name')
                                                   ->select('initiatives.*')
@@ -70,8 +71,9 @@ class ActualMeasureController extends Controller
                       ->leftJoin('initiatives', 'initiatives.id', '=', 'measures.initiative_id')
                       ->leftJoin('objectives', 'objectives.id', '=', 'initiatives.objective_id')
                       ->leftJoin('dimensions', 'dimensions.id', '=', 'objectives.dimension_id')
+                      ->leftJoin('plans', 'plans.id', '=', 'dimensions.plan_id')
                       ->where('actual_measures.measure_id', '=', (int)$this->viewData['measure_id'])
-                      ->where('dimensions.user_id', '=', (int)$this->viewData['user_id'])
+                      ->where('plans.user_id', '=', $this->viewData['user_id'])
                       ->select('actual_measures.*')
                       ->get();
 
@@ -206,9 +208,9 @@ class ActualMeasureController extends Controller
                             am.measure_id as measure_id,
                             am.`month` as actual_measure_month,
                             am.`status` as actual_measure_status,
-                            m.period as period,
+                            p.period as period,
                             m.target as target,
-                            m.starting_date as starting_date,
+                            p.starting_date as starting_date,
                             i.id as initiative_id,
                             i.`name` as initiative_name,
                             o.id as objective_id,
@@ -224,7 +226,8 @@ class ActualMeasureController extends Controller
                     inner join initiatives i ON m.initiative_id = i.id
                     inner join objectives o ON i.objective_id = o.id
                     inner join dimensions d ON o.dimension_id = d.id
-                    inner join users u ON d.user_id = u.id
+                    inner join plans p ON d.plan_id = p.id
+                    inner join users u ON p.user_id = u.id
                     where
                         u.id = ".$this->viewData['user_id']."
                     group by am.`month`

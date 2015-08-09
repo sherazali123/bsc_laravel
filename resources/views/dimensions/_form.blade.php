@@ -5,6 +5,12 @@
     </span>
 </p>
 <p>
+    {!! Form::label('Strategic plan', 'Strategic plan:') !!}
+    <span class="field">
+         {!! Form::select('plan_id', $plans, null, ['class' => 'form-control']) !!}
+    </span>
+</p>
+<p>
     {!! Form::label('description', 'Name:') !!}
     <span class="field">
         {!! Form::textarea('description',null,['class'=>'span6', 'placeholder' => 'Description']) !!}

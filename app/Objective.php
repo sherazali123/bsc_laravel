@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Objective extends Model
 {
+
+    public $averge;
+
     protected $fillable=[
         'dimension_id',
         'name',

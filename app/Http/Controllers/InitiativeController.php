@@ -32,7 +32,7 @@ class InitiativeController extends Controller {
      */
     public function __construct() {
         $this->middleware('auth');
-        $this->viewData['user_id'] = Auth::User()->id;
+        $this->viewData['user_id'] = (int) Auth::User()->id;
 
         $this->viewData['controller_heading'] = 'Initiatives';
         $this->viewData['controller_name'] = $this->controller;
@@ -40,7 +40,8 @@ class InitiativeController extends Controller {
 
 
         $this->viewData['objectives'] = Objective::leftJoin('dimensions', 'dimensions.id', '=', 'objectives.dimension_id')
-                ->where('dimensions.user_id', '=', (int) $this->viewData['user_id'])
+                ->leftJoin('plans', 'plans.id', '=', 'dimensions.plan_id')
+                ->where('plans.user_id', '=', $this->viewData['user_id'])
                 ->where('objectives.status', 0)
                 ->orderBy('objectives.name')
                 ->select('objectives.*')
@@ -56,9 +57,11 @@ class InitiativeController extends Controller {
         // $list = _MODEL::all();
         $list = _MODEL::leftJoin('objectives', 'objectives.id', '=', 'initiatives.objective_id')
                 ->leftJoin('dimensions', 'dimensions.id', '=', 'objectives.dimension_id')
-                ->where('dimensions.user_id', '=', (int) $this->viewData['user_id'])
+                ->leftJoin('plans', 'plans.id', '=', 'dimensions.plan_id')
+                ->where('plans.user_id', '=', $this->viewData['user_id'])
                 ->select('initiatives.*')
                 ->get();
+                
         foreach ($list as $row) {
 
             //get measures related to initiative

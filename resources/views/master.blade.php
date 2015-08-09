@@ -48,7 +48,13 @@
                         </ul>
                     </li>
                     @elseif (Auth::User()->role == 2)
-                        <li class="dropdown"><a href="{{url('/dimensions')}}"><span class="icon-briefcase"></span> Dimensions</a>
+                    <li class="dropdown"><a href="{{url('/plans')}}"><span class="icon-briefcase"></span> Plans</a>
+                        <ul>
+                            <li><a href="{{url('/plans/create')}}">Add new</a></li>
+                            <li><a href="{{url('/plans')}}">Plans</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="{{url('/dimensions')}}"><span class="icon-briefcase"></span> Dimensions</a>
                         <ul>
                             <li><a href="{{url('/dimensions/create')}}">Add new</a></li>
                             <li><a href="{{url('/dimensions')}}">Dimensions</a></li>

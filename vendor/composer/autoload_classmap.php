@@ -7,12 +7,14 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'CreateActualMeasuresTable' => $baseDir . '/database/migrations/2015_08_01_194647_create_actual_measures_table.php',
+    'CreateAdminSettings' => $baseDir . '/database/migrations/2015_08_07_171442_create_admin_settings.php',
     'CreateDimensionsTable' => $baseDir . '/database/migrations/2015_07_26_190638_create_dimensions_table.php',
     'CreateInitiativesTable' => $baseDir . '/database/migrations/2015_08_01_183242_create_initiatives_table.php',
     'CreateMeasuresTable' => $baseDir . '/database/migrations/2015_08_01_194621_create_measures_table.php',
     'CreateMonths' => $baseDir . '/database/migrations/2015_08_05_200851_create_months.php',
     'CreateObjectives' => $baseDir . '/database/migrations/2015_07_28_183647_create_objectives.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
+    'CreatePlans' => $baseDir . '/database/migrations/2015_08_08_142154_create_plans.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',

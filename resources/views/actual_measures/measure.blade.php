@@ -16,7 +16,7 @@
               </tr>
               <tr>
                 <td>Starting date:</td>
-                <td>{{ Carbon\Carbon::createFromFormat('Y-m-d', $measure->starting_date)->format('M j, Y') }}</td>
+               <td></td> 
             </tr>
           </tbody></table>
         </div><!--span6-->

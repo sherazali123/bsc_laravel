@@ -33,15 +33,16 @@ class ObjectiveController extends Controller {
      */
     public function __construct() {
         $this->middleware('auth');
-        $this->viewData['user_id'] = Auth::User()->id;
+        $this->viewData['user_id'] = (int) Auth::User()->id;
 
         $this->viewData['controller_heading'] = 'Objectives';
         $this->viewData['controller_name'] = $this->controller;
         $this->viewData['whatisit'] = 'Objective';
 
 
-        $this->viewData['dimensions'] = Dimension::where('user_id', $this->viewData['user_id'])->where('status', 0)->orderBy('name')->lists('name', 'id');
-    }
+        $this->viewData['dimensions'] = Dimension::leftJoin('plans', 'plans.id', '=', 'dimensions.plan_id')
+                                                  ->where('plans.user_id', $this->viewData['user_id'])->where('dimensions.status', 0)->orderBy('dimensions.name')->select('dimensions.*')->lists('dimensions.name', 'dimensions.id');
+   }
 
     /**
      * Display a listing of the resource.
@@ -51,9 +52,11 @@ class ObjectiveController extends Controller {
     public function index() {
         // $list = _MODEL::all();
         $list = _MODEL::leftJoin('dimensions', 'dimensions.id', '=', 'objectives.dimension_id')
-                ->where('dimensions.user_id', '=', (int) $this->viewData['user_id'])
+                ->leftJoin('plans', 'plans.id', '=', 'dimensions.plan_id')
+                ->where('plans.user_id', '=', $this->viewData['user_id'])
                 ->select('objectives.*')
                 ->get();
+                
         foreach ($list as $row) {
             $row->AVERAGE = 0;
             //get initiatives related to objective
