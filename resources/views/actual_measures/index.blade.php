@@ -33,6 +33,13 @@
                             <th class="head1">Actions</th>
                         </tr>
                     </thead>
+                    <tfoot>
+                        <tr>
+                            <th class="head1">Month</th>
+                            <th class="head1">Actual</th>
+                            <th class="head1">Actions</th>
+                        </tr>
+                    </tfoot>
                     <tbody>
                     	@foreach ($list as $row)
                      	   <tr class="gradeX">
@@ -58,7 +65,7 @@
     <script type="text/javascript">
         var graphData = {!! $graph !!};
     </script>
-    
+
     {!!HTML::script('/js/highchart.js')!!}
  	{!!HTML::script('/js/views/'.$controller_name.'/index.js')!!}
 @endsection

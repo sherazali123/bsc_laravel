@@ -30,6 +30,16 @@
                             <th class="head1">Actions</th>
                         </tr>
                     </thead>
+                    <tfoot>
+                        <tr>
+                            <th class="head1">Name</th>
+                            <th class="head1">Description</th>
+                            <th class="head1">Period</th>
+                            <th class="head1">Starting date</th>
+                            <th class="head1">Ending date</th>
+                            <th class="head1">Actions</th>
+                        </tr>
+                    </tfoot>
                     <tbody>
                     	@foreach ($list as $row)
                      	   <tr class="gradeX">
