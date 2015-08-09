@@ -3,19 +3,18 @@
           <table class="table table-bordered table-invoice">
               <tbody>
                 <tr>
-                  <td class="width30">Measure:</td>
-                  <td class="width70"><strong>{{ $measure->name }}</strong></td>
+                  <td class="width30">Dimension:</td>
+                  <td class="width70"><strong>{{ $dimension->name }}</strong></td>
               </tr>
               <tr>
                 <td>Description:</td>
-                <td>{{ $measure->description }}</td>
+                <td>{{ $dimension->description }}</td>
             </tr>
-                <tr>
-                  <td>Target:</td>
-                  <td>{{ $measure->target }}</td>
-              </tr>
-        
+              <tr>
+                <td>Plan:</td>
+                <td>{{ $dimension->plan->name }}</td>
+            </tr>
           </tbody></table>
         </div><!--span6-->
 
-    </div>
+</div>

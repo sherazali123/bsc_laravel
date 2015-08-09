@@ -21,7 +21,7 @@
  </div> -->
  <!--breadcrumbs-->
  <div class="pagetitle">
-   <h1>{{{ $controller_heading or '' }}}</h1> <span>Add/edit/delete {{{ $controller_name or '' }}} from here</span>
+   <h1>{{{ $controller_heading or '' }}}</h1> 
  </div><!--pagetitle-->
 
 @endsection

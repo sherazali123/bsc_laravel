@@ -137,7 +137,14 @@ class InitiativeController extends Controller {
      */
     public function show($id) {
         $row = _MODEL::find($id);
-        return view($this->controller . '.show', compact('row'));
+
+        $this->viewData['controller_heading'] = $row->name;
+
+        $this->viewData['initiative'] = $row;
+
+        self::populateInitiativeTabular($id);
+
+        return view($this->controller.'.show',compact('row'), $this->viewData);
     }
 
     /**
@@ -185,4 +192,57 @@ class InitiativeController extends Controller {
         return redirect($this->controller);
     }
 
+     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    private function populateInitiativeTabular($initiative_id){
+
+        $list = _MODEL::leftJoin('objectives', 'objectives.id', '=', 'initiatives.objective_id')
+             ->leftJoin('dimensions', 'dimensions.id', '=', 'objectives.dimension_id')
+             ->leftJoin('plans', 'plans.id', '=', 'dimensions.plan_id')
+             ->where('initiatives.id', '=', (int) $initiative_id)
+             ->select('initiatives.*')
+             ->get();
+           
+                $initiative_AVERAGE = 0;
+                $initiative_count = 0;
+                foreach ($list as $initiative) 
+                {
+                    // get measures related to initiative
+                    $measures = $initiative->measures;
+                    $measure_count = 0;
+                    $percent = 0;
+                    foreach ($measures as $measure) 
+                    {
+                        
+                        $measure->percent = 0;
+
+                        $measure->actual = ActualMeasure::where('actual_measures.measure_id', '=', (int) $measure->id)->sum('actual_measures.actual_measure');
+                        if ($measure->target != 0)
+                        {
+                            $percent+=(($measure->actual / $measure->target) * 100);
+                            $measure->AVERAGE = $percent;
+                        }
+                        $measure_count++;
+                    }
+                    $initiative->measures  = $measures;
+                    //end measures
+                    if ($measure_count != 0) {
+                        $initiative_AVERAGE+=$percent / $measure_count;
+                        $initiative->AVERAGE = $initiative_AVERAGE;
+                    }
+ 
+                    $initiative_count++;
+                }
+                
+             
+           
+            
+
+          $this->viewData['initiatives'] = $list;;
+
+    } 
 }

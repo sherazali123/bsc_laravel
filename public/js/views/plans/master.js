@@ -22,11 +22,17 @@ jQuery(document).ready(function(){
 	// date picker
 	if(jQuery('#starting_date').length > 0)
 		jQuery( "#starting_date" ).datepicker({
-      dateFormat: 'yy-mm-dd'
+      dateFormat: 'yy-mm-dd',
+      beforeShow : function(){
+            jQuery( this ).datepicker('option','maxDate', jQuery('#ending_date').val() );
+        }
       });
 	// date picker
 	if(jQuery('#ending_date').length > 0)
 		jQuery( "#ending_date" ).datepicker({
-      dateFormat: 'yy-mm-dd'
+      dateFormat: 'yy-mm-dd',
+      beforeShow : function(){
+            jQuery( this ).datepicker('option','minDate',    jQuery('#starting_date').val() );
+        }
       });
 });

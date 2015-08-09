@@ -1,4 +1,4 @@
-<h4 class="widgettitle">PLan Report Summary</h4>
+<h4 class="widgettitle">Report Summary</h4>
 <div class="row-fluid">
                
                     
@@ -6,7 +6,7 @@
                     	
                      <div class="widgetcontent">
                             <div id="accordion" class="accordion">
-                                    @include($controller_name.'._dimension')
+                                    @include('plans._dimension')
                             </div><!--#accordion-->
                             
                             <div class="widgetsource">
@@ -18,4 +18,4 @@
                                 
                     </div><!--span6-->
                     
-                </div>
+</div>

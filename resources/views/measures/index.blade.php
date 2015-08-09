@@ -21,6 +21,7 @@
                         <col class="con1" />
                         <col class="con0" />
                         <col class="con1" />
+                        <col class="con0" style="align: center; width: 30%" />
                     </colgroup>
                     <thead>
                         <tr>

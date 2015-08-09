@@ -37,7 +37,6 @@ class PlanController extends Controller
     {
        $this->middleware('auth');
 
-
        $this->viewData['controller_heading'] = 'Plans';
        $this->viewData['controller_name'] = $this->controller;
        $this->viewData['whatisit'] = 'Plan';

@@ -3,7 +3,13 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BSC | Dashboard</title>
+    <title>
+        @if (isset($controller_heading))
+           BSC | {{ $controller_heading }}
+        @else
+            BSC
+        @endif
+    </title>
     {!!HTML::style('/css/style.default.css')!!}
     {!!HTML::style('/prettify/prettify.css')!!}
     {!!HTML::script('/prettify/prettify.js')!!}

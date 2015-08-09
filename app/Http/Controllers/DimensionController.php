@@ -170,7 +170,14 @@ class DimensionController extends Controller
     public function show($id)
     {
         $row = _MODEL::find($id);
-        return view($this->controller.'.show',compact('row'));
+
+        $this->viewData['controller_heading'] = $row->name;
+
+        $this->viewData['dimension'] = $row;
+
+        self::populateDimensionTabular($id);
+
+        return view($this->controller.'.show',compact('row'), $this->viewData);
     }
 
     /**
@@ -220,4 +227,82 @@ class DimensionController extends Controller
 
          return redirect($this->controller);
     }
+
+
+     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    private function populateDimensionTabular($dimension_id){
+
+        $list = _MODEL::leftJoin('plans', 'plans.id', '=', 'dimensions.plan_id')
+             ->where('dimensions.id', '=', (int) $dimension_id)
+             ->select('dimensions.*')
+             ->get();
+        foreach ($list as $row) {
+            $row->AVERAGE = 0;
+            // get objectives list related to dimension
+            $objectives = $row->objectives;
+            $objective_AVERAGE = 0;
+            $objective_count = 0;
+            
+             foreach ($objectives as $objective) 
+             {
+                $objective->AVERAGE = 0; 
+                 //get initiatives related to objective
+                 $initiatives = $objective->initiatives;
+                $initiative_AVERAGE = 0;
+                $initiative_count = 0;
+                foreach ($initiatives as $initiative) 
+                {
+                    // get measures related to initiative
+                    $measures = $initiative->measures;
+                    $measure_count = 0;
+                    $percent = 0;
+                    foreach ($measures as $measure) 
+                    {
+                        
+                        $measure->percent = 0;
+
+                        $measure->actual = ActualMeasure::where('actual_measures.measure_id', '=', (int) $measure->id)->sum('actual_measures.actual_measure');
+                        if ($measure->target != 0)
+                        {
+                            $percent+=(($measure->actual / $measure->target) * 100);
+                            $measure->AVERAGE = $percent;
+                        }
+                        $measure_count++;
+                    }
+                    $initiative->measures  = $measures;
+                    //end measures
+                    if ($measure_count != 0) {
+                        $initiative_AVERAGE+=$percent / $measure_count;
+                        $initiative->AVERAGE = $initiative_AVERAGE;
+                    }
+ 
+                    $initiative_count++;
+                }
+                // $objective->initiatives = $initiatives;
+                //end initiative
+                if ($initiative_count != 0){
+                    $objective_AVERAGE+= $initiative_AVERAGE / $initiative_count;
+                    $objective->AVERAGE = $objective_AVERAGE;
+                }
+                 
+                $objective_count++;
+             }
+             
+             // $row->objectives = $objectives;
+
+            if ($objective_count != 0){
+                $row->AVERAGE= $objective_AVERAGE / $objective_count;
+            }
+
+           }
+            
+
+          $this->viewData['plan_dimensions'] = $list;;
+
+    } 
 }

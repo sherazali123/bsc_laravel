@@ -35,6 +35,8 @@ class ObjectiveController extends Controller {
      */
     public function __construct() {
         $this->middleware('auth');
+
+
         $this->viewData['user_id'] = (int) Auth::User()->id;
 
         $this->viewData['controller_heading'] = 'Objectives';
@@ -142,8 +144,17 @@ class ObjectiveController extends Controller {
      * @return Response
      */
     public function show($id) {
+
         $row = _MODEL::find($id);
-        return view($this->controller . '.show', compact('row'));
+
+        $this->viewData['controller_heading'] = $row->name;
+
+        $this->viewData['objective'] = $row;
+
+        self::populateObjectiveTabular($id);
+
+        return view($this->controller.'.show',compact('row'), $this->viewData);
+
     }
 
     /**
@@ -191,4 +202,69 @@ class ObjectiveController extends Controller {
         return redirect($this->controller);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    private function populateObjectiveTabular($objective_id){
+
+        $list = _MODEL::leftJoin('dimensions', 'dimensions.id', '=', 'objectives.dimension_id')
+             ->leftJoin('plans', 'plans.id', '=', 'dimensions.plan_id')
+             ->where('objectives.id', '=', (int) $objective_id)
+             ->select('objectives.*')
+             ->get();
+            
+             $objective_count = 0;
+             foreach ($list as $objective) 
+             {
+                $objective->AVERAGE = 0; 
+                 //get initiatives related to objective
+                 $initiatives = $objective->initiatives;
+                $initiative_AVERAGE = 0;
+                $initiative_count = 0;
+                foreach ($initiatives as $initiative) 
+                {
+                    // get measures related to initiative
+                    $measures = $initiative->measures;
+                    $measure_count = 0;
+                    $percent = 0;
+                    foreach ($measures as $measure) 
+                    {
+                        
+                        $measure->percent = 0;
+
+                        $measure->actual = ActualMeasure::where('actual_measures.measure_id', '=', (int) $measure->id)->sum('actual_measures.actual_measure');
+                        if ($measure->target != 0)
+                        {
+                            $percent+=(($measure->actual / $measure->target) * 100);
+                            $measure->AVERAGE = $percent;
+                        }
+                        $measure_count++;
+                    }
+                    $initiative->measures  = $measures;
+                    //end measures
+                    if ($measure_count != 0) {
+                        $initiative_AVERAGE+=$percent / $measure_count;
+                        $initiative->AVERAGE = $initiative_AVERAGE;
+                    }
+ 
+                    $initiative_count++;
+                }
+                // $objective->initiatives = $initiatives;
+                //end initiative
+                if ($initiative_count != 0){
+                    $objective->AVERAGE += $initiative_AVERAGE / $initiative_count;
+                }
+                 
+                $objective_count++;
+             }
+             
+           
+            
+
+          $this->viewData['objectives'] = $list;;
+
+    } 
 }

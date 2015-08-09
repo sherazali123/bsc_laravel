@@ -1,10 +1,7 @@
  
+<h4 class="widgettitle">Summary</h4>
 
- <?php $iDimension = 0; ?>
- @foreach ($plan_dimensions as $dimension)
- 	<?php $iDimension++; ?>
-	 <h3><a href="#">{{ $dimension->name }}</a></h3>
-	 <div>
+
 	         <table class="table table-bordered">
 	             <colgroup>
 	                 <col class="con0" />
@@ -23,24 +20,12 @@
 	                 </tr>
 	             </thead>
 	             <tbody>
-	                	<tr class="dim_row">
-	                	   <td>
-	                	   @if(isset($dimension_type) && $dimension_type === 'single')
-	                	   		Dimension
-	                	   @else
-	                	   		Dimension {{ $iDimension }}
-	                	   @endif
-	                	   </td>
-	                	   <td>{{ $dimension->name }}</td>
-	                	   <td style="  text-align: right;"></td>
-	                	   <td style="  text-align: right;"></td>
-	                	   <td style="  text-align: right;">{{ $dimension->AVERAGE }}%</td>
-	                	</tr>
+	                
 	                	 <?php $iObjective = 0; ?>
-	                	 @foreach ($dimension->objectives as $objective)
+	                	 @foreach ($objectives as $objective)
 	                	 	<?php $iObjective++; ?>
 	                	 	<tr class="obj_row">
-		                	   <td>Objective {{ $iObjective }}</td>
+		                	   <td>Objective </td>
 		                	   <td>{{ $objective->name }}</td>
 		                	   <td style="  text-align: right;"></td>
 		                	   <td style="  text-align: right;"></td>
@@ -75,5 +60,3 @@
 	                	 @endforeach
 	             </tbody>
 	         </table>
-	</div>
-@endforeach
