@@ -122,7 +122,12 @@ class UserController extends Controller
         $rowUpdate = Request::all();
         $row = _MODEL::find($id);
 
-        $rowUpdate['password']= bcrypt($rowUpdate['password']);
+        if(strlen(trim($rowUpdate['password'])) > 0){
+            $rowUpdate['password']= bcrypt($rowUpdate['password']);
+        } else{
+            unset($rowUpdate['password']);
+        }
+
 
         $row->update($rowUpdate);
 

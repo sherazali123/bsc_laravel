@@ -4,12 +4,12 @@ var editFormID = 'edit_new';
 var rules_ = {
   name: "required",
   password: {
-    minlength: 6,
+    minlength: 8,
   },
 
   password_confirmation: {
     equalTo: "#password",
-    minlength: 6,
+    minlength: 8,
   }
 };
 var messages_ = {

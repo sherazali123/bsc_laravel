@@ -13,13 +13,13 @@
 <p>
     {!! Form::label('Password', 'Password:') !!}
     <span class="field">
-        {!! Form::password('password',['class'=>'input-xxlarge', 'placeholder'=>'Password']) !!}
+        {!! Form::password('password',['class'=>'input-xxlarge', 'id' => 'password', 'placeholder'=>'Password']) !!}
     </span>
 </p>
 <p>
     {!! Form::label('Confirm Password', 'Confirm Password:') !!}
     <span class="field">
-    {!! Form::password('password_confirmation',['class'=>'input-xxlarge', 'placeholder'=>'Confirm password']) !!}
+    {!! Form::password('password_confirmation',['class'=>'input-xxlarge', 'id' => 'password_confirmation', 'placeholder'=>'Confirm password']) !!}
     </span>
 </p>
 <div class="form-group">
