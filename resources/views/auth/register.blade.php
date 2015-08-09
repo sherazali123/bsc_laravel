@@ -1,4 +1,3 @@
-<!-- -->
 @extends('login_master')
  
 @section('main')

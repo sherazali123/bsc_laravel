@@ -58,6 +58,7 @@
     <script type="text/javascript">
         var graphData = {!! $graph !!};
     </script>
+    
     {!!HTML::script('/js/highchart.js')!!}
  	{!!HTML::script('/js/views/'.$controller_name.'/index.js')!!}
 @endsection

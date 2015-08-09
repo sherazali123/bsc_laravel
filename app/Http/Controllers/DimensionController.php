@@ -14,6 +14,7 @@ use App\Plan;
 use App\ActualMeasure;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Input;
 
 class DimensionController extends Controller
 {
@@ -47,6 +48,10 @@ class DimensionController extends Controller
 
         $this->viewData['plans'] = Plan::where('user_id', $this->viewData['user_id'])->where('status', 0)->orderBy('name')->lists('name', 'id');
 
+        $this->viewData['currentPlan'] = NULL;
+        if(!empty($this->viewData['plans'])){
+          $this->viewData['currentPlan'] = Plan::where('user_id', $this->viewData['user_id'])->where('status', 0)->orderBy('name')->get()->first();  
+        }
 
        $this->viewData['breadcrumb'] = array(
          array('name' => 'Home', 'href' => '/'),
@@ -63,14 +68,17 @@ class DimensionController extends Controller
      */
     public function index()
     {
-        
+
+        if(!empty(Input::get('plan_id'))){
+            $this->viewData['currentPlan'] = Plan::find(Input::get('plan_id'));
+        }
 
         $list = _MODEL::leftJoin('plans', 'plans.id', '=', 'dimensions.plan_id')
                 ->where('plans.user_id', '=', $this->viewData['user_id'])
+                ->where('plans.id', '=', $this->viewData['currentPlan']->id)
                 ->select('dimensions.*')
                 ->get();
 
-        array_push($this->viewData['breadcrumb'], array());
         
            foreach ($list as $row) {
             $row->AVERAGE = 0;

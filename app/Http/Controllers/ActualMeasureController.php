@@ -10,6 +10,7 @@ use App\ActualMeasure as _MODEL;
 use App\Measure;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Input;
 use DB;
 
 class ActualMeasureController extends Controller

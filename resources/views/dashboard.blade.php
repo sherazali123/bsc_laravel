@@ -1,4 +1,3 @@
-<!-- -->
 @extends('master')
  
 @section('custom_assets')

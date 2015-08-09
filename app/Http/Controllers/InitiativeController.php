@@ -6,11 +6,13 @@ namespace App\Http\Controllers;
 use Request;
 use Auth;
 use Session;
+use App\Plan;
 use App\Initiative as _MODEL;
 use App\Objective;
 use App\Measure;
 use App\ActualMeasure;
 use App\Http\Requests;
+use Input;
 use App\Http\Controllers\Controller;
 
 class InitiativeController extends Controller {
@@ -39,6 +41,15 @@ class InitiativeController extends Controller {
         $this->viewData['whatisit'] = 'Initiative';
 
 
+        $this->viewData['plans'] = Plan::where('user_id', $this->viewData['user_id'])->where('status', 0)->orderBy('name')->lists('name', 'id');
+
+        $this->viewData['currentPlan'] = NULL;
+        if(!empty($this->viewData['plans'])){
+          $this->viewData['currentPlan'] = Plan::where('user_id', $this->viewData['user_id'])->where('status', 0)->orderBy('name')->get()->first();  
+        }
+
+
+
         $this->viewData['objectives'] = Objective::leftJoin('dimensions', 'dimensions.id', '=', 'objectives.dimension_id')
                 ->leftJoin('plans', 'plans.id', '=', 'dimensions.plan_id')
                 ->where('plans.user_id', '=', $this->viewData['user_id'])
@@ -55,10 +66,17 @@ class InitiativeController extends Controller {
      */
     public function index() {
         // $list = _MODEL::all();
+
+        if(!empty($_GET['plan_id'])){
+            $this->viewData['currentPlan'] = Plan::find($_GET['plan_id']);
+        }
+
+
         $list = _MODEL::leftJoin('objectives', 'objectives.id', '=', 'initiatives.objective_id')
                 ->leftJoin('dimensions', 'dimensions.id', '=', 'objectives.dimension_id')
                 ->leftJoin('plans', 'plans.id', '=', 'dimensions.plan_id')
                 ->where('plans.user_id', '=', $this->viewData['user_id'])
+                ->where('plans.id', '=', $this->viewData['currentPlan']->id)
                 ->select('initiatives.*')
                 ->get();
                 
