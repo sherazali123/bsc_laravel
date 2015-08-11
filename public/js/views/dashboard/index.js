@@ -45,6 +45,8 @@ jQuery(document).ready(function(){
                     },
                     connectorColor: 'silver'
                 }
+                ,
+                size:130
             }
             ,
              series: {
@@ -52,8 +54,16 @@ jQuery(document).ready(function(){
                     events: {
                         'click': function () {
                             if (this.series.data.length > 1) {
-                             
-                             location.href=this.link;
+                                 location.href=this.link;
+                            }
+                        },
+                        'mouseOver':function () {
+                            if (this.series.data.length > 1) {
+                              if(this.link==='#')
+                              {
+                                  this.series.name="Remaining percentage";
+                              }
+                            
                             }
                         }
                     }

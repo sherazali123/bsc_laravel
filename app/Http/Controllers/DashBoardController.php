@@ -54,8 +54,10 @@ class DashBoardController extends Controller {
     {
           $graph = [];  
           $index=0;
-                
+            
             foreach ($this->viewData['plans'] as $plan) {
+             $to_achived_plan=0; 
+             $to_achived_plan_count=0;   
           $graph[$index]['id']=$plan->id;
           $graph[$index]['title'] =$plan->name.' from '.date('F, Y',strtotime($plan->starting_date)).' to '.date('F, Y',  strtotime($plan->ending_date));
           $graph[$index]['SeriesName'] = "Average";
@@ -67,17 +69,26 @@ class DashBoardController extends Controller {
                 ->select('dimensions.*')
                 ->get();
           $count=count($dimensions);
+         
            foreach ($dimensions as $dimension){
           $dimension['name']=$dimension->name;
           $dimension_av= $this->getAverageDimension($dimension);
-          $dimension['y']=100/$count;
+          $dimension['y']=$dimension_av->AVERAGE;
           $dimension['AVERAGE']=$dimension_av->AVERAGE;
           $dimension['link']= url('/dimensions/'.$dimension->id);
           array_push($graph[$index]['columnData'], $dimension);
+          $to_achived_plan +=$dimension_av->AVERAGE;
+          $to_achived_plan_count++;
             }
+          $total_achived=$to_achived_plan/$to_achived_plan_count;
+          $dimension2['name']='<span style="color:red;">Need to be achive plan</span>';
+          $dimension2['y']=100-$total_achived;
+          $dimension2['AVERAGE']=100-$total_achived;;
+          $dimension2['link']= '#';
+          array_push($graph[$index]['columnData'], $dimension2);
          $index++;
             }
-           
+          
       
           $this->viewData['graph'] = json_encode($graph);
     }
@@ -92,7 +103,7 @@ class DashBoardController extends Controller {
             $objective_AVERAGE = 0;
             $objective_count = 0;
             
-          /*   foreach ($objectives as $objective) {
+             foreach ($objectives as $objective) {
                  
                  //get initiatives related to objective
                  $initiatives = Initiative::where('initiatives.objective_id', '=', (int) $objective->id)
@@ -126,9 +137,9 @@ class DashBoardController extends Controller {
                  
             $objective_count++;
              }
-             */
+             
             if ($objective_count != 0)
-                $dimension->AVERAGE= $objective_AVERAGE / $objective_count;
+                $dimension->AVERAGE= (float)$objective_AVERAGE / $objective_count;
 
 
            return $dimension;

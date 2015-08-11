@@ -28,15 +28,15 @@
             <div class="contentinner content-dashboard">
                 
                 <div class="row-fluid">
-                    <div class="span12">
                        @foreach ($plans as $row)
+                    <div class="span6">
                         
                         <h4 class="widgettitle">{{ $row->name }}</h4>
                         <div class="widgetcontent">
                          <div id="container-{{ $row->id }}" style="margin: 0 auto"></div>
                         </div><!--widgetcontent-->
-                        @endforeach
                     </div>
+                        @endforeach
                     <!--span12-->
                
                 </div><!--row-fluid-->

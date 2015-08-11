@@ -1,4 +1,3 @@
-<h4 class="widgettitle">Report Summary</h4>
 <div class="row-fluid">
                
                     

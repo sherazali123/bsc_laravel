@@ -39,18 +39,18 @@
 	                	 <?php $iObjective = 0; ?>
 	                	 @foreach ($dimension->objectives as $objective)
 	                	 	<?php $iObjective++; ?>
-	                	 	<tr class="obj_row">
-		                	   <td>Objective {{ $iObjective }}</td>
+                                 <tr class="obj_row">
+                                     <td><a style=" margin: 3px; margin-left: 10px padding:2px; padding-left: 4px; padding-right: 4px;color:#FFF; font-size: 20; border: 1px solid #FFF; text-decoration: none;"href="javascript:void()" rel="obj-{{ $iObjective }}">+</a>Objective {{ $iObjective }}</td>
 		                	   <td>{{ $objective->name }}</td>
 		                	   <td style="  text-align: right;"></td>
 		                	   <td style="  text-align: right;"></td>
 		                	   <td style="  text-align: right;">{{ $objective->AVERAGE }}%</td>
 		                	</tr>
 		                	<?php $iInitiative = 0; ?>
-		                	 @foreach ($objective->initiatives as $initiative)
+		                	@foreach ($objective->initiatives as $initiative)
 		                	 	<?php $iInitiative++; ?>
-		                	 	<tr class="ini_row">
-			                	   <td>Initiative {{ $iInitiative }}</td>
+                                        <tr class="ini_row  obj-{{ $iObjective }}" style="display: none">
+			                	   <td><a style=" margin: 5px; padding:2px; padding-left: 4px; padding-right: 4px;color:#000; font-size: 20; border: 1px solid #FFF; text-decoration: none;"href="javascript:void()" rel="ini-{{ $iInitiative }}">+</a> Initiative {{ $iInitiative }}</td>
 			                	   <td>{{ $initiative->name }}</td>
 			                	   <td style="  text-align: right;"></td>
 			                	   <td style="  text-align: right;"></td>
@@ -59,7 +59,7 @@
 			                	<?php $iMeasure = 0; ?>
 			                	 @foreach ($initiative->measures as $measure)
 			                	 	<?php $iMeasure++; ?>
-			                	 	<tr class="mea_row">
+			                	 	<tr class="mea_row ini-{{$iInitiative }}" style="display: none;">
 				                	   <td>Measure {{ $iMeasure }}</td>
 				                	   <td>{{ $measure->name }}</td>
 				                	   <td style="  text-align: right;">{{ $measure->target }}</td>
@@ -70,7 +70,7 @@
 
 			                	 @endforeach	
 
-		                	 @endforeach
+		                	 @endforeach 
 
 	                	 @endforeach
 	             </tbody>
