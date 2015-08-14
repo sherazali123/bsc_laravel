@@ -264,7 +264,7 @@ class PlanController extends Controller
                     //end measures
                     if ($measure_count != 0) {
                         $initiative_AVERAGE+=$percent / $measure_count;
-                        $initiative->AVERAGE = $initiative_AVERAGE;
+                        $initiative->AVERAGE = $percent / $measure_count;
                     }
  
                     $initiative_count++;
@@ -273,7 +273,7 @@ class PlanController extends Controller
                 //end initiative
                 if ($initiative_count != 0){
                     $objective_AVERAGE+= $initiative_AVERAGE / $initiative_count;
-                    $objective->AVERAGE = $objective_AVERAGE;
+                    $objective->AVERAGE = $initiative_AVERAGE / $initiative_count;
                 }
                  
                 $objective_count++;

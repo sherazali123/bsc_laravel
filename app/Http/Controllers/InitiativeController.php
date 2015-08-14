@@ -232,7 +232,7 @@ class InitiativeController extends Controller {
                     //end measures
                     if ($measure_count != 0) {
                         $initiative_AVERAGE+=$percent / $measure_count;
-                        $initiative->AVERAGE = $initiative_AVERAGE;
+                        $initiative->AVERAGE = $percent / $measure_count;
                     }
  
                     $initiative_count++;
