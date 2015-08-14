@@ -34,7 +34,7 @@
 	                	   <td>{{ $dimension->name }}</td>
 	                	   <td style="  text-align: right;"></td>
 	                	   <td style="  text-align: right;"></td>
-	                	   <td style="  text-align: right;">{{ $dimension->AVERAGE }}%</td>
+	                	   <td style="  text-align: right;">{{ round($dimension->AVERAGE, 2) }}%</td>
 	                	</tr>
 	                	 <?php $iObjective = 0; ?>
 	                	 @foreach ($dimension->objectives as $objective)
@@ -44,7 +44,7 @@
 		                	   <td>{{ $objective->name }}</td>
 		                	   <td style="  text-align: right;"></td>
 		                	   <td style="  text-align: right;"></td>
-		                	   <td style="  text-align: right;">{{ $objective->AVERAGE }}%</td>
+		                	   <td style="  text-align: right;">{{ round($objective->AVERAGE, 2) }}%</td>
 		                	</tr>
 		                	<?php $iInitiative = 0; ?>
 		                	@foreach ($objective->initiatives as $initiative)
@@ -54,7 +54,7 @@
 			                	   <td>{{ $initiative->name }}</td>
 			                	   <td style="  text-align: right;"></td>
 			                	   <td style="  text-align: right;"></td>
-			                	   <td style="  text-align: right;">{{ $initiative->AVERAGE }}%</td>
+			                	   <td style="  text-align: right;">{{ round($initiative->AVERAGE, 2) }}%</td>
 			                	</tr>
 			                	<?php $iMeasure = 0; ?>
 			                	 @foreach ($initiative->measures as $measure)
@@ -64,7 +64,7 @@
 				                	   <td>{{ $measure->name }}</td>
 				                	   <td style="  text-align: right;">{{ $measure->target }}</td>
 				                	   <td style="  text-align: right;">{{ $measure->actual }}</td>
-				                	   <td style="  text-align: right;">{{ $measure->AVERAGE }}%</td>
+				                	   <td style="  text-align: right;">{{ round(($measure->AVERAGE, 2) }}%</td>
 				                	</tr>
 
 
