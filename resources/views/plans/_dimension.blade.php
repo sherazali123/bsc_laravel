@@ -2,7 +2,7 @@
 
  <?php $iDimension = 0; ?>
  @foreach ($plan_dimensions as $dimension)
- 	<?php $iDimension++; ?>
+ 	<?php $iDimension++; if(empty($dimension->AVERAGE)) $dimension->AVERAGE=0;?>
 	 <h3><a href="#">{{ $dimension->name }}</a></h3>
 	 <div>
 	         <table class="table table-bordered">
@@ -34,7 +34,7 @@
 	                	   <td>{{ $dimension->name }}</td>
 	                	   <td style="  text-align: right;"></td>
 	                	   <td style="  text-align: right;"></td>
-	                	   <td style="  text-align: right;">{{ $dimension->AVERAGE }}%</td>
+	                	   <td style="  text-align: right;">{{ round($dimension->AVERAGE, 2) }}%</td>
 	                	</tr>
 	                	 <?php $iObjective = 0; ?>
 	                	 @foreach ($dimension->objectives as $objective)
@@ -44,27 +44,27 @@
 		                	   <td>{{ $objective->name }}</td>
 		                	   <td style="  text-align: right;"></td>
 		                	   <td style="  text-align: right;"></td>
-		                	   <td style="  text-align: right;">{{ $objective->AVERAGE }}%</td>
+		                	   <td style="  text-align: right;">{{ round($objective->AVERAGE, 2) }}%</td>
 		                	</tr>
 		                	<?php $iInitiative = 0; ?>
 		                	@foreach ($objective->initiatives as $initiative)
-		                	 	<?php $iInitiative++; ?>
+		                	 	<?php $iInitiative++;  if(empty($initiative->AVERAGE)) $initiative->AVERAGE=0;?>
                                         <tr class="ini_row  obj-{{ $iObjective }}" style="display: none">
 			                	   <td><a style=" margin: 5px; padding:2px; padding-left: 4px; padding-right: 4px;color:#000; font-size: 20; border: 1px solid #FFF; text-decoration: none;"href="javascript:void()" rel="ini-{{ $iInitiative }}">+</a> Initiative {{ $iInitiative }}</td>
 			                	   <td>{{ $initiative->name }}</td>
 			                	   <td style="  text-align: right;"></td>
 			                	   <td style="  text-align: right;"></td>
-			                	   <td style="  text-align: right;">{{ $initiative->AVERAGE }}%</td>
+			                	   <td style="  text-align: right;">{{ round($initiative->AVERAGE,2) }}%</td>
 			                	</tr>
 			                	<?php $iMeasure = 0; ?>
 			                	 @foreach ($initiative->measures as $measure)
-			                	 	<?php $iMeasure++; ?>
+			                	 	<?php $iMeasure++;  if(empty($measure->AVERAGE)) $measure->AVERAGE=0?>
 			                	 	<tr class="mea_row ini-{{$iInitiative }}" style="display: none;">
 				                	   <td>Measure {{ $iMeasure }}</td>
 				                	   <td>{{ $measure->name }}</td>
 				                	   <td style="  text-align: right;">{{ $measure->target }}</td>
 				                	   <td style="  text-align: right;">{{ $measure->actual }}</td>
-				                	   <td style="  text-align: right;">{{ $measure->AVERAGE }}%</td>
+				                	   <td style="  text-align: right;">{{ round($measure->AVERAGE, 2) }}%</td>
 				                	</tr>
 
 
