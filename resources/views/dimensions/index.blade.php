@@ -21,8 +21,8 @@
                     </colgroup>
                     <thead>
                         <tr>
-                            <th class="head1">Plan</th>
                             <th class="head1">Name</th>
+                            <th class="head1">Plan</th>
                             <th class="head1">Description</th>
                              <th class="head1">AVERAGE %</th>
                             <th class="head1">Actions</th>
@@ -30,8 +30,8 @@
                     </thead>
                     <tfoot>
                         <tr>
-                            <th class="head1">Plan</th>
                             <th class="head1">Name</th>
+                            <th class="head1">Plan</th>
                             <th class="head1">Description</th>
                              <th class="head1">AVERAGE %</th>
                             <th class="head1">Actions</th>
@@ -40,8 +40,8 @@
                     <tbody>
                     	@foreach ($list as $row)
                      	   <tr class="gradeX">
-                     	       <td>{{ $row->plan->name }}</td>
                                <td>{{ $row->name }}</td>
+                     	       <td>{{ $row->plan->name }}</td>
                      	       <td>{{ $row->description }}</td>
                                  <td>{{ round($row->AVERAGE,2) }}%</td>
                      	       <td>
