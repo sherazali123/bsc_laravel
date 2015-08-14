@@ -256,7 +256,7 @@ class PlanController extends Controller
                         if ($measure->target != 0)
                         {
                             $percent+=(($measure->actual / $measure->target) * 100);
-                            $measure->AVERAGE = $percent;
+                            $measure->AVERAGE = (($measure->actual / $measure->target) * 100);
                         }
                         $measure_count++;
                     }
