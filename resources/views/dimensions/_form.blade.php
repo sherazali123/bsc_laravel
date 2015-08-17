@@ -7,14 +7,14 @@
 <p>
     {!! Form::label('Name', 'Name:') !!}
     <span class="field">
-        {!! Form::text('name',null,['class'=>'input-xxlarge', 'placeholder' => ''Enter dimension name']) !!}
+        {!! Form::text('name',null,['class'=>'input-xxlarge', 'placeholder' => 'Enter dimension name']) !!}
     </span>
 </p>
 
 <p>
     {!! Form::label('description', 'Name:') !!}
     <span class="field">
-        {!! Form::textarea('description',null,['class'=>'span6', 'placeholder' => ''Enter dimension description']) !!}
+        {!! Form::textarea('description',null,['class'=>'span6', 'placeholder' => 'Enter dimension description']) !!}
     </span>
 </p>
 <div class="form-group">
