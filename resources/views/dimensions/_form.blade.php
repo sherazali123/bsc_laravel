@@ -5,16 +5,16 @@
     </span>
 </p>
 <p>
-    {!! Form::label('Enter dimension name', 'Name:') !!}
+    {!! Form::label('Name', 'Name:') !!}
     <span class="field">
-        {!! Form::text('name',null,['class'=>'input-xxlarge', 'placeholder' => 'Name']) !!}
+        {!! Form::text('name',null,['class'=>'input-xxlarge', 'placeholder' => ''Enter dimension name']) !!}
     </span>
 </p>
 
 <p>
-    {!! Form::label('Enter dimension description', 'Name:') !!}
+    {!! Form::label('description', 'Name:') !!}
     <span class="field">
-        {!! Form::textarea('description',null,['class'=>'span6', 'placeholder' => 'Description']) !!}
+        {!! Form::textarea('description',null,['class'=>'span6', 'placeholder' => ''Enter dimension description']) !!}
     </span>
 </p>
 <div class="form-group">
