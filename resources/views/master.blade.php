@@ -55,35 +55,35 @@
                         </ul>
                     </li>
                     @elseif (Auth::User()->role == 2)
-                        <li class="dropdown"><a href="{{url('/plans')}}"><span class="icon-briefcase"></span> Plans</a>
-                            <ul>
+                        <li ><a href="{{url('/plans')}}"><span class="icon-briefcase"></span> Plans</a>
+                           <!-- <ul>
                                 <li><a href="{{url('/plans/create')}}">Add new</a></li>
                                 <li><a href="{{url('/plans')}}">Plans</a></li>
-                            </ul>
+                            </ul>-->
                         </li>
-                        <li class="dropdown"><a href="{{url('/dimensions')}}"><span class="icon-briefcase"></span> Dimensions</a>
-                            <ul>
+                        <li><a href="{{url('/dimensions')}}"><span class="icon-briefcase"></span> Dimensions</a>
+                            <!--<ul>
                                 <li><a href="{{url('/dimensions/create')}}">Add new</a></li>
                                 <li><a href="{{url('/dimensions')}}">Dimensions</a></li>
-                            </ul>
+                            </ul> -->
                         </li>
-                        <li class="dropdown"><a href="{{url('/objectives/create')}}"><span class="icon-briefcase"></span> Objectives</a>
-                            <ul>
+                        <li><a href="{{url('/objectives')}}"><span class="icon-briefcase"></span> Objectives</a>
+                            <!--<ul>
                                 <li><a href="{{url('/objectives/create')}}">Add new</a></li>
                                 <li><a href="{{url('/objectives')}}">Objectives</a></li>
-                            </ul>
+                            </ul> -->
                         </li>
-                        <li class="dropdown"><a href="{{url('/initiatives/create')}}"><span class="icon-briefcase"></span> Initiatives</a>
-                            <ul>
+                        <li><a href="{{url('/initiatives')}}"><span class="icon-briefcase"></span> Initiatives</a>
+                            <!--<ul>
                                 <li><a href="{{url('/initiatives/create')}}">Add new</a></li>
                                 <li><a href="{{url('/initiatives')}}">Initiatives</a></li>
-                            </ul>
+                            </ul>-->
                         </li>
-                        <li class="dropdown"><a href="{{url('/measures/create')}}"><span class="icon-briefcase"></span> Measures</a>
-                            <ul>
+                        <li class="dropdown"><a href="{{url('/measures')}}"><span class="icon-briefcase"></span> Measures</a>
+                            <!--<ul>
                                 <li><a href="{{url('/measures/create')}}">Add new</a></li>
                                 <li><a href="{{url('/measures')}}">Measures</a></li>
-                            </ul>
+                            </ul>-->
                         </li>
                     @else
                         
