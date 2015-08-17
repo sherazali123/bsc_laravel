@@ -79,7 +79,7 @@
                                 <li><a href="{{url('/initiatives')}}">Initiatives</a></li>
                             </ul>-->
                         </li>
-                        <li class="dropdown"><a href="{{url('/measures')}}"><span class="icon-briefcase"></span> Measures</a>
+                        <li><a href="{{url('/measures')}}"><span class="icon-briefcase"></span> Measures</a>
                             <!--<ul>
                                 <li><a href="{{url('/measures/create')}}">Add new</a></li>
                                 <li><a href="{{url('/measures')}}">Measures</a></li>
