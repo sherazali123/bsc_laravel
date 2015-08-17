@@ -11,7 +11,7 @@ jQuery(document).ready(function() {
             // "fnDrawCallback": function(oSettings) {
             // 	jQuery.uniform.update();
             // }
-            initComplete: function() {
+            "initComplete": function() {
                 this.api().columns().every(function() {
                     var column = this;
                     var select =jQuery('<select><option value=""></option></select>')
@@ -21,9 +21,7 @@ jQuery(document).ready(function() {
                                         jQuery(this).val()
                                         );
 
-                                column
-                                        .search(val ? '^' + val + '$' : '', true, false)
-                                        .draw();
+                                column.search(val ? '^' + val + '$' : '', true, false).draw();
                             });
 
                     column.data().unique().sort().each(function(d, j) {
