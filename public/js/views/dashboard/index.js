@@ -35,11 +35,11 @@ jQuery(document).ready(function(){
         },
         plotOptions: {
             pie: {
-                allowPointSelect: true,
+                allowPointSelect: false,
                 cursor: 'pointer',
                 dataLabels: {
                     enabled: true,
-                    format: '<b>{point.name}</b>: {point.AVERAGE:.1f} '+obj.columnValueSuffix,
+                    format: '<b>{point.name}</b>: {point.y:.1f} '+obj.columnValueSuffix,
                     style: {
                         color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
                     },
