@@ -56,8 +56,7 @@ class DashBoardController extends Controller {
           $index=0;
             
             foreach ($this->viewData['plans'] as $plan) {
-             $to_achived_plan=0; 
-             $to_achived_plan_count=0;   
+           
           $graph[$index]['id']=$plan->id;
           $graph[$index]['title'] =$plan->name.' from '.date('F, Y',strtotime($plan->starting_date)).' to '.date('F, Y',  strtotime($plan->ending_date));
           $graph[$index]['SeriesName'] = "Average";
@@ -73,19 +72,18 @@ class DashBoardController extends Controller {
            foreach ($dimensions as $dimension){
           $dimension['name']=$dimension->name;
           $dimension_av= $this->getAverageDimension($dimension);
-          $dimension['y']=$dimension_av->AVERAGE;
+          $dimension['y']=100/$count;
           $dimension['AVERAGE']=$dimension_av->AVERAGE;
           $dimension['link']= url('/dimensions/'.$dimension->id);
           array_push($graph[$index]['columnData'], $dimension);
-          $to_achived_plan +=$dimension_av->AVERAGE;
-          $to_achived_plan_count++;
+         
             }
-          $total_achived=$to_achived_plan/$to_achived_plan_count;
+         /* $total_achived=$to_achived_plan/$to_achived_plan_count;
           $dimension2['name']='<span style="color:red;">Need to be achive plan</span>';
           $dimension2['y']=100-$total_achived;
           $dimension2['AVERAGE']=100-$total_achived;;
           $dimension2['link']= '#';
-          array_push($graph[$index]['columnData'], $dimension2);
+          array_push($graph[$index]['columnData'], $dimension2);*/
          $index++;
             }
           

@@ -25,7 +25,10 @@ jQuery(document).ready(function(){
             plotBackgroundColor: null,
             plotBorderWidth: null,
             plotShadow: false,
-            type: 'pie'
+            type: 'pie',
+            events:{
+                 load: onChartLoad
+            }
         },
         title: {
             text: obj.title
@@ -77,3 +80,7 @@ jQuery(document).ready(function(){
     });
     });
 });
+
+function onChartLoad(){
+    
+}
