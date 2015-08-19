@@ -4,7 +4,7 @@
         <div class="maincontent">
             <div class="contentinner">
 
-                <h4 class="widgettitle"> {{{ $controller_heading or '' }}} <a href="{{url('/'.$controller_name.'/create')}}">Add new</a></h4>
+                <h4 class="widgettitle"> {{{ $controller_heading or '' }}} <a href="{{url('/'.$controller_name.'/create'.'?plan_id='.$currentPlan->id.'&dimension_id='.$currentDimensionId.'&objective_id='.$currentObjectiveId)}}">Add new</a></h4>
                   {!! Form::open(['url' => $controller_name, 'id' => 'add_new']) !!}
                       @include('measures._form')
                     {!! Form::close() !!}

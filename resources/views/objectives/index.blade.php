@@ -11,13 +11,14 @@
         	<div class="contentinner">
                 @include('application._change_plan') 
                 
-            	<h4 class="widgettitle"> {{{ $controller_heading or '' }}} <a href="{{url('/'.$controller_name.'/create')}}">Add new</a></h4>
+            	<h4 class="widgettitle"> {{{ $controller_heading or '' }}} <a href="{{url('/'.$controller_name.'/create'.'?plan_id='.$currentPlan->id)}}">Add new</a></h4>
             	<table class="table table-bordered" id="index_1">
                     <colgroup>
                         <col class="con0" />
                         <col class="con1" style="align: center; width: 30%" />
                         <col class="con0" />
-                        <col class="con1" style="align: center; width: 10%"/>
+                        <col class="con1" />
+                        <col class="con0" style="align: center; width: 20%"/>
                     </colgroup>
                     <thead>
                         <tr>
@@ -45,8 +46,8 @@
                               <td>{{ $row->dimension->name }}</td>
                               <td>{{ round($row->AVERAGE,2) }}%</td>
                      	       <td>
-                                    <a href="{{route($controller_name.'.show',$row->id)}}" class="btn btn-primary" style="float: left;">View</a>
-                     	       		<a href="{{route($controller_name.'.edit',$row->id)}}" class="btn" style="float: left;">Edit</a>
+                                    <a href="{{route($controller_name.'.show',$row->id).'?plan_id='.$currentPlan->id}}" class="btn btn-primary" style="float: left;">View</a>
+                     	       		<a href="{{route($controller_name.'.edit',$row->id).'?plan_id='.$currentPlan->id}}" class="btn" style="float: left;">Edit</a>
                      	       		{!! Form::open(['method' => 'DELETE', 'route'=>[$controller_name.'.destroy', $row->id]]) !!}
         						            {!! Form::submit('Delete', ['class' => 'btn', 'style' => 'margin-left: 15px;']) !!}
         						            {!! Form::close() !!}

@@ -4,7 +4,7 @@
         <div class="maincontent">
             <div class="contentinner">
 
-              <h4 class="widgettitle"> {{{ $controller_heading or '' }}} <a href="{{url('/'.$controller_name.'/create')}}">Add new</a></h4>
+              <h4 class="widgettitle"> {{{ $controller_heading or '' }}} <a href="{{url('/'.$controller_name.'/create'.'?plan_id='.$currentPlan->id)}}">Add new</a></h4>
                   {!! Form::model($row,['method' => 'PATCH','id' => 'edit_new','route'=>[$controller_name.'.update',$row->id]]) !!}
                     @include($controller_name.'._form')
                     {!! Form::close() !!}

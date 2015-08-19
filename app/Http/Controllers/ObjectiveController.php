@@ -34,6 +34,7 @@ class ObjectiveController extends Controller {
      * @return void
      */
     public function __construct() {
+        
         $this->middleware('auth');
 
 
@@ -43,17 +44,33 @@ class ObjectiveController extends Controller {
         $this->viewData['controller_name'] = $this->controller;
         $this->viewData['whatisit'] = 'Objective';
 
-        $this->viewData['plans'] = Plan::where('user_id', $this->viewData['user_id'])->where('status', 0)->orderBy('name')->lists('name', 'id');
+        $this->viewData['plans'] = Plan::where('user_id', $this->viewData['user_id'])
+                                        ->where('status', 0)
+                                        ->orderBy('name')
+                                        ->lists('name', 'id');
+
+
 
         $this->viewData['currentPlan'] = NULL;
-        if(!empty($this->viewData['plans'])){
-          $this->viewData['currentPlan'] = Plan::where('user_id', $this->viewData['user_id'])->where('status', 0)->orderBy('name')->get()->first();  
+        if(!empty($_GET['plan_id'])){
+            $this->viewData['currentPlan'] = Plan::find($_GET['plan_id']);
+        }
+        else if(!empty($this->viewData['plans'])){
+          $this->viewData['currentPlan'] = Plan::where('user_id', $this->viewData['user_id'])
+                                        ->where('status', 0)
+                                        ->orderBy('name')
+                                        ->get()
+                                        ->first();  
         }
 
 
-
         $this->viewData['dimensions'] = Dimension::leftJoin('plans', 'plans.id', '=', 'dimensions.plan_id')
-                                                  ->where('plans.user_id', $this->viewData['user_id'])->where('dimensions.status', 0)->orderBy('dimensions.name')->select('dimensions.*')->lists('dimensions.name', 'dimensions.id');
+                                        ->where('plans.user_id', $this->viewData['user_id'])
+                                        ->where('dimensions.plan_id', $this->viewData['currentPlan']->id)
+                                        ->where('dimensions.status', 0)
+                                        ->orderBy('dimensions.name')
+                                        ->select('dimensions.*')
+                                        ->lists('dimensions.name', 'dimensions.id');
    }
 
     /**

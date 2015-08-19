@@ -8,6 +8,8 @@ use Auth;
 use Session;
 use App\Plan;
 use App\Measure as _MODEL;
+use App\Dimension;
+use App\Objective;
 use App\Initiative;
 use App\ActualMeasure;
 use App\Http\Requests;
@@ -40,25 +42,82 @@ class MeasureController extends Controller {
         $this->viewData['whatisit'] = 'Measure';
 
 
-        $this->viewData['plans'] = Plan::where('user_id', $this->viewData['user_id'])->where('status', 0)->orderBy('name')->lists('name', 'id');
+        $this->viewData['plans'] = Plan::where('user_id', $this->viewData['user_id'])
+                                        ->where('status', 0)
+                                        ->orderBy('name')
+                                        ->lists('name', 'id');
+
 
         $this->viewData['currentPlan'] = NULL;
-        if(!empty($this->viewData['plans'])){
-          $this->viewData['currentPlan'] = Plan::where('user_id', $this->viewData['user_id'])->where('status', 0)->orderBy('name')->get()->first();  
+        if(!empty($_GET['plan_id'])){
+            $this->viewData['currentPlan'] = Plan::find($_GET['plan_id']);
+        }
+        else if(!empty($this->viewData['plans'])){
+          $this->viewData['currentPlan'] = Plan::where('user_id', $this->viewData['user_id'])
+                                        ->where('status', 0)
+                                        ->orderBy('name')
+                                        ->get()
+                                        ->first();  
         }
 
 
+        $this->viewData['dimensions'] = Dimension::leftJoin('plans', 'plans.id', '=', 'dimensions.plan_id')
+                                        ->where('plans.user_id', $this->viewData['user_id'])
+                                        ->where('dimensions.plan_id', $this->viewData['currentPlan']->id)
+                                        ->where('dimensions.status', 0)
+                                        ->orderBy('dimensions.name')
+                                        ->select('dimensions.*')
+                                        ->lists('dimensions.name', 'dimensions.id');
 
-        $this->viewData['periods'] = array(1 => 'Yearly', 2 => 'Quaterly', 3 => 'Monthly');
+        $this->viewData['currentDimension'] = NULL;
+        if(!empty($_GET['dimension_id'])){
+            $this->viewData['currentDimension'] = Dimension::find($_GET['dimension_id']);
+        }
+        else if(!empty($this->viewData['dimensions'])){
+            $this->viewData['currentDimension'] = Dimension::where('dimensions.plan_id', $this->viewData['currentPlan']->id)
+                                                            ->where('dimensions.status', 0)
+                                                            ->orderBy('dimensions.name')
+                                                            ->get()
+                                                            ->first();
+        }
+
+        $this->viewData['currentDimensionId'] = !empty($this->viewData['currentDimension']) ? $this->viewData['currentDimension']->id : '';
+
+        $this->viewData['objectives'] = Objective::leftJoin('dimensions', 'dimensions.id', '=', 'objectives.dimension_id')
+                                        ->leftJoin('plans', 'plans.id', '=', 'dimensions.plan_id')
+                                        ->where('plans.user_id', '=', $this->viewData['user_id'])
+                                        ->where('objectives.dimension_id', '=', $this->viewData['currentDimensionId'])
+                                        ->where('objectives.status', 0)
+                                        ->orderBy('objectives.name')
+                                        ->select('objectives.*')
+                                        ->lists('objectives.name', 'objectives.id');
+
+        $this->viewData['currentObjective'] = NULL;
+        if(!empty($_GET['objective_id'])){
+            $this->viewData['currentObjective'] = Objective::find($_GET['objective_id']);
+        }
+        else if(!empty($this->viewData['objectives'])){
+            $this->viewData['currentObjective'] = Objective::where('objectives.dimension_id', '=', !empty($this->viewData['currentDimension']) ? $this->viewData['currentDimension']->id : NULL)
+                                                ->where('objectives.status', 0)
+                                                ->orderBy('objectives.name')
+                                                ->get()
+                                                ->first();
+        }
+
+        $this->viewData['currentObjectiveId'] = !empty($this->viewData['currentObjective']) ? $this->viewData['currentObjective']->id : '';
 
         $this->viewData['initiatives'] = Initiative::leftJoin('objectives', 'objectives.id', '=', 'initiatives.objective_id')
                 ->leftJoin('dimensions', 'dimensions.id', '=', 'objectives.dimension_id')
                 ->leftJoin('plans', 'plans.id', '=', 'dimensions.plan_id')
                 ->where('plans.user_id', '=', $this->viewData['user_id'])
+                ->where('initiatives.objective_id', '=', $this->viewData['currentObjectiveId'])
                 ->where('initiatives.status', 0)
                 ->orderBy('initiatives.name')
                 ->select('initiatives.*')
                 ->lists('initiatives.name', 'initiatives.id');
+
+
+        $this->viewData['periods'] = array(1 => 'Yearly', 2 => 'Quaterly', 3 => 'Monthly');
     }
 
     /**
@@ -68,11 +127,6 @@ class MeasureController extends Controller {
      */
     public function index() {
         // $list = _MODEL::all();
-
-        if(!empty($_GET['plan_id'])){
-            $this->viewData['currentPlan'] = Plan::find($_GET['plan_id']);
-        }
-
 
         $list = _MODEL::leftJoin('initiatives', 'initiatives.id', '=', 'measures.initiative_id')
                 ->leftJoin('objectives', 'objectives.id', '=', 'initiatives.objective_id')

@@ -11,6 +11,23 @@
 |
 */
 
+//API
+Route::group(['prefix' => 'api'], function()
+{
+    // plans resources
+	Route::resource('plans','Api\PlanController');
+
+	// dimensions resources
+	Route::resource('dimensions','Api\DimensionController');
+	// objectives resources
+	Route::resource('objectives','Api\ObjectiveController');
+	// initiatives resources
+	Route::resource('initiatives','Api\InitiativeController');
+	// measures resources
+	Route::resource('measures','Api\MeasureController');
+});
+
+
 // plans resources
 Route::resource('plans','PlanController');
 
