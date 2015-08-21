@@ -9,21 +9,20 @@
 
         <div class="maincontent">
         	<div class="contentinner">
-                 @include('application._change_plan')    
+                 @include('application._change_plan')
 
             	<h4 class="widgettitle"> {{{ $controller_heading or '' }}} <a href="{{url('/'.$controller_name.'/create')}}">Add new</a></h4>
             	<table class="table table-bordered" id="index_1">
                     <colgroup>
                         <col class="con0" />
                         <col class="con1" />
-                        <col class="con0" style="align: center; width: 30%" />
                         <col class="con0" />
+                        <col class="con1" style="align: center; width: 30%"/>
                     </colgroup>
                     <thead>
                         <tr>
                             <th class="head1">Name</th>
                             <th class="head1">Plan</th>
-                            <th class="head1">Description</th>
                              <th class="head1">AVERAGE %</th>
                             <th class="head1">Actions</th>
                         </tr>
@@ -32,7 +31,6 @@
                         <tr>
                             <th class="head1">Name</th>
                             <th class="head1">Plan</th>
-                            <th class="head1">Description</th>
                              <th class="head1">AVERAGE %</th>
                             <th class="head1">Actions</th>
                         </tr>

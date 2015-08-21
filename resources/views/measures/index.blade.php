@@ -9,15 +9,18 @@
 
         <div class="maincontent">
         	<div class="contentinner">
-              
-              @include('application._change_plan') 
+
+              @include('application._change_plan')
 
 
             	<h4 class="widgettitle"> {{{ $controller_heading or '' }}} <a href="{{url('/'.$controller_name.'/create'.'?plan_id='.$currentPlan->id.'&dimension_id='.$currentDimensionId.'&objective_id='.$currentObjectiveId)}}">Add new</a></h4>
             	<table class="table table-bordered" id="index_1">
                     <colgroup>
+                        <col class="con1"/>
                         <col class="con0" />
-                        <col class="con1" style="align: center; width: 20%" />
+                        <col class="con1"/>
+                        <col class="con0" />
+                        <col class="con1"/>
                         <col class="con0" />
                         <col class="con1" />
                         <col class="con0" />
@@ -27,7 +30,9 @@
                     <thead>
                         <tr>
                             <th class="head1">Name</th>
-                            <th class="head1">Description</th>
+                            <th class="head1">Plan</th>
+                            <th class="head1">Dimension</th>
+                            <th class="head1">Objective</th>
                             <th class="head1">Initiative</th>
                             <th class="head1">Target</th>
                             <th class="head1">Actual</th>
@@ -39,7 +44,9 @@
                     <tfoot>
                         <tr>
                             <th class="head1">Name</th>
-                            <th class="head1">Description</th>
+                            <th class="head1">Plan</th>
+                            <th class="head1">Dimension</th>
+                            <th class="head1">Objective</th>
                             <th class="head1">Initiative</th>
                             <th class="head1">Target</th>
                             <th class="head1">Actual</th>
@@ -51,7 +58,9 @@
                     	@foreach ($list as $row)
                      	   <tr class="gradeX">
                      	       <td>{{ $row->name }}</td>
-                     	       <td>{{ $row->description }}</td>
+                             <td>{{ $row->initiative->objective->dimension->plan->name }}</td>
+                             <td>{{ $row->initiative->objective->dimension->name }}</td>
+                              <td>{{ $row->initiative->objective->name }}</td>
                               <td>{{ $row->initiative->name }}</td>
                               <td>{{ $row->target }}</td>
                               <td>{{ $row->actual }}</td>
