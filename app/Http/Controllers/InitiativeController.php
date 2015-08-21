@@ -59,7 +59,7 @@ class InitiativeController extends Controller {
                                         ->where('status', 0)
                                         ->orderBy('name')
                                         ->get()
-                                        ->first();  
+                                        ->first();
         }
 
 
@@ -70,7 +70,7 @@ class InitiativeController extends Controller {
                                         ->orderBy('dimensions.name')
                                         ->select('dimensions.*')
                                         ->lists('dimensions.name', 'dimensions.id');
-        
+
         $this->viewData['currentDimension'] = NULL;
         if(!empty($_GET['dimension_id'])){
             $this->viewData['currentDimension'] = Dimension::find($_GET['dimension_id']);
@@ -112,7 +112,7 @@ class InitiativeController extends Controller {
                 ->where('plans.id', '=', $this->viewData['currentPlan']->id)
                 ->select('initiatives.*')
                 ->get();
-                
+
         foreach ($list as $row) {
 
             //get measures related to initiative
@@ -175,7 +175,7 @@ class InitiativeController extends Controller {
 
         $this->viewData['initiative'] = $row;
 
-        self::populateInitiativeTabular($id);
+        self::populateInitiativeTabularAndGraph($id);
 
         return view($this->controller.'.show',compact('row'), $this->viewData);
     }
@@ -231,7 +231,7 @@ class InitiativeController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    private function populateInitiativeTabular($initiative_id){
+    private function populateInitiativeTabularAndGraph($initiative_id){
 
         $list = _MODEL::leftJoin('objectives', 'objectives.id', '=', 'initiatives.objective_id')
              ->leftJoin('dimensions', 'dimensions.id', '=', 'objectives.dimension_id')
@@ -239,18 +239,22 @@ class InitiativeController extends Controller {
              ->where('initiatives.id', '=', (int) $initiative_id)
              ->select('initiatives.*')
              ->get();
-           
+        $this->viewData['graphData'] = [];
+        $this->viewData['graphData']['title'] = "BSC Report - Dimension: ".$list[0]->name;
+        $this->viewData['graphData']['subtitle'] = "Report for ".$list[0]->name."'s measures";
+        $this->viewData['graphData']['data'] = [];
+
                 $initiative_AVERAGE = 0;
                 $initiative_count = 0;
-                foreach ($list as $initiative) 
+                foreach ($list as $initiative)
                 {
                     // get measures related to initiative
                     $measures = $initiative->measures;
                     $measure_count = 0;
                     $percent = 0;
-                    foreach ($measures as $measure) 
+                    foreach ($measures as $measure)
                     {
-                        
+
                         $measure->percent = 0;
 
                         $measure->actual = ActualMeasure::where('actual_measures.measure_id', '=', (int) $measure->id)->sum('actual_measures.actual_measure');
@@ -260,6 +264,13 @@ class InitiativeController extends Controller {
                             $measure->AVERAGE = (($measure->actual / $measure->target) * 100);
                         }
                         $measure_count++;
+
+                        // graph data
+
+                        $newNode = [];
+                        $newNode[] = $measure->name;
+                        $newNode[] = (float) number_format((float)$measure->AVERAGE, 2, '.', '');;
+                        $this->viewData['graphData']['data'][] = $newNode;
                     }
                     $initiative->measures  = $measures;
                     //end measures
@@ -267,15 +278,15 @@ class InitiativeController extends Controller {
                         $initiative_AVERAGE+=$percent / $measure_count;
                         $initiative->AVERAGE = $percent / $measure_count;
                     }
- 
+
                     $initiative_count++;
                 }
-                
-             
-           
-            
+
+
+
+
 
           $this->viewData['initiatives'] = $list;;
-
-    } 
+          $this->viewData['graph'] = json_encode($this->viewData['graphData']);
+    }
 }

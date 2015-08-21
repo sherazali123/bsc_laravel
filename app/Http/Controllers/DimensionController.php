@@ -50,7 +50,7 @@ class DimensionController extends Controller
 
         $this->viewData['currentPlan'] = NULL;
         if(!empty($this->viewData['plans'])){
-          $this->viewData['currentPlan'] = Plan::where('user_id', $this->viewData['user_id'])->where('status', 0)->orderBy('name')->get()->first();  
+          $this->viewData['currentPlan'] = Plan::where('user_id', $this->viewData['user_id'])->where('status', 0)->orderBy('name')->get()->first();
         }
 
        $this->viewData['breadcrumb'] = array(
@@ -79,7 +79,7 @@ class DimensionController extends Controller
                 ->select('dimensions.*')
                 ->get();
 
-        
+
            foreach ($list as $row) {
             $row->AVERAGE = 0;
             // get objectives list related to dimension
@@ -88,9 +88,9 @@ class DimensionController extends Controller
                     ->get();
             $objective_AVERAGE = 0;
             $objective_count = 0;
-            
+
              foreach ($objectives as $objective) {
-                 
+
                  //get initiatives related to objective
                  $initiatives = Initiative::where('initiatives.objective_id', '=', (int) $objective->id)
                     ->select('*')
@@ -98,7 +98,7 @@ class DimensionController extends Controller
             $initiative_AVERAGE = 0;
             $initiative_count = 0;
             foreach ($initiatives as $initiative) {
-                
+
                 //get measures related to initiative
                 $measures = Measure::where('measures.initiative_id', '=', (int) $initiative->id)
                         ->select('*')
@@ -120,10 +120,10 @@ class DimensionController extends Controller
             //end initiative
                 if ($initiative_count != 0)
                 $objective_AVERAGE+= $initiative_AVERAGE / $initiative_count;
-                 
+
             $objective_count++;
              }
-             
+
             if ($objective_count != 0)
                 $row->AVERAGE= $objective_AVERAGE / $objective_count;
 
@@ -175,7 +175,9 @@ class DimensionController extends Controller
 
         $this->viewData['dimension'] = $row;
 
-        self::populateDimensionTabular($id);
+        self::populateDimensionTabularAndGraph($id);
+
+
 
         return view($this->controller.'.show',compact('row'), $this->viewData);
     }
@@ -235,35 +237,41 @@ class DimensionController extends Controller
      * @param  int  $id
      * @return Response
      */
-    private function populateDimensionTabular($dimension_id){
+    private function populateDimensionTabularAndGraph($dimension_id){
 
         $list = _MODEL::leftJoin('plans', 'plans.id', '=', 'dimensions.plan_id')
              ->where('dimensions.id', '=', (int) $dimension_id)
              ->select('dimensions.*')
              ->get();
+
+        $this->viewData['graphData'] = [];
+        $this->viewData['graphData']['title'] = "BSC Report - Dimension: ".$list[0]->name;
+        $this->viewData['graphData']['subtitle'] = "Report for ".$list[0]->name."'s objectives";
+        $this->viewData['graphData']['data'] = [];
+
         foreach ($list as $row) {
             $row->AVERAGE = 0;
             // get objectives list related to dimension
             $objectives = $row->objectives;
             $objective_AVERAGE = 0;
             $objective_count = 0;
-            
-             foreach ($objectives as $objective) 
+
+             foreach ($objectives as $objective)
              {
-                $objective->AVERAGE = 0; 
+                $objective->AVERAGE = 0;
                  //get initiatives related to objective
                  $initiatives = $objective->initiatives;
                 $initiative_AVERAGE = 0;
                 $initiative_count = 0;
-                foreach ($initiatives as $initiative) 
+                foreach ($initiatives as $initiative)
                 {
                     // get measures related to initiative
                     $measures = $initiative->measures;
                     $measure_count = 0;
                     $percent = 0;
-                    foreach ($measures as $measure) 
+                    foreach ($measures as $measure)
                     {
-                        
+
                         $measure->percent = 0;
 
                         $measure->actual = ActualMeasure::where('actual_measures.measure_id', '=', (int) $measure->id)->sum('actual_measures.actual_measure');
@@ -280,7 +288,7 @@ class DimensionController extends Controller
                         $initiative_AVERAGE+=$percent / $measure_count;
                         $initiative->AVERAGE = $percent / $measure_count;;
                     }
- 
+
                     $initiative_count++;
                 }
                 // $objective->initiatives = $initiatives;
@@ -289,10 +297,17 @@ class DimensionController extends Controller
                     $objective_AVERAGE+= $initiative_AVERAGE / $initiative_count;
                     $objective->AVERAGE = $initiative_AVERAGE / $initiative_count;
                 }
-                 
+
                 $objective_count++;
+
+                // graph data
+
+                $newNode = [];
+                $newNode[] = $objective->name;
+                $newNode[] = (float) number_format((float)$objective->AVERAGE, 2, '.', '');;
+                $this->viewData['graphData']['data'][] = $newNode;
              }
-             
+
              // $row->objectives = $objectives;
 
             if ($objective_count != 0){
@@ -300,9 +315,13 @@ class DimensionController extends Controller
             }
 
            }
-            
 
-          $this->viewData['plan_dimensions'] = $list;;
 
-    } 
+          $this->viewData['plan_dimensions'] = $list;
+
+          $this->viewData['graph'] = json_encode($this->viewData['graphData']);
+
+           // echo '<pre>';print_r($this->viewData['graphData']);die;print_r($this->viewData['plan_dimensions'][0]->objectives);
+
+    }
 }

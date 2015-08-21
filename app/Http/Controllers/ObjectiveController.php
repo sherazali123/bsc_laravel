@@ -34,7 +34,7 @@ class ObjectiveController extends Controller {
      * @return void
      */
     public function __construct() {
-        
+
         $this->middleware('auth');
 
 
@@ -60,7 +60,7 @@ class ObjectiveController extends Controller {
                                         ->where('status', 0)
                                         ->orderBy('name')
                                         ->get()
-                                        ->first();  
+                                        ->first();
         }
 
 
@@ -92,7 +92,7 @@ class ObjectiveController extends Controller {
                 ->where('plans.id', '=', $this->viewData['currentPlan']->id)
                 ->select('objectives.*')
                 ->get();
-                
+
         foreach ($list as $row) {
             $row->AVERAGE = 0;
             //get initiatives related to objective
@@ -168,7 +168,7 @@ class ObjectiveController extends Controller {
 
         $this->viewData['objective'] = $row;
 
-        self::populateObjectiveTabular($id);
+        self::populateObjectiveTabularAndGraph($id);
 
         return view($this->controller.'.show',compact('row'), $this->viewData);
 
@@ -225,31 +225,36 @@ class ObjectiveController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    private function populateObjectiveTabular($objective_id){
+    private function populateObjectiveTabularAndGraph($objective_id){
 
         $list = _MODEL::leftJoin('dimensions', 'dimensions.id', '=', 'objectives.dimension_id')
              ->leftJoin('plans', 'plans.id', '=', 'dimensions.plan_id')
              ->where('objectives.id', '=', (int) $objective_id)
              ->select('objectives.*')
              ->get();
-            
+
+        $this->viewData['graphData'] = [];
+        $this->viewData['graphData']['title'] = "BSC Report - Objective: ".$list[0]->name;
+        $this->viewData['graphData']['subtitle'] = "Report for ".$list[0]->name."'s intiatives";
+        $this->viewData['graphData']['data'] = [];
+
              $objective_count = 0;
-             foreach ($list as $objective) 
+             foreach ($list as $objective)
              {
-                $objective->AVERAGE = 0; 
+                $objective->AVERAGE = 0;
                  //get initiatives related to objective
                  $initiatives = $objective->initiatives;
                 $initiative_AVERAGE = 0;
                 $initiative_count = 0;
-                foreach ($initiatives as $initiative) 
+                foreach ($initiatives as $initiative)
                 {
                     // get measures related to initiative
                     $measures = $initiative->measures;
                     $measure_count = 0;
                     $percent = 0;
-                    foreach ($measures as $measure) 
+                    foreach ($measures as $measure)
                     {
-                        
+
                         $measure->percent = 0;
 
                         $measure->actual = ActualMeasure::where('actual_measures.measure_id', '=', (int) $measure->id)->sum('actual_measures.actual_measure');
@@ -266,22 +271,29 @@ class ObjectiveController extends Controller {
                         $initiative_AVERAGE+=$percent / $measure_count;
                         $initiative->AVERAGE = $percent / $measure_count;
                     }
- 
+
                     $initiative_count++;
+
+                    // graph data
+
+                    $newNode = [];
+                    $newNode[] = $initiative->name;
+                    $newNode[] = (float) number_format((float)$initiative->AVERAGE, 2, '.', '');;
+                    $this->viewData['graphData']['data'][] = $newNode;
                 }
                 // $objective->initiatives = $initiatives;
                 //end initiative
                 if ($initiative_count != 0){
                     $objective->AVERAGE += $initiative_AVERAGE / $initiative_count;
                 }
-                 
+
                 $objective_count++;
              }
-             
-           
-            
+
+
+
 
           $this->viewData['objectives'] = $list;;
-
-    } 
+          $this->viewData['graph'] = json_encode($this->viewData['graphData']);
+    }
 }
