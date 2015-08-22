@@ -6,13 +6,10 @@
                   <td class="width30">Measure:</td>
                   <td class="width70"><strong>{{ $measure->name }}</strong></td>
               </tr>
-              <tr>
-                <td>Description:</td>
-                <td>{{ $measure->description }}</td>
-            </tr>
+             
                 <tr>
                   <td>Target:</td>
-                  <td>{{ $measure->target }}</td>
+                  <td>{{ round($measure->target,1) }}</td>
               </tr>
         
           </tbody></table>

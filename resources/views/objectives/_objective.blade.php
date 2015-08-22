@@ -29,7 +29,7 @@
 		                	   <td>{{ $objective->name }}</td>
 		                	   <td style="  text-align: right;"></td>
 		                	   <td style="  text-align: right;"></td>
-		                	   <td style="  text-align: right;">{{ round($objective->AVERAGE, 2) }}%</td>
+		                	   <td style="  text-align: right;">{{ round($objective->AVERAGE, 1) }}%</td>
 		                	</tr>
 		                	<?php $iInitiative = 0; ?>
 		                	 @foreach ($objective->initiatives as $initiative)
@@ -39,7 +39,7 @@
                                                    <td><a href="{{url('/initiatives/'.$initiative->id)}}" style="color: #fff; text-decoration: underline;">{{ $initiative->name }}</a></td>
 			                	   <td style="  text-align: right;"></td>
 			                	   <td style="  text-align: right;"></td>
-			                	   <td style="  text-align: right;">{{ round($initiative->AVERAGE, 2) }}%</td>
+			                	   <td style="  text-align: right;">{{ round($initiative->AVERAGE, 1) }}%</td>
 			                	</tr>
 			                	<?php $iMeasure = 0; ?>
 			                	 @foreach ($initiative->measures as $measure)
@@ -49,7 +49,7 @@
 				                	   <td>{{ $measure->name }}</td>
 				                	   <td style="  text-align: right;">{{ $measure->target }}</td>
 				                	   <td style="  text-align: right;">{{ $measure->actual }}</td>
-				                	   <td style="  text-align: right;">{{ round($measure->AVERAGE, 2) }}%</td>
+				                	   <td style="  text-align: right;">{{ round($measure->AVERAGE, 1) }}%</td>
 				                	</tr>
 
 

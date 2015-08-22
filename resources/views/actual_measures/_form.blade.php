@@ -7,7 +7,7 @@
 <p>
     {!! Form::label('Actual Measure', 'Actual Measure:') !!}
     <span class="field">
-        {!! Form::text('actual_measure',null,['class'=>'input-xxlarge', 'placeholder' => '0.00']) !!}
+        {!! Form::text('actual_measure',null,['class'=>'input-xxlarge', 'placeholder' => '0.0']) !!}
     </span>
 </p>
 

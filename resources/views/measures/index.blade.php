@@ -52,7 +52,7 @@
                               <td>{{ $row->initiative->name }}</td>
                               <td>{{ $row->target }}</td>
                               <td>{{ $row->actual }}</td>
-                              <td>{{ round($row->percent,2) }}%</td>
+                              <td>{{ round($row->percent,1) }}%</td>
                      	       <td>
                                 <a href="{{ URL::to('/measures/'.$row->id.'/actual_measures'.'?plan_id='.$row->initiative->objective->dimension->plan->id.'&dimension_id='.$row->initiative->objective->dimension->id.'&objective_id='.$row->initiative->objective->id) }}" class="btn  btn-primary" style="float: left;">Actual Measures</a>
                      	       		<a href="{{route($controller_name.'.edit',$row->id).'?plan_id='.$row->initiative->objective->dimension->plan->id.'&dimension_id='.$row->initiative->objective->dimension->id.'&objective_id='.$row->initiative->objective->id}}" class="btn" style="float: left;">Edit</a>

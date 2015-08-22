@@ -251,18 +251,18 @@ class ActualMeasureController extends Controller
           $graph['splineData'] = [];
           $total_actuals=0;
           foreach ($list as $key => $value) {
-              $actual = is_null($value->actual_measure) ? 0.00 : (float) $value->actual_measure;
+              $actual = is_null($value->actual_measure) ? 0.0 : (float) $value->actual_measure;
               $total_actuals += $actual;
-              array_push($graph['columnData'], $total_actuals);
-              array_push($graph['splineData'], $actual);
+              array_push($graph['columnData'], round($total_actuals, 1));
+              array_push($graph['splineData'], round($actual,1));
           }
           $graph['targetName'] = "Target";
           $graph['targetValueSuffix'] = " ";
           $graph['targetData'] = [];
           for($i=1; $i<=12; $i++){
-           array_push($graph['targetData'], $this->viewData['measure']->target);
+           array_push($graph['targetData'], round($this->viewData['measure']->target, 1));
           }
-          print_r($graph['targetData']);
+        
           $this->viewData['graph'] = json_encode($graph);
     }
 
