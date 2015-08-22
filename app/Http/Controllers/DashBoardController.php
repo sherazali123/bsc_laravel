@@ -70,15 +70,36 @@ class DashBoardController extends Controller {
           $count=count($dimensions);
          
            foreach ($dimensions as $dimension){
-          $dimension['name']=$dimension->name;
-          $dimension_av= $this->getAverageDimension($dimension);
-          $dimension['y']=100/$count;
+               
+           $dimension_av= $this->getAverageDimension($dimension);
+          $dimension['yy']=100/$count;
+          $per_percent= 100/$dimension['yy'];
+          /*drilldown*/
+          $drilldown=array(
+              "name"=>'<i style="color:green;font-size:10px">'.$dimension->name.' actual</i>',
+              'color'=>'white',
+              "y"=>($dimension_av->AVERAGE/$per_percent),
+              "yy"=>($dimension_av->AVERAGE/$per_percent),
+              "AVERAGE"=>$dimension_av->AVERAGE,
+              "link"=>url('/dimensions/'.$dimension->id)
+          );
+          array_push($graph[$index]['columnData'], $drilldown);
+          $dimension['y']=$dimension['yy']-($dimension_av->AVERAGE/$per_percent);
+          $dimension['name']=$dimension->name.' target';
           $dimension['AVERAGE']=$dimension_av->AVERAGE;
           $dimension['link']= url('/dimensions/'.$dimension->id);
+          
           array_push($graph[$index]['columnData'], $dimension);
-         
+
             }
-         /* $total_achived=$to_achived_plan/$to_achived_plan_count;
+         /* 
+          *  drilldown: {
+                name: 'MSIE versions',
+                categories: ['MSIE 6.0', 'MSIE 7.0', 'MSIE 8.0', 'MSIE 9.0', 'MSIE 10.0', 'MSIE 11.0'],
+                data: [1.06, 0.5, 17.2, 8.11, 5.33, 24.13],
+                color: colors[0]
+            }
+          * $total_achived=$to_achived_plan/$to_achived_plan_count;
           $dimension2['name']='<span style="color:red;">Need to be achive plan</span>';
           $dimension2['y']=100-$total_achived;
           $dimension2['AVERAGE']=100-$total_achived;;

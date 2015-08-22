@@ -246,6 +246,7 @@ class ObjectiveController extends Controller {
                  $initiatives = $objective->initiatives;
                 $initiative_AVERAGE = 0;
                 $initiative_count = 0;
+                $total_initiatives=0;
                 foreach ($initiatives as $initiative)
                 {
                     // get measures related to initiative
@@ -278,7 +279,9 @@ class ObjectiveController extends Controller {
 
                     $newNode = [];
                     $newNode[] = $initiative->name;
-                    $newNode[] = (float) number_format((float)$initiative->AVERAGE, 2, '.', '');;
+                    $newNode[] = (float) number_format((float)$initiative->AVERAGE, 2, '.', '');
+                    $total_initiatives += (float) number_format((float)$initiative->AVERAGE, 2, '.', '');
+                    $this->viewData['graphData']['Totaldata'][] = ($total_initiatives);
                     $this->viewData['graphData']['data'][] = $newNode;
                 }
                 // $objective->initiatives = $initiatives;

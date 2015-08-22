@@ -36,7 +36,7 @@
 		                	 	<?php $iInitiative++; ?>
 		                	 	<tr class="ini_row">
 			                	   <td>Initiative {{ $iInitiative }}</td>
-			                	   <td>{{ $initiative->name }}</td>
+                                                   <td><a href="{{url('/initiatives/'.$initiative->id)}}" style="color: #fff; text-decoration: underline;">{{ $initiative->name }}</a></td>
 			                	   <td style="  text-align: right;"></td>
 			                	   <td style="  text-align: right;"></td>
 			                	   <td style="  text-align: right;">{{ $initiative->AVERAGE }}%</td>

@@ -255,7 +255,7 @@ class DimensionController extends Controller
             $objectives = $row->objectives;
             $objective_AVERAGE = 0;
             $objective_count = 0;
-
+            $total_bojectives=0;
              foreach ($objectives as $objective)
              {
                 $objective->AVERAGE = 0;
@@ -263,6 +263,7 @@ class DimensionController extends Controller
                  $initiatives = $objective->initiatives;
                 $initiative_AVERAGE = 0;
                 $initiative_count = 0;
+                
                 foreach ($initiatives as $initiative)
                 {
                     // get measures related to initiative
@@ -304,8 +305,11 @@ class DimensionController extends Controller
 
                 $newNode = [];
                 $newNode[] = $objective->name;
-                $newNode[] = (float) number_format((float)$objective->AVERAGE, 2, '.', '');;
+                $newNode[] = (float) number_format((float)$objective->AVERAGE, 2, '.', '');
+                $total_bojectives += (float) number_format((float)$objective->AVERAGE, 2, '.', '');
                 $this->viewData['graphData']['data'][] = $newNode;
+                $this->viewData['graphData']['Totaldata'][] = $total_bojectives;
+                $this->viewData['graphData']['links'][$objective->name] = url('/objectives/'.$objective->id);
              }
 
              // $row->objectives = $objectives;

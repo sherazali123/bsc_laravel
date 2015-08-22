@@ -41,7 +41,7 @@
 	                	 	<?php $iObjective++; ?>
                                  <tr class="obj_row">
                                      <td><a style=" margin: 3px; margin-left: 10px padding:2px; padding-left: 4px; padding-right: 4px;color:#FFF; font-size: 20; border: 1px solid #FFF; text-decoration: none;"href="javascript:void()" rel="obj-{{ $iObjective }}">+</a>Objective {{ $iObjective }}</td>
-		                	   <td>{{ $objective->name }}</td>
+                                     <td><a href="{{url('/objectives/'.$objective->id)}}" style="color: #fff; text-decoration: underline;">{{ $objective->name }}</a></td>
 		                	   <td style="  text-align: right;"></td>
 		                	   <td style="  text-align: right;"></td>
 		                	   <td style="  text-align: right;">{{ round($objective->AVERAGE, 2) }}%</td>

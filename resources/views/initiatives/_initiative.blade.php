@@ -35,7 +35,7 @@
 			                	 	<?php $iMeasure++; ?>
 			                	 	<tr class="mea_row">
 				                	   <td>Measure {{ $iMeasure }}</td>
-				                	   <td>{{ $measure->name }}</td>
+                                                           <td><a href="{{url('/measures/'.$measure->id.'/actual_measures')}}" style="color: #666; text-decoration: underline;">{{ $measure->name }}</a></td>
 				                	   <td style="  text-align: right;">{{ $measure->target }}</td>
 				                	   <td style="  text-align: right;">{{ $measure->actual }}</td>
 				                	   <td style="  text-align: right;">{{ $measure->AVERAGE }}%</td>

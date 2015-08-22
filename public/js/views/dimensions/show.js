@@ -64,7 +64,7 @@ jQuery(document).ready(function() {
             pointFormat: 'Percentage: <b>{point.y:.1f} %</b>'
         },
         series: [{
-            name: 'Objectives',
+            name: 'Per Objective',
             data: graphData.data,
             dataLabels: {
                 enabled: true,
@@ -77,8 +77,27 @@ jQuery(document).ready(function() {
                     fontSize: '13px',
                     fontFamily: 'Verdana, sans-serif'
                 }
+            },
+            point: {
+                    events: {
+                        'click': function () {
+                            if (this.series.data.length > 1) {
+                              
+                                location.href=graphData.links[this.options.name];
+                            }
+                        }                        
+                    }
+                }
+        }/*,
+          {
+            name: 'Total Objectives',
+            type: 'line',
+            data: graphData.Totaldata,
+            tooltip: {
+                valueSuffix:''
             }
-        }]
+        }*/
+       ]
 });
     }
 

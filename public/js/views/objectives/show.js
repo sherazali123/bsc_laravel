@@ -38,7 +38,7 @@ jQuery(document).ready(function() {
             pointFormat: 'Percentage: <b>{point.y:.1f} %</b>'
         },
         series: [{
-            name: 'Intiatives',
+            name: 'Per Intiative',
             data: graphData.data,
             dataLabels: {
                 enabled: true,
@@ -52,7 +52,15 @@ jQuery(document).ready(function() {
                     fontFamily: 'Verdana, sans-serif'
                 }
             }
-        }]
+        }/*,
+          {
+            name: 'Total Intiatives',
+            type: 'line',
+            data: graphData.Totaldata,
+            tooltip: {
+                valueSuffix:''
+            }
+        }*/]
 });
     }
 
