@@ -44,7 +44,8 @@ jQuery(document).ready(function() {
                         color: Highcharts.getOptions().colors[1]
                     }
                 },
-                min: 0
+                min: 0,
+                max:graphData.targetData[0]+5
             }, {// Secondary yAxis
                 title: {
                     text: graphData.columnName,
