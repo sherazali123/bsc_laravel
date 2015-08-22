@@ -49,7 +49,7 @@
 				                	   <td>{{ $measure->name }}</td>
 				                	   <td style="  text-align: right;">{{ $measure->target }}</td>
 				                	   <td style="  text-align: right;">{{ $measure->actual }}</td>
-				                	   <td style="  text-align: right;">{{ $measure->AVERAGE }}%</td>
+				                	   <td style="  text-align: right;">{{ round($measure->AVERAGE, 2) }}%</td>
 				                	</tr>
 
 

@@ -28,7 +28,7 @@
 			                	   <td>{{ $initiative->name }}</td>
 			                	   <td style="  text-align: right;"></td>
 			                	   <td style="  text-align: right;"></td>
-			                	   <td style="  text-align: right;">{{ $initiative->AVERAGE }}%</td>
+			                	   <td style="  text-align: right;">{{ round($initiative->AVERAGE, 2) }}%</td>
 			                	</tr>
 			                	<?php $iMeasure = 0; ?>
 			                	 @foreach ($initiative->measures as $measure)
@@ -38,7 +38,7 @@
                                                            <td><a href="{{url('/measures/'.$measure->id.'/actual_measures')}}" style="color: #666; text-decoration: underline;">{{ $measure->name }}</a></td>
 				                	   <td style="  text-align: right;">{{ $measure->target }}</td>
 				                	   <td style="  text-align: right;">{{ $measure->actual }}</td>
-				                	   <td style="  text-align: right;">{{ $measure->AVERAGE }}%</td>
+				                	   <td style="  text-align: right;">{{ round($measure->AVERAGE, 2) }}%</td>
 				                	</tr>
 
 
