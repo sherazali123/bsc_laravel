@@ -6,12 +6,6 @@
     </span>
 </p>
 <p>
-    {!! Form::label('description', 'Name:') !!}
-    <span class="field">
-        {!! Form::textarea('description',null,['class'=>'span6', 'placeholder' => 'Description']) !!}
-    </span>
-</p>
-<p>
     {!! Form::label('Period', 'Period:') !!}
     <span class="field">
          {!! Form::select('period', $periods, null, ['class' => 'form-control']) !!}

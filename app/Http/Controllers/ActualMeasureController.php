@@ -240,13 +240,13 @@ class ActualMeasureController extends Controller
           // var_dump($list);die;
 
           $graph['title'] = "BSC Report: ".$measure->name;
-          $graph['subtitle'] = "Per month actual and total actuals";
+          $graph['subtitle'] = "Monthly and Cumulative";
           
-          $graph['columnName'] = "Total actuals";
+          $graph['columnName'] = "Cumulative";
           $graph['columnValueSuffix'] = " ";
           $graph['columnData'] = [];
           
-          $graph['splineName'] = "Per month actual";
+          $graph['splineName'] = "Monthly";
           $graph['splineValueSuffix'] = " ";
           $graph['splineData'] = [];
           $total_actuals=0;
@@ -256,8 +256,13 @@ class ActualMeasureController extends Controller
               array_push($graph['columnData'], $total_actuals);
               array_push($graph['splineData'], $actual);
           }
-
-
+          $graph['targetName'] = "Target";
+          $graph['targetValueSuffix'] = " ";
+          $graph['targetData'] = [];
+          for($i=1; $i<=12; $i++){
+           array_push($graph['targetData'], $this->viewData['measure']->target);
+          }
+          
           $this->viewData['graph'] = json_encode($graph);
     }
 

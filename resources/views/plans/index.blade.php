@@ -23,34 +23,18 @@
                     <thead>
                         <tr>
                             <th class="head1">Name</th>
-                            <th class="head1">Description</th>
                             <th class="head1">Period</th>
                             <th class="head1">Starting date</th>
                             <th class="head1">Ending date</th>
                             <th class="head1">Actions</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th class="head1">Name</th>
-                            <th class="head1">Description</th>
-                            <th class="head1">Period</th>
-                            <th class="head1">Starting date</th>
-                            <th class="head1">Ending date</th>
-                            <th class="head1">Actions</th>
-                        </tr>
-                    </tfoot>
+                    
                     <tbody>
                     	@foreach ($list as $row)
                      	   <tr class="gradeX">
                      	       <td>{{ $row->name }}</td>
-                     	       <td>
-                                    @if (strlen($row->description) > 30)
-                                        {{ substr($row->description, 0 ,27).'...' }}
-                                    @else
-                                        {{ $row->description }}
-                                    @endif
-                               </td>
+                     	       
                                 <td>{{ $periods[$row->period] }}</td>
                                 <td>{{ Carbon\Carbon::createFromFormat('Y-m-d', $row->starting_date)->format('M j, Y') }}</td>
                                 <td>{{ Carbon\Carbon::createFromFormat('Y-m-d', $row->ending_date)->format('M j, Y') }}</td>

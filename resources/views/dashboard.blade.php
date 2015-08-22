@@ -2,6 +2,8 @@
  
 @section('custom_assets')
       {!!HTML::script('/js/highchart.js')!!}
+      {!!HTML::script('/js/highcharts-more.js')!!}
+      {!!HTML::script('/js/exporting.js')!!}
 @endsection
 
 @section('main')
@@ -33,6 +35,7 @@
                         
                         <h4 class="widgettitle">{{ $row->name }}</h4>
                         <div class="widgetcontent">
+                            
                          <div id="container-{{ $row->id }}" style="margin: 0 auto"></div>
                         </div><!--widgetcontent-->
                     </div>

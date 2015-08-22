@@ -37,12 +37,12 @@
     </span>
 </p>
 
-<p>
+<!--<p>
     {!! Form::label('Description', 'Description:') !!}
     <span class="field">
         {!! Form::textarea('description',null,['class'=>'span6', 'placeholder' => 'Description']) !!}
     </span>
-</p>
+</p>-->
 <div class="form-group">
     {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
 </div>

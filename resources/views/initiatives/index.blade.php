@@ -31,16 +31,7 @@
                             <th class="head1">Actions</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th class="head1">Name</th>
-                            <th class="head1">Plan</th>
-                            <th class="head1">Dimension</th>
-                            <th class="head1">Objective</th>
-                            <th class="head1">AVERAGE %</th>
-                            <th class="head1">Actions</th>
-                        </tr>
-                    </tfoot>
+
                     <tbody>
                     	@foreach ($list as $row)
                      	   <tr class="gradeX">

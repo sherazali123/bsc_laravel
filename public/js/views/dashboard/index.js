@@ -1,9 +1,9 @@
 jQuery.noConflict();
 
-jQuery(document).ready(function(){
+jQuery(document).ready(function() {
 
     // Radialize the colors
-    Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
+    Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function(color) {
         return {
             radialGradient: {
                 cx: 0.5,
@@ -19,69 +19,59 @@ jQuery(document).ready(function(){
 
     // Build the chart
     jQuery.each(graphData, function(idx, obj) {
-      
-    jQuery('#container-'+obj.id).highcharts({
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie',
-            events:{
-                 load: onChartLoad
-            }
-        },
-        title: {
-            text: obj.title
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.AVERAGE:.1f}'+obj.columnValueSuffix+'</b>'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: false,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: {point.yy:.1f} '+obj.columnValueSuffix,
-                    style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                    },
-                    connectorColor: 'silver'
+        jQuery('#container-' + obj.id).highcharts({
+            chart: {
+                polar: true,
+                type: 'line'
+            },
+            title: {
+                text: obj.title,
+                x: 0,
+                style: {
+                    fontSize: "15px"
                 }
-                ,
-                size:130
-            }
-            ,
-             series: {
-                point: {
-                    events: {
-                        'click': function () {
-                            if (this.series.data.length > 1) {
-                                 location.href=this.link;
-                            }
-                        },
-                        'mouseOver':function () {
-                            if (this.series.data.length > 1) {
-                              if(this.link==='#')
-                              {
-                                  this.series.name="Remaining percentage";
-                              }
-                            
-                            }
-                        }
-                        
+
+            },
+            pane: {
+                size: '65%'
+            },
+            xAxis: {
+                categories:obj.categories,
+                labels: {
+                    formatter: function() {
+                        return '<a href="' + obj.categoryLinks[this.value] + '">' + this.value + '</a>';
                     }
-                }
-            }
-        },
-        series: [{
-            name: obj.SeriesName,
-            data: obj.columnData
-        }]
+                },
+                tickmarkPlacement: 'on',
+                lineWidth: 0
+            },
+            yAxis: {
+                gridLineInterpolation: 'polygon',
+                lineWidth: 0,
+                min: 0
+            },
+            tooltip: {
+                shared: true,
+                pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.0f}%</b><br/>'
+            },
+            legend: {
+                align: 'right',
+                verticalAlign: 'top',
+                y: 70,
+                layout: 'vertical'
+            },
+            series: [{
+                    name: 'Target',
+                    data: obj.Target,
+                    pointPlacement: 'on'
+                }, {
+                    name: 'Actual',
+                    data: obj.Actual,
+                    pointPlacement: 'on'
+                }]
+
+        });
     });
-    });
+    
 });
 
-function onChartLoad(){
-   
-}

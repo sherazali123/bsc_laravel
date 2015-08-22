@@ -60,51 +60,26 @@ class DashBoardController extends Controller {
           $graph[$index]['id']=$plan->id;
           $graph[$index]['title'] =$plan->name.' from '.date('F, Y',strtotime($plan->starting_date)).' to '.date('F, Y',  strtotime($plan->ending_date));
           $graph[$index]['SeriesName'] = "Average";
-          $graph[$index]['columnValueSuffix'] = " %";
-          $graph[$index]['columnData'] = [];
           $dimensions = Dimension::leftJoin('plans', 'plans.id', '=', 'dimensions.plan_id')
                 ->where('plans.user_id', '=', $this->viewData['user_id'])
                 ->where('plans.id', '=', $plan->id)
                 ->select('dimensions.*')
                 ->get();
           $count=count($dimensions);
+          $graph[$index]['columnValueSuffix'] = " %";
+          $graph[$index]['columnData'] = [];
          
            foreach ($dimensions as $dimension){
                
-           $dimension_av= $this->getAverageDimension($dimension);
-          $dimension['yy']=100/$count;
-          $per_percent= 100/$dimension['yy'];
-          /*drilldown*/
-          $drilldown=array(
-              "name"=>'<i style="color:green;font-size:10px">'.$dimension->name.' actual</i>',
-              'color'=>'white',
-              "y"=>($dimension_av->AVERAGE/$per_percent),
-              "yy"=>($dimension_av->AVERAGE/$per_percent),
-              "AVERAGE"=>$dimension_av->AVERAGE,
-              "link"=>url('/dimensions/'.$dimension->id)
-          );
-          array_push($graph[$index]['columnData'], $drilldown);
-          $dimension['y']=$dimension['yy']-($dimension_av->AVERAGE/$per_percent);
-          $dimension['name']=$dimension->name.' target';
-          $dimension['AVERAGE']=$dimension_av->AVERAGE;
-          $dimension['link']= url('/dimensions/'.$dimension->id);
+          $dimension_av= $this->getAverageDimension($dimension);
+          $graph[$index]['categories'][]=$dimension->name;
+          $graph[$index]['Target'][]=100;
+          $graph[$index]['Actual'][]=$dimension_av->AVERAGE;
+          $graph[$index]['categoryLinks'][$dimension->name]=url('/dimensions/'.$dimension->id);
           
-          array_push($graph[$index]['columnData'], $dimension);
+          //array_push($graph[$index]['categories'], $dimension->name);
 
             }
-         /* 
-          *  drilldown: {
-                name: 'MSIE versions',
-                categories: ['MSIE 6.0', 'MSIE 7.0', 'MSIE 8.0', 'MSIE 9.0', 'MSIE 10.0', 'MSIE 11.0'],
-                data: [1.06, 0.5, 17.2, 8.11, 5.33, 24.13],
-                color: colors[0]
-            }
-          * $total_achived=$to_achived_plan/$to_achived_plan_count;
-          $dimension2['name']='<span style="color:red;">Need to be achive plan</span>';
-          $dimension2['y']=100-$total_achived;
-          $dimension2['AVERAGE']=100-$total_achived;;
-          $dimension2['link']= '#';
-          array_push($graph[$index]['columnData'], $dimension2);*/
          $index++;
             }
           
