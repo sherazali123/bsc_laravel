@@ -43,7 +43,8 @@ jQuery(document).ready(function(){
                 style: {
                     color: Highcharts.getOptions().colors[1]
                 }
-            }
+            },
+            min: 0
         }, { // Secondary yAxis
             title: {
                 text: graphData.columnName,
@@ -62,7 +63,7 @@ jQuery(document).ready(function(){
         tooltip: {
             shared: true
         },
-        legend: {
+        /*legend: {
             layout: 'vertical',
             align: 'left',
             x: 120,
@@ -70,10 +71,10 @@ jQuery(document).ready(function(){
             y: 100,
             floating: true,
             backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
-        },
+        },*/
         series: [{
             name: graphData.columnName,
-            type: 'column',
+            type: 'line',
             // yAxis: 1,
             data:  graphData.columnData,
             tooltip: {

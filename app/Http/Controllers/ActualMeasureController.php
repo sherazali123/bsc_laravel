@@ -240,19 +240,20 @@ class ActualMeasureController extends Controller
           // var_dump($list);die;
 
           $graph['title'] = "BSC Report: ".$measure->name;
-          $graph['subtitle'] = "Comparison of actuals and targets";
+          $graph['subtitle'] = "Per month actual and total actuals";
           
-          $graph['columnName'] = "Target";
-          $graph['columnValueSuffix'] = " $";
+          $graph['columnName'] = "Total actuals";
+          $graph['columnValueSuffix'] = " ";
           $graph['columnData'] = [];
           
-          $graph['splineName'] = "Actual";
-          $graph['splineValueSuffix'] = " $";
+          $graph['splineName'] = "Per month actual";
+          $graph['splineValueSuffix'] = " ";
           $graph['splineData'] = [];
+          $total_actuals=0;
           foreach ($list as $key => $value) {
-              $target = is_null($value->target) ? 0.00 : (float) $value->target;
               $actual = is_null($value->actual_measure) ? 0.00 : (float) $value->actual_measure;
-              array_push($graph['columnData'], $target);
+              $total_actuals += $actual;
+              array_push($graph['columnData'], $total_actuals);
               array_push($graph['splineData'], $actual);
           }
 
