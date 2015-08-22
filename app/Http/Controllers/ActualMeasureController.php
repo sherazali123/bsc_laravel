@@ -262,7 +262,7 @@ class ActualMeasureController extends Controller
           for($i=1; $i<=12; $i++){
            array_push($graph['targetData'], $this->viewData['measure']->target);
           }
-          
+          print_r($graph['targetData']);
           $this->viewData['graph'] = json_encode($graph);
     }
 

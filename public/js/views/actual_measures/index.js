@@ -96,6 +96,9 @@ jQuery(document).ready(function() {
                 data: graphData.targetData,
                 tooltip: {
                     valueSuffix: graphData.targetValueSuffix
+                },
+                marker: {
+                    enabled: false
                 }
             }]
     });
