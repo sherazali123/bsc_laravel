@@ -44,7 +44,7 @@
                     	@foreach ($list as $row)
                      	   <tr class="gradeX">
                      	       <td>{{ $months[$row->month] }}</td>
-                     	       <td>{{ $row->actual_measure }}</td>
+                     	       <td>{{ round($row->actual_measure) }}</td>
                      	       <td>
                      	       		<a href="/measures/{{ $measure_id }}/actual_measures/{{ $row->id }}/edit" class="btn" style="float: left;">Edit</a>
                      	       		{!! Form::open(['method' => 'DELETE', 'route'=>['measures.actual_measures.destroy', $measure_id, $row->id]]) !!}

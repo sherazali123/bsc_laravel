@@ -47,8 +47,8 @@
 			                	 	<tr class="mea_row">
 				                	   <td>Measure {{ $iMeasure }}</td>
 				                	   <td>{{ $measure->name }}</td>
-				                	   <td style="  text-align: right;">{{ $measure->target }}</td>
-				                	   <td style="  text-align: right;">{{ $measure->actual }}</td>
+				                	   <td style="  text-align: right;">{{ round($measure->target) }}</td>
+				                	   <td style="  text-align: right;">{{ round($measure->actual) }}</td>
 				                	   <td style="  text-align: right;">{{ round($measure->AVERAGE, 1) }}%</td>
 				                	</tr>
 

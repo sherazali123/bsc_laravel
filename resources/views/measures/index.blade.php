@@ -50,8 +50,8 @@
                              <td>{{ $row->initiative->objective->dimension->name }}</td>
                               <td>{{ $row->initiative->objective->name }}</td>
                               <td>{{ $row->initiative->name }}</td>
-                              <td>{{ $row->target }}</td>
-                              <td>{{ $row->actual }}</td>
+                              <td>{{ round($row->target) }}</td>
+                              <td>{{ round($row->actual) }}</td>
                               <td>{{ round($row->percent,1) }}%</td>
                      	       <td>
                                 <a href="{{ URL::to('/measures/'.$row->id.'/actual_measures'.'?plan_id='.$row->initiative->objective->dimension->plan->id.'&dimension_id='.$row->initiative->objective->dimension->id.'&objective_id='.$row->initiative->objective->id) }}" class="btn  btn-primary" style="float: left;">Actual Measures</a>

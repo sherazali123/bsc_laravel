@@ -9,7 +9,7 @@
              
                 <tr>
                   <td>Target:</td>
-                  <td>{{ round($measure->target,1) }}</td>
+                  <td>{{ round($measure->target) }}</td>
               </tr>
         
           </tbody></table>
