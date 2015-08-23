@@ -48,7 +48,8 @@ jQuery(document).ready(function() {
             yAxis: {
                 gridLineInterpolation: 'polygon',
                 lineWidth: 0,
-                min: 0
+                min: 0,
+                max: 100
             },
             tooltip: {
                 shared: true,
