@@ -29,7 +29,7 @@
                     </colgroup>
                     <thead>
                         <tr>
-                            <th class="head1">Name</th>
+                            <th class="head1" style="width:80px !important">Name</th>
                             <th class="head1">Plan</th>
                             <th class="head1">Dimension</th>
                             <th class="head1">Objective</th>
@@ -37,7 +37,7 @@
                             <th class="head1">Target</th>
                             <th class="head1">Actual</th>
                             <th class="head1">%</th>
-                            <th class="head1">Actions</th>
+                            <th class="head1" style="width:150px!important">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
