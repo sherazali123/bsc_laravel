@@ -40,7 +40,7 @@
 	                	 @foreach ($dimension->objectives as $objective)
 	                	 	<?php $iObjective++; ?>
                                  <tr class="obj_row">
-                                     <td><a style=" margin: 3px; margin-left: 10px padding:2px; padding-left: 4px; padding-right: 4px;color:#FFF; font-size: 20; border: 1px solid #FFF; text-decoration: none;"href="javascript:void()" rel="obj-{{ $iObjective }}">+</a>Objective {{ $iObjective }}</td>
+                                     <td><a style=" margin: 3px; margin-left: 10px padding:2px; padding-left: 4px; padding-right: 4px;color:#FFF; font-size: 20; border: 1px solid #FFF; text-decoration: none;" href="javascript:void()" rel="{{ $iObjective }}">+</a>Objective {{ $iObjective }}</td>
                                      <td><a href="{{url('/objectives/'.$objective->id)}}" style="color: #fff; text-decoration: underline;">{{ $objective->name }}</a></td>
 		                	   <td style="  text-align: right;"></td>
 		                	   <td style="  text-align: right;"></td>
@@ -59,7 +59,7 @@
 			                	<?php $iMeasure = 0; ?>
 			                	 @foreach ($initiative->measures as $measure)
 			                	 	<?php $iMeasure++;  if(empty($measure->AVERAGE)) $measure->AVERAGE=0.0?>
-			                	 	<tr class="mea_row ini-{{$iInitiative }}" style="display: none;">
+			                	 	<tr class="mea_row ini-{{$iInitiative }} obj-{{ $iObjective }}" style="display: none;">
 				                	   <td>Measure {{ $iMeasure }}</td>
 				                	   <td>{{ $measure->name }}</td>
 				                	   <td style="  text-align: right;">{{ round($measure->target) }}</td>

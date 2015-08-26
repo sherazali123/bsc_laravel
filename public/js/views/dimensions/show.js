@@ -4,12 +4,13 @@ jQuery(document).ready(function() {
     jQuery('tr.obj_row a').on('click', function() {
         if (jQuery(this).hasClass('active'))
         {
-            jQuery('tr.' + jQuery(this).attr('rel')).hide();
+            jQuery('tr.obj-' + jQuery(this).attr('rel')+' a').html('+');
+            jQuery('tr.obj-' + jQuery(this).attr('rel')).hide();
             jQuery(this).html('+');
             jQuery(this).removeClass('active');
         }
         else {
-            jQuery('tr.' + jQuery(this).attr('rel')).show();
+            jQuery('tr.ini_row.obj-' + jQuery(this).attr('rel')).show();
             jQuery(this).html('-');
             jQuery(this).addClass('active');
         }
