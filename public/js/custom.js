@@ -11,29 +11,29 @@ jQuery(document).ready(function(){
 	if(!jQuery('.showmenu').hasClass('clicked')) {
 		var anicount = 4;	
 		jQuery('.leftmenu .nav-tabs > li').each(function(){										   
-			jQuery(this).addClass('animate'+anicount+' fadeInUp');
+			//jQuery(this).addClass('animate'+anicount+' fadeInUp');
 			anicount++;
 		});
 		
 		jQuery('.leftmenu .nav-tabs > li a').hover(function(){
-			jQuery(this).find('span').addClass('animate0 swing');
+			//jQuery(this).find('span').addClass('animate0 swing');
 		},function(){
-			jQuery(this).find('span').removeClass('animate0 swing');
+			//jQuery(this).find('span').removeClass('animate0 swing');
 		});
 		
-		jQuery('.logopanel').addClass('animate0 fadeInUp');
-		jQuery('.datewidget, .headerpanel').addClass('animate1 fadeInUp');
-		jQuery('.searchwidget, .breadcrumbwidget').addClass('animate2 fadeInUp'); 
-		jQuery('.plainwidget, .pagetitle').addClass('animate3 fadeInUp');
-		jQuery('.maincontent').addClass('animate4 fadeInUp');
+		//jQuery('.logopanel').addClass('animate0 fadeInUp');
+		//jQuery('.datewidget, .headerpanel').addClass('animate1 fadeInUp');
+		//jQuery('.searchwidget, .breadcrumbwidget').addClass('animate2 fadeInUp'); 
+		//jQuery('.plainwidget, .pagetitle').addClass('animate3 fadeInUp');
+		//jQuery('.maincontent').addClass('animate4 fadeInUp');
 	}
 	
 	// widget icons dashboard
 	if(jQuery('.widgeticons').length > 0) {
 		jQuery('.widgeticons a').hover(function(){
-			jQuery(this).find('img').addClass('animate0 bounceIn');
+			//jQuery(this).find('img').addClass('animate0 bounceIn');
 		},function(){
-			jQuery(this).find('img').removeClass('animate0 bounceIn');
+			//jQuery(this).find('img').removeClass('animate0 bounceIn');
 		});	
 	}
 
@@ -98,9 +98,9 @@ jQuery(document).ready(function(){
 	// dropdown in leftmenu
 	jQuery('.leftmenu .dropdown > a').click(function(){
 		if(!jQuery(this).next().is(':visible'))
-			jQuery(this).next().slideDown('fast');
+			jQuery(this).next().slideDown('slow');
 		else
-			jQuery(this).next().slideUp('fast');	
+			jQuery(this).next().slideUp('slow');	
 		return false;
 	});
 	
