@@ -50,7 +50,7 @@
 		                	@foreach ($objective->initiatives as $initiative)
 		                	 	<?php $iInitiative++;  if(empty($initiative->AVERAGE)) $initiative->AVERAGE=0;?>
                                         <tr class="ini_row  obj-{{ $iObjective }}" style="display: none">
-			                	   <td><a style=" margin: 5px; padding:2px; padding-left: 4px; padding-right: 4px;color:#000; font-size: 20; border: 1px solid #FFF; text-decoration: none;"href="javascript:void()" rel="ini-{{ $iInitiative }}">+</a> Initiative {{ $iInitiative }}</td>
+			                	   <td><a style=" margin: 5px; padding:2px; padding-left: 4px; padding-right: 4px;color:#000; font-size: 20; border: 1px solid #FFF; text-decoration: none;"href="javascript:void()" rel="ini-{{ $initiative->id }}">+</a> Initiative {{ $iInitiative }}</td>
 			                	   <td>{{ $initiative->name }}</td>
 			                	   <td style="  text-align: right;"></td>
 			                	   <td style="  text-align: right;"></td>
@@ -59,7 +59,7 @@
 			                	<?php $iMeasure = 0; ?>
 			                	 @foreach ($initiative->measures as $measure)
 			                	 	<?php $iMeasure++;  if(empty($measure->AVERAGE)) $measure->AVERAGE=0.0?>
-			                	 	<tr class="mea_row ini-{{$iInitiative }} obj-{{ $iObjective }}" style="display: none;">
+			                	 	<tr class="mea_row ini-{{$initiative->id }} obj-{{ $iObjective }}" style="display: none;">
 				                	   <td>Measure {{ $iMeasure }}</td>
 				                	   <td>{{ $measure->name }}</td>
 				                	   <td style="  text-align: right;">{{ round($measure->target) }}</td>
