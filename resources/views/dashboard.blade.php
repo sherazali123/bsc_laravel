@@ -30,16 +30,23 @@
             <div class="contentinner content-dashboard">
                 
                 <div class="row-fluid">
+                    <div class="span11">
+                    </div>
+                    
+                       <div class="span11" style="margin-left: 45px;">
+                           <div id="accordion" class="accordion">
                        @foreach ($plans as $row)
-                    <div class="span6">
                         
                         <h4 class="widgettitle">{{ $row->name }}</h4>
                         <div class="widgetcontent">
                             
                          <div id="container-{{ $row->id }}" style="margin: 0 auto"></div>
+                         <div id="container-sec-{{ $row->id }}" style="margin: 0 auto"></div>
                         </div><!--widgetcontent-->
-                    </div>
                         @endforeach
+                    </div>
+                            
+                    </div>
                     <!--span12-->
                
                 </div><!--row-fluid-->

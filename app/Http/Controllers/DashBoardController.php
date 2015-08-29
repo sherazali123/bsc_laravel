@@ -69,17 +69,24 @@ class DashBoardController extends Controller {
           $graph[$index]['columnValueSuffix'] = " %";
           $graph[$index]['columnData'] = [];
          
+          $dimensionsTotalAVERAGE=0;
+          $dimensionsCount=0;
            foreach ($dimensions as $dimension){
                
           $dimension_av= $this->getAverageDimension($dimension);
           $graph[$index]['categories'][]=$dimension->name;
+          $graph[$index]['categoriesSecond'][]=$dimension->name;
           $graph[$index]['Target'][]=100;
           $graph[$index]['Actual'][]=$dimension_av->AVERAGE;
+          $graph[$index]['ActualSecond'][]=$dimension_av->AVERAGE;
+          $dimensionsTotalAVERAGE +=$dimension_av->AVERAGE;
           $graph[$index]['categoryLinks'][$dimension->name]=url('/dimensions/'.$dimension->id);
           
           //array_push($graph[$index]['categories'], $dimension->name);
-
+            $dimensionsCount++;
             }
+           $graph[$index]['categoriesSecond'][]="Average";
+           $graph[$index]['ActualSecond'][]= ($dimensionsCount>0)?round($dimensionsTotalAVERAGE/$dimensionsCount,1):0.0;
          $index++;
             }
           

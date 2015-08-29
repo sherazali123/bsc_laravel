@@ -46,7 +46,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 /***** MAIN WRAPPER *****/
 /************************/
 
-body { background: #bcbcbc; font-family: 'HelveticaNeue', Arial, Helvetica, sans-serif; font-size: 12px; line-height: 21px; color: #666; }
+body { background: #bcbcbc; font-family: Helvetica, Arial, sans-serif; font-size: 12px; line-height: 21px; color: #666; }
 button, input, textarea, select, a, a:focus { outline: none; }
 a { text-decoration: none; color: #546f8e; }
 a:hover { text-decoration: underline; }
@@ -54,7 +54,7 @@ img { display: block; }
 small { font-size: 11px; line-height: 18px; }
 pre { font-size: 11px; }
 
-input,select,textarea,button,label { color: #666; font-family: 'HelveticaNeue', Arial, sans-serif; font-size: 12px; outline: none; margin: 0; }
+input,select,textarea,button,label { color: #666; font-family:  Arial, sans-serif; font-size: 12px; outline: none; margin: 0; }
 
 h1,h2,h3,h4 { color: #333; font-weight: normal; }
 h1 { font-size: 28px; line-height: 38px; }
@@ -913,7 +913,7 @@ h1,h2,h3, .logopanel h1, h3.widgettitle,
 .pagetitle h1, .pagination-large li, .alert h4, .loginwrapper input { font-family: 'RobotoRegular', 'HelveticaNeue', Arial, sans-serif; }
 
 /* Reset */
-.ui-accordion-header { font-family: 'HelveticaNeue', Arial, Helvetica, sans-serif; }
+.ui-accordion-header { font-family:  Arial, Helvetica, sans-serif; }
 
 
 /***** BORDER RADIUS *****/

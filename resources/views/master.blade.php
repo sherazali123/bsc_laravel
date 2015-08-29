@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
         @if (isset($controller_heading))
-           BSC | {{ $controller_heading }}
+           CSP | {{ $controller_heading }}
         @else
-            BSC
+            CSP
         @endif
     </title>
     {!!HTML::style('/css/style.default.css')!!}
@@ -30,7 +30,7 @@
         <div class="leftpanel">
 
             <div class="logopanel">
-                <h1><a href="{{URL::to('/dash-board')}}">BSC <span>v1.0</span></a></h1>
+                <h1><a href="{{URL::to('/dash-board')}}">CSP <span>v1.1</span><br/><span style="font-size: 14px;">Corporate Strategic Planning</span></a></h1>
             </div><!--logopanel-->
 
             <div class="datewidget">Today is {{ Carbon\Carbon::today()->format('l, M j, Y h:i a') }}</div>
@@ -98,9 +98,9 @@
 
     <!-- START OF RIGHT PANEL -->
     <div class="rightpanel">
-        <div class="headerpanel">
-            <a href="#" class="showmenu"></a>
-
+        <div class="headerpanel" style="min-height: 89px;">
+            <a href="#" class="showmenu" style="float: left;"></a>
+<div style="font-size: 18px; color: #FFF;font-family: 'RobotoBold', 'HelveticaNeue', Arial, sans-serif;width: 67%;display: block;float: left;margin-left: 60px;margin-top: 25px;text-align: center;position: relative;">Implement your Strategic Plan using Balance Score Card An enterprise performance management solution by Dr.Rashed Al-jalahma</div>
             <div class="headerright">
                 <div class="dropdown notification">
                  

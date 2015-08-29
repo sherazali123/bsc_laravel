@@ -33,7 +33,7 @@ jQuery(document).ready(function() {
 
             },
             pane: {
-                size: '65%'
+                size: '100%'
             },
             xAxis: {
                 categories:obj.categories,
@@ -48,6 +48,7 @@ jQuery(document).ready(function() {
             yAxis: {
                 gridLineInterpolation: 'polygon',
                 lineWidth: 0,
+                tickInterval: 20,
                 min: 0,
                 max: 100
             },
@@ -72,6 +73,62 @@ jQuery(document).ready(function() {
                 }]
 
         });
+        
+        /*start second*/
+      
+    jQuery('#container-sec-'+ obj.id).highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Average score of each dimension'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            type: 'category',
+            categories:obj.categoriesSecond
+        },
+        yAxis: {
+            title: {
+                text: ''
+            },
+            tickInterval: 10,
+                min: 0,
+                max: 100,
+            labels: {
+                formatter: function () {
+                    return this.value + '%';
+                }
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}%'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '',
+            pointFormat: '<span style="color:{point.color}"><b>{point.y:.1f}%</b><br/>'
+        },
+
+        series: [{
+            name: "plan",
+            colorByPoint: true,
+            data: obj.ActualSecond
+        }]
+    });
+        /* end second graphs*/
     });
     
 });
