@@ -30,11 +30,11 @@ jQuery(document).ready(function() {
         }
     });
 
-    if(graphData.data.length > 0){
+    if(graphData){
     jQuery("#graph1").css('height', '400px');
     jQuery('#graph1').highcharts({
-        chart: {
-            type: 'column'
+         chart: {
+            zoomType: 'xy'
         },
         title: {
             text: graphData.title
@@ -42,64 +42,55 @@ jQuery(document).ready(function() {
         subtitle: {
             text: graphData.subtitle
         },
-        xAxis: {
-            type: 'category',
-            labels: {
-                rotation: -45,
-                style: {
-                    fontSize: '13px',
-                    fontFamily: 'Verdana, sans-serif'
-                }
-            }
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Percentage (%)'
-            }
-        },
-        legend: {
-            enabled: true
-        },
-        tooltip: {
-            pointFormat: 'Percentage: <b>{point.y:.1f} %</b>'
-        },
-        series: [{
-            name: 'Per Objective',
-            data: graphData.data,
-            dataLabels: {
-                enabled: true,
-                rotation: -90,
-                color: '#FFFFFF',
-                align: 'right',
-                format: '{point.y:.1f}', // one decimal
-                y: 10, // 10 pixels down from the top
-                style: {
-                    fontSize: '13px',
-                    fontFamily: 'Verdana, sans-serif'
-                }
-            },
-            point: {
-                    events: {
-                        'click': function () {
-                            if (this.series.data.length > 1) {
-                              
-                                location.href=graphData.links[this.options.name];
-                            }
-                        }                        
+        xAxis: [{
+                categories: monthCategories,
+                crosshair: true
+            }],
+        yAxis: [ {// Secondary yAxis
+                title: {
+                    text: graphData.columnName,
+                    style: {
+                        color: Highcharts.getOptions().colors[0]
                     }
+                },
+                labels: {
+                    format: '{value} ' + graphData.columnValueSuffix,
+                    style: {
+                        color: Highcharts.getOptions().colors[0]
+                    }
+                },
+                opposite: true
+            }],
+        tooltip: {
+            shared: true
+        },
+        /*legend: {
+         layout: 'vertical',
+         align: 'left',
+         x: 120,
+         verticalAlign: 'top',
+         y: 100,
+         floating: true,
+         backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+         },*/
+        series: [{
+                name: graphData.columnName,
+                type: 'spline',
+                // yAxis: 1,
+                data: graphData.columnData,
+                tooltip: {
+                    valueSuffix: graphData.columnValueSuffix
                 }
-        }/*,
-          {
-            name: 'Total Objectives',
-            type: 'line',
-            data: graphData.Totaldata,
-            tooltip: {
-                valueSuffix:''
-            }
-        }*/
-       ]
-});
+
+            }, {
+                name: graphData.splineName,
+                type: 'column',
+                data: graphData.splineData,
+                tooltip: {
+                    valueSuffix: graphData.splineValueSuffix
+                }
+            }]
+      });
     }
 
 

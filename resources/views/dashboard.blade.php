@@ -16,10 +16,10 @@
                 <li class="fixed selected"><a href="#" class="skin-layout fixed"></a></li>
                 <li class="wide"><a href="#" class="skin-layout wide"></a></li>
             </ul><!--skins-->
-            <ul class="breadcrumb">
+           <!--  <ul class="breadcrumb">
                 <li><a href="dashboard.html">Home</a> <span class="divider">/</span></li>
                 <li class="active">Dashboard</li>
-            </ul>
+            </ul> -->
         </div><!--breadcrumbs-->
       
 	<div class="pagetitle">

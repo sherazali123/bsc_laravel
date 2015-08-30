@@ -14,6 +14,7 @@ use App\Measure;
 use App\ActualMeasure;
 use App\Http\Requests;
 use Input;
+use DB;
 use App\Http\Controllers\Controller;
 
 class InitiativeController extends Controller {
@@ -239,10 +240,7 @@ class InitiativeController extends Controller {
              ->where('initiatives.id', '=', (int) $initiative_id)
              ->select('initiatives.*')
              ->get();
-        $this->viewData['graphData'] = [];
-        $this->viewData['graphData']['title'] = "BSC Report - Dimension: ".$list[0]->name;
-        $this->viewData['graphData']['subtitle'] = "Report for ".$list[0]->name."'s measures";
-        $this->viewData['graphData']['data'] = [];
+      
 
                 $initiative_AVERAGE = 0;
                 $initiative_count = 0;
@@ -265,12 +263,7 @@ class InitiativeController extends Controller {
                         }
                         $measure_count++;
 
-                        // graph data
-
-                        $newNode = [];
-                        $newNode[] = $measure->name;
-                        $newNode[] = (float) number_format((float)$measure->AVERAGE, 2, '.', '');;
-                        $this->viewData['graphData']['data'][] = $newNode;
+                 
                     }
                     $initiative->measures  = $measures;
                     //end measures
@@ -286,7 +279,89 @@ class InitiativeController extends Controller {
 
 
 
-          $this->viewData['initiatives'] = $list;;
-          $this->viewData['graph'] = json_encode($this->viewData['graphData']);
+          $this->viewData['initiatives'] = $list;
+          self::populateInitiativeGraph();
+    }   
+
+     /**
+     * Populate graph for initiatives by month
+     *
+     * @return void
+     */
+    public function populateInitiativeGraph()
+    {
+          $initiative = $this->viewData['initiative'];
+          $graph = [];  
+
+
+          //$list = DB::select('call getActualMeasuresReport('.$this->viewData['user_id'].','.$this->viewData['measure_id'].');');
+
+
+          $sql = "select
+                    mon.mid as month_id,
+                    mon.`name` as month_name,
+                    report.*
+                    
+                from
+                    months mon
+                        left join
+                    (select 
+                        am.id as actual_measure_id,
+                            sum(am.actual_measure) as actual_measure,
+                            am.measure_id as measure_id,
+                            am.`month` as actual_measure_month,
+                            am.`status` as actual_measure_status,
+                            p.period as period,
+                            m.target as target,
+                            p.starting_date as starting_date,
+                            i.id as initiative_id,
+                            i.`name` as initiative_name,
+                            o.id as objective_id,
+                            o.`name` as objective_name,
+                            d.id as dimension_id,
+                            d.`name` as dimension_name,
+                            u.id as user_id,
+                            u.`name` as user_name
+                    from
+                        actual_measures am
+                    inner join measures m ON am.measure_id = m.id
+                        
+                    inner join initiatives i ON m.initiative_id = i.id and i.id = ".$initiative->id."
+                    inner join objectives o ON i.objective_id = o.id
+                    inner join dimensions d ON o.dimension_id = d.id
+                    inner join plans p ON d.plan_id = p.id
+                    inner join users u ON p.user_id = u.id
+                    where
+                        u.id = ".$this->viewData['user_id']."
+                    group by am.`month`
+                    order by am.`month`) as report ON mon.mid = report.actual_measure_month
+                    order by mon.mid;";
+
+          $list = DB::select($sql);
+
+          // var_dump($list);die;
+
+          $graph['title'] = "BSC Report: ".$initiative->name;
+          $graph['subtitle'] = "Monthly and Cumulative";
+          
+          $graph['columnName'] = "Cumulative";
+          $graph['columnValueSuffix'] = " ";
+          $graph['columnData'] = [];
+          
+          $graph['splineName'] = "Monthly";
+          $graph['splineValueSuffix'] = " ";
+          $graph['splineData'] = [];
+          $total_actuals=0;
+          foreach ($list as $key => $value) {
+              $actual = is_null($value->actual_measure) ? 0.0 : (float) $value->actual_measure;
+              $total_actuals += $actual;
+              array_push($graph['columnData'], round($total_actuals, 1));
+              array_push($graph['splineData'], round($actual,1));
+          }
+       
+        
+          $this->viewData['graph'] = json_encode($graph);
+
     }
+
 }

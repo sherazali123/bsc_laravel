@@ -195,6 +195,7 @@ class ActualMeasureController extends Controller
 
           //$list = DB::select('call getActualMeasuresReport('.$this->viewData['user_id'].','.$this->viewData['measure_id'].');');
 
+
           $sql = "select
                     mon.mid as month_id,
                     mon.`name` as month_name,
