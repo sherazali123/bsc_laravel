@@ -90,9 +90,9 @@ jQuery(document).ready(function() {
                 tooltip: {
                     valueSuffix: graphData.splineValueSuffix
                 },
-                min: 0,
+                /*min: 0,
                 max: 10,
-                opposite: true
+                opposite: true*/
             },
             {
                 name: graphData.targetName,
