@@ -91,7 +91,7 @@ jQuery(document).ready(function() {
                     valueSuffix: graphData.splineValueSuffix
                 },
                 min: 0,
-                max: graphData.targetData[0],
+                max: 10,
                 opposite: true
             },
             {
