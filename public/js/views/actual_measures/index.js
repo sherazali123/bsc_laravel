@@ -32,6 +32,7 @@ jQuery(document).ready(function() {
                 crosshair: true
             }],
         yAxis: [{// Primary yAxis
+                
                 labels: {
                     format: '{value} ' + graphData.splineValueSuffix,
                     style: {
@@ -88,7 +89,10 @@ jQuery(document).ready(function() {
                 data: graphData.splineData,
                 tooltip: {
                     valueSuffix: graphData.splineValueSuffix
-                }
+                },
+                min: 0,
+                max: graphData.targetData[0],
+                opposite: true
             },
             {
                 name: graphData.targetName,
