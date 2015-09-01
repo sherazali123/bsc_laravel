@@ -34,16 +34,7 @@
             </div><!--logopanel-->
 
             <div class="datewidget">Today is {{ Carbon\Carbon::today()->format('l, M j, Y h:i a') }}</div>
-            <div class="searchwidget">
-                <form action="http://themepixels.com/main/themes/demo/webpage/katniss/results.html" method="post">
-                    <div class="input-append">
-                        <input type="text" class="span2 search-query" placeholder="Search here...">
-                        <button type="submit" class="btn"><span class="icon-search"></span></button>
-                    </div>
-                </form>
-            </div><!--searchwidget-->
-
-            <div class="leftmenu">
+               <div class="leftmenu">
                 <ul class="nav nav-tabs nav-stacked">
                     <li class="nav-header">Main Navigation</li>
                     <li class="active"><a href="{{URL::to('/dash-board')}}"><span class="icon-align-justify"></span> Dashboard</a></li>
@@ -139,18 +130,7 @@
         <p style="margin: 12px;" class="alert {{ Session::get('alert-class', 'alert-info') }}">{!! Session::get('message') !!}</p>
         @endif
         <div class="breadcrumbwidget">
-            <ul class="skins">
-                <li><a href="default" class="skin-color default"></a></li>
-                <li><a href="orange" class="skin-color orange"></a></li>
-                <li><a href="dark" class="skin-color dark"></a></li>
-                <li>&nbsp;</li>
-                <li class="fixed selected"><a href="#" class="skin-layout fixed"></a></li>
-                <li class="wide"><a href="#" class="skin-layout wide"></a></li>
-            </ul><!--skins-->
-           <!--  <ul class="breadcrumb">
-                <li><a href="dashboard.html">Home</a> <span class="divider">/</span></li>
-                <li class="active">Dashboard</li>
-            </ul> -->
+          
         </div><!--breadcrumbs-->
         @yield('main')
 

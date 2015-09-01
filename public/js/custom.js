@@ -423,5 +423,10 @@ jQuery(document).ready(function(){
 		}
 		return false;
 	});
-	
+
+    jQuery('.leftmenu .nav-tabs > li').click(function(){
+         
+        jQuery('.leftmenu .nav-tabs li').removeClass('active');
+        jQuery(this).addClass('active');
+    });
 });
