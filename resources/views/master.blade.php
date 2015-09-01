@@ -37,7 +37,7 @@
                <div class="leftmenu">
                 <ul class="nav nav-tabs nav-stacked">
                     <li class="nav-header">Main Navigation</li>
-                    <li class="active"><a href="{{URL::to('/dash-board')}}"><span class="icon-align-justify"></span> Dashboard</a></li>
+                    <li class="{{ Request::is('dash-board') ? 'active' : '' }}"><a href="{{URL::to('/dash-board')}}"><span class="icon-align-justify"></span> Dashboard</a></li>
                     @if (Auth::User()->role == 1)
                         <li class="dropdown"><a href="{{url('/users')}}"><span class="icon-briefcase"></span> Users</a>
                         <ul>
@@ -46,31 +46,31 @@
                         </ul>
                     </li>
                     @elseif (Auth::User()->role == 2)
-                        <li ><a href="{{url('/plans')}}"><span class="icon-briefcase"></span> Plans</a>
+                        <li class="{{ Request::is('plans') ? 'active' : '' }}"><a href="{{url('/plans')}}"><span class="icon-briefcase"></span> Plans</a>
                            <!-- <ul>
                                 <li><a href="{{url('/plans/create')}}">Add new</a></li>
                                 <li><a href="{{url('/plans')}}">Plans</a></li>
                             </ul>-->
                         </li>
-                        <li><a href="{{url('/dimensions')}}"><span class="icon-briefcase"></span> Dimensions</a>
+                        <li class="{{ Request::is('dimensions') ? 'active' : '' }}"><a href="{{url('/dimensions')}}"><span class="icon-briefcase"></span> Dimensions</a>
                             <!--<ul>
                                 <li><a href="{{url('/dimensions/create')}}">Add new</a></li>
                                 <li><a href="{{url('/dimensions')}}">Dimensions</a></li>
                             </ul> -->
                         </li>
-                        <li><a href="{{url('/objectives')}}"><span class="icon-briefcase"></span> Objectives</a>
+                        <li class="{{ Request::is('objectives') ? 'active' : '' }}"><a href="{{url('/objectives')}}"><span class="icon-briefcase"></span> Objectives</a>
                             <!--<ul>
                                 <li><a href="{{url('/objectives/create')}}">Add new</a></li>
                                 <li><a href="{{url('/objectives')}}">Objectives</a></li>
                             </ul> -->
                         </li>
-                        <li><a href="{{url('/initiatives')}}"><span class="icon-briefcase"></span> Initiatives</a>
+                        <li class="{{ Request::is('initiatives') ? 'active' : '' }}"><a href="{{url('/initiatives')}}"><span class="icon-briefcase"></span> Initiatives</a>
                             <!--<ul>
                                 <li><a href="{{url('/initiatives/create')}}">Add new</a></li>
                                 <li><a href="{{url('/initiatives')}}">Initiatives</a></li>
                             </ul>-->
                         </li>
-                        <li><a href="{{url('/measures')}}"><span class="icon-briefcase"></span> Measures</a>
+                        <li class="{{ Request::is('measures') ? 'active' : '' }}"><a href="{{url('/measures')}}"><span class="icon-briefcase"></span> Measures</a>
                             <!--<ul>
                                 <li><a href="{{url('/measures/create')}}">Add new</a></li>
                                 <li><a href="{{url('/measures')}}">Measures</a></li>
