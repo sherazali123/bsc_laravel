@@ -16,6 +16,7 @@ class CreatePlans extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('name');
+            $table->string('vision')->nullable();
             $table->longText('description')->nullable();
             $table->integer('period');
             $table->date('starting_date');

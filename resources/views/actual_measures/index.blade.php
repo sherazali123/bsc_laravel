@@ -28,6 +28,7 @@
                     </colgroup>
                     <thead>
                         <tr>
+                            <th class="head1" style="display:none;">Month</th>
                             <th class="head1">Month</th>
                             <th class="head1">Actual</th>
                             <th class="head1">Actions</th>
@@ -35,6 +36,7 @@
                     </thead>
                     <tfoot>
                         <tr>
+                            <th class="head1" style="display:none;">Month</th>
                             <th class="head1">Month</th>
                             <th class="head1">Actual</th>
                             <th class="head1">Actions</th>
@@ -43,6 +45,7 @@
                     <tbody>
                     	@foreach ($list as $row)
                      	   <tr class="gradeX">
+                             <td style="display:none;">{{ $row->month }}</td> 
                      	       <td>{{ $months[$row->month] }}</td>
                      	       <td>{{ round($row->actual_measure) }}</td>
                      	       <td>

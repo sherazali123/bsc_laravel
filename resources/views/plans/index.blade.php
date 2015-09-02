@@ -14,15 +14,17 @@
             	<table class="table table-bordered" id="index_1">
                     <colgroup>
                         <col class="con0" />
-                        <col class="con1" style="align: center; width: 20%" />
-                        <col class="con0" />
                         <col class="con1" />
                         <col class="con0" />
                         <col class="con1" />
+                        <col class="con0" />
+                        <col class="con1" />
+                        <col class="con0"  style="align: center; width: 20%" />
                     </colgroup>
                     <thead>
                         <tr>
                             <th class="head1">Name</th>
+                            <th class="head1">Vision</th>
                             <th class="head1">Period</th>
                             <th class="head1">Starting date</th>
                             <th class="head1">Ending date</th>
@@ -34,8 +36,9 @@
                     	@foreach ($list as $row)
                      	   <tr class="gradeX">
                      	       <td>{{ $row->name }}</td>
-                     	       
+                     	       <td>{{ $row->vision }}</td>
                                 <td>{{ $periods[$row->period] }}</td>
+
                                 <td>{{ Carbon\Carbon::createFromFormat('Y-m-d', $row->starting_date)->format('M j, Y') }}</td>
                                 <td>{{ Carbon\Carbon::createFromFormat('Y-m-d', $row->ending_date)->format('M j, Y') }}</td>
                      	       <td>

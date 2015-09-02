@@ -344,7 +344,7 @@ class DimensionController extends Controller
                         left join
                     (select 
                         am.id as actual_measure_id,
-                            sum(am.actual_measure) as actual_measure,
+                            avg(am.actual_measure) as actual_measure,
                             am.measure_id as measure_id,
                             am.`month` as actual_measure_month,
                             am.`status` as actual_measure_status,
