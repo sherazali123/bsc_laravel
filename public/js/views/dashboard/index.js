@@ -96,7 +96,7 @@ jQuery(document).ready(function() {
             },
             tickInterval: 10,
                 min: 0,
-                max: 50,
+                max: 100,
             labels: {
                 formatter: function () {
                     return this.value + '%';
