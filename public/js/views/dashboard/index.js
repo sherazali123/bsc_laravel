@@ -227,7 +227,7 @@ jQuery(document).ready(function() {
 
         series: [{
             name: obj.categoriesSecond[i],
-            data: [parseFloat(obj.ActualSecond[i]).toFixed(1)],
+            data: [Math.round(obj.ActualSecond[i]*10)/10],
             tooltip: {
                 valueSuffix: ' %'
             }
