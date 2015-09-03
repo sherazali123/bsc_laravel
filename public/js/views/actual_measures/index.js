@@ -49,7 +49,7 @@ jQuery(document).ready(function() {
                 type: 'logarithmic',
                 minorTickInterval: 0,
                 max: 100,
-                min: 1
+                min: 0
             }, {// Secondary yAxis
                 title: {
                     text: graphData.columnName,

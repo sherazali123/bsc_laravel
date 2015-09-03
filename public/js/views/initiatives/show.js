@@ -31,7 +31,11 @@ jQuery(document).ready(function() {
                         color: Highcharts.getOptions().colors[0]
                     }
                 },
-                opposite: true
+                opposite: true,
+                type: 'logarithmic',
+                minorTickInterval: 0,
+                max: 100,
+                min: 0
             }],
         tooltip: {
             shared: true
@@ -55,6 +59,7 @@ jQuery(document).ready(function() {
                 }
 
             }, {
+                color:'red',
                 name: graphData.splineName,
                 type: 'column',
                 data: graphData.splineData,
