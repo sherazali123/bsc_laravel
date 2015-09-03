@@ -59,7 +59,7 @@ jQuery(document).ready(function() {
                 }
 
             }, {
-                color:'red',
+                
                 name: graphData.splineName,
                 type: 'column',
                 data: graphData.splineData,
