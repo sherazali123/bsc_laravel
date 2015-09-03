@@ -227,7 +227,7 @@ jQuery(document).ready(function() {
 
         series: [{
             name: obj.categoriesSecond[i],
-            data: [obj.ActualSecond[i]],
+            data: [obj.ActualSecond[i].toFixed(1)],
             tooltip: {
                 valueSuffix: ' %'
             }
