@@ -28,7 +28,7 @@
                         <div class="widgetcontent">
                             
                          <div id="container-{{ $row->id }}" style="margin: 0 auto"></div>
-                         <div id="container-sec-{{ $row->id }}" style="margin: 0 auto"></div>
+                         <div id="container-sec-{{ $row->id }}" style="margin: 0 auto; margin-bottom: 60px;"></div>
                         </div><!--widgetcontent-->
                         @endforeach
                     </div>

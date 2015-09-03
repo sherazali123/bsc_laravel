@@ -15,6 +15,7 @@ jQuery(document).ready(function() {
 
     }
 
+    var target = graphData.targetData[0];
 
     // actual measure graph
     jQuery('#actualMeasureGraph').highcharts({
@@ -32,7 +33,7 @@ jQuery(document).ready(function() {
                 crosshair: true
             }],
         yAxis: [{// Primary yAxis
-                
+
                 labels: {
                     format: '{value} ' + graphData.splineValueSuffix,
                     style: {
@@ -45,8 +46,10 @@ jQuery(document).ready(function() {
                         color: Highcharts.getOptions().colors[1]
                     }
                 },
-                min: 0,
-                max:graphData.targetData[0]+5
+                type: 'logarithmic',
+                minorTickInterval: 0,
+                max: 100,
+                min: 1
             }, {// Secondary yAxis
                 title: {
                     text: graphData.columnName,
@@ -60,7 +63,8 @@ jQuery(document).ready(function() {
                         color: Highcharts.getOptions().colors[0]
                     }
                 },
-                opposite: true
+                opposite: false
+             
             }],
         tooltip: {
             shared: true
@@ -91,10 +95,14 @@ jQuery(document).ready(function() {
                     valueSuffix: graphData.splineValueSuffix
                 },
                 /*min: 0,
-                max: 10,
-                opposite: true*/
+                 max: 10,
+                 opposite: true*/
+                
+                color:Highcharts.getOptions().colors[5]
+
             },
             {
+                color:'green',
                 name: graphData.targetName,
                 type: 'line',
                 data: graphData.targetData,
