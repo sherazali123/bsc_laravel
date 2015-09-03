@@ -6,6 +6,12 @@
     </span>
 </p>
 <p>
+    {!! Form::label('Vision', 'Vision:') !!}
+    <span class="field">
+        {!! Form::text('vision',null,['class'=>'input-xxlarge', 'placeholder' => 'Vision']) !!}
+    </span>
+</p>
+<p>
     {!! Form::label('Period', 'Period:') !!}
     <span class="field">
          {!! Form::select('period', $periods, null, ['class' => 'form-control']) !!}

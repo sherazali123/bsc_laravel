@@ -75,6 +75,7 @@ class ActualMeasureController extends Controller
                       ->leftJoin('plans', 'plans.id', '=', 'dimensions.plan_id')
                       ->where('actual_measures.measure_id', '=', (int)$this->viewData['measure_id'])
                       ->where('plans.user_id', '=', $this->viewData['user_id'])
+                      ->orderBy('actual_measures.month', 'asc')
                       ->select('actual_measures.*')
                       ->get();
 

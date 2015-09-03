@@ -8,6 +8,7 @@ class Plan extends Model
 {
     protected $fillable=[
         'name',
+        'vision',
         'user_id',
         'period',
         'starting_date',
