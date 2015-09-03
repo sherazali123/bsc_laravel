@@ -130,7 +130,7 @@
         <p style="margin: 12px;" class="alert {{ Session::get('alert-class', 'alert-info') }}">{!! Session::get('message') !!}</p>
         @endif
         <div class="breadcrumbwidget">
-            <span><strong>legend Color:</strong>Red - High Risk, Orange - Medium Risk and Green - Low/No Risk</span>
+            
         </div><!--breadcrumbs-->
         <div class="alert alert-class" style="margin: 0px auto;width: 92%;margin-top: 20px; margin-bottom: 20px;"><b>legend Color: </b>  <span style="color:red">Red</span> - High Risk, <span style="color:#FF9900">Orange</span> - Medium Risk and <span style="color:#55BF3B">Green</span> - Low/No Risk</div>
         @yield('main')
