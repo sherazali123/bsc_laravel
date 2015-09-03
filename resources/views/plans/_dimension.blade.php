@@ -34,7 +34,8 @@
 	                	   <td>{{ $dimension->name }}</td>
 	                	   <td style="  text-align: right;"></td>
 	                	   <td style="  text-align: right;"></td>
-	                	   <td style="  text-align: right;">{{ round($dimension->AVERAGE, 1) }}%</td>
+	                	   <td style="  text-align: right;background-color:@if (round($dimension->AVERAGE,1)<=50)red
+                         @elseif((round($dimension->AVERAGE,1)<=80))#FF9900 @elseif((round($dimension->AVERAGE,1)>80))#55BF3B @endif" >{{ round($dimension->AVERAGE, 1) }}%</td>
 	                	</tr>
 	                	 <?php $iObjective = 0; ?>
 	                	 @foreach ($dimension->objectives as $objective)

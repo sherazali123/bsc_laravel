@@ -29,7 +29,8 @@
 		                	   <td>{{ $objective->name }}</td>
 		                	   <td style="  text-align: right;"></td>
 		                	   <td style="  text-align: right;"></td>
-		                	   <td style="  text-align: right;">{{ round($objective->AVERAGE, 1) }}%</td>
+		                	   <td style="  text-align: right;background-color:@if (round($objective->AVERAGE,1)<=50)red
+                         @elseif((round($objective->AVERAGE,1)<=80))#FF9900 @elseif((round($obective->AVERAGE,1)>80))#55BF3B @endif">{{ round($objective->AVERAGE, 1) }}%</td>
 		                	</tr>
 		                	<?php $iInitiative = 0; ?>
 		                	 @foreach ($objective->initiatives as $initiative)

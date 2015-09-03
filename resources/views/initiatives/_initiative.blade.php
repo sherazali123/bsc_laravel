@@ -28,7 +28,8 @@
 			                	   <td>{{ $initiative->name }}</td>
 			                	   <td style="  text-align: right;"></td>
 			                	   <td style="  text-align: right;"></td>
-			                	   <td style="  text-align: right;">{{ round($initiative->AVERAGE, 1) }}%</td>
+			                	   <td style="  text-align: right;background-color:@if (round($initiative->AVERAGE,1)<=50)red
+                         @elseif((round($initiative->AVERAGE,1)<=80))#FF9900 @elseif((round($initiative->AVERAGE,1)>80))#55BF3B @endif">{{ round($initiative->AVERAGE, 1) }}%</td>
 			                	</tr>
 			                	<?php $iMeasure = 0; ?>
 			                	 @foreach ($initiative->measures as $measure)
