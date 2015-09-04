@@ -3,7 +3,7 @@
  <?php $iDimension = 0; ?>
  @foreach ($plan_dimensions as $dimension)
  	<?php $iDimension++; if(empty($dimension->AVERAGE)) $dimension->AVERAGE=0.0;?>
-	 <h4><a href="#">{{ $dimension->name }}</a></h4>
+   <h4>@include('_legend') <a href="#">{{ $dimension->name }}</a></h4>
 	 <div>
 	         <table class="table table-bordered">
 	             <colgroup>

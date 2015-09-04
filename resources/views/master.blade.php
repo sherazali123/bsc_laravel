@@ -91,7 +91,7 @@
     <div class="rightpanel">
         <div class="headerpanel" style="min-height: 89px;">
             <a href="#" class="showmenu" style="float: left;"></a>
-            <div style="font-size: 18px; color: #FFF;font-family: 'RobotoBold', 'HelveticaNeue', Arial, sans-serif;width: 67%;display: block;float: left;margin-left: 60px;margin-top: 25px;text-align: center;position: relative;">Implement your Strategic Plan using Balance Score Card <br/>An enterprise performance management solution by Dr.Rashed Al-jalahma</div>
+      <div style="font-size: 18px; color: #FFF;font-family: 'RobotoBold', 'HelveticaNeue', Arial, sans-serif;width: 67%;display: block;float: left;margin-left: 60px;margin-top: 25px;text-align: center;position: relative;">Implement your Strategic Plan using Balance Score Card <br/>An enterprise performance management solution by Dr.Rashed Al-jalahma</div>
             <div class="headerright">
                 <div class="dropdown notification">
                  
@@ -132,7 +132,6 @@
         <div class="breadcrumbwidget">
             
         </div><!--breadcrumbs-->
-        <div class="alert alert-class" style="margin: 0px auto;width: 92%;margin-top: 20px; margin-bottom: 20px;"><b>legend Color: </b>  <span style="color:red">Red</span> - High Risk, <span style="color:#FF9900">Orange</span> - Medium Risk and <span style="color:#55BF3B">Green</span> - Low/No Risk</div>
         @yield('main')
 
     </div><!--mainright-->

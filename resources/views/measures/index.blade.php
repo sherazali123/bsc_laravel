@@ -13,7 +13,7 @@
               @include('application._change_plan')
 
 
-            	<h4 class="widgettitle"> {{{ $controller_heading or '' }}} <a href="{{url('/'.$controller_name.'/create'.'?plan_id='.$currentPlan->id.'&dimension_id='.$currentDimensionId.'&objective_id='.$currentObjectiveId)}}">Add new</a></h4>
+            	<h4 class="widgettitle"> @include('_legend') {{{ $controller_heading or '' }}} <a href="{{url('/'.$controller_name.'/create'.'?plan_id='.$currentPlan->id.'&dimension_id='.$currentDimensionId.'&objective_id='.$currentObjectiveId)}}">Add new</a></h4>
                 <table class="table table-bordered" id="index_1">
                     <colgroup>
                         <col class="con1" />

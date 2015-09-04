@@ -1,5 +1,5 @@
  
-<h4 class="widgettitle">Summary</h4>
+<h4 class="widgettitle">@include('_legend') Summary</h4>
 
 
 	         <table class="table table-bordered">
