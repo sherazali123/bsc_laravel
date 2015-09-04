@@ -33,7 +33,7 @@ jQuery(document).ready(function() {
 
             },
             pane: {
-                size: '100%'
+                size: '95%'
             },
             xAxis: {
                 categories:obj.categories,
@@ -69,7 +69,8 @@ jQuery(document).ready(function() {
                 }, {
                     name: 'Actual',
                     data: obj.Actual,
-                    pointPlacement: 'on'
+                    pointPlacement: 'on',
+                    color: Highcharts.getOptions().colors[5]
                 }]
 
         });
