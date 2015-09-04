@@ -69,20 +69,11 @@ jQuery(document).ready(function() {
         tooltip: {
             shared: true
         },
-        /*legend: {
-         layout: 'vertical',
-         align: 'left',
-         x: 120,
-         verticalAlign: 'top',
-         y: 100,
-         floating: true,
-         backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
-         },*/
+       
         series: [{
                 name: graphData.columnName,
                 type: 'spline',
-                // yAxis: 1,
-               
+                 
                 data: graphData.columnData,
                 tooltip: {
                     valueSuffix: graphData.columnValueSuffix
