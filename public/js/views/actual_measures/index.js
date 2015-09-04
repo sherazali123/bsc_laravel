@@ -64,8 +64,8 @@ jQuery(document).ready(function() {
                         color: Highcharts.getOptions().colors[0]
                     }
                 },
-                opposite: false
-             
+                opposite: false,
+               max: 100,
             }],
         tooltip: {
             shared: true
