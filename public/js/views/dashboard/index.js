@@ -70,7 +70,7 @@ jQuery(document).ready(function() {
                     name: 'Actual',
                     data: obj.Actual,
                     pointPlacement: 'on',
-                    color: Highcharts.getOptions().colors[5]
+                    color: Highcharts.getOptions().colors[5],
                 }]
 
         });
