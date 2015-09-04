@@ -10,10 +10,7 @@
                   <td class="width30">Vision:</td>
                   <td class="width70"><strong>{{ $plan->vision }}</strong></td>
               </tr>
-              <tr>
-                <td>Description:</td>
-                <td>{{ $plan->description }}</td>
-            </tr>
+             
               <tr>
                   <td>Period:</td>
                   <td>{{ $periods[$plan->period] }}</td>

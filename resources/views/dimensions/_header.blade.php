@@ -6,10 +6,7 @@
                   <td class="width30">Dimension:</td>
                   <td class="width70"><strong>{{ $dimension->name }}</strong></td>
               </tr>
-              <tr>
-                <td>Description:</td>
-                <td>{{ $dimension->description }}</td>
-            </tr>
+             
               <tr>
                 <td>Plan:</td>
                 <td>{{ $dimension->plan->name }}</td>

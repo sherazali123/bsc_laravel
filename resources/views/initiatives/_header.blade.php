@@ -6,10 +6,7 @@
                   <td class="width30">Initiative:</td>
                   <td class="width70"><strong>{{ $initiative->name }}</strong></td>
               </tr>
-              <tr>
-                <td>Description:</td>
-                <td>{{ $initiative->description }}</td>
-            </tr>
+             
               <tr>
                 <td>Objective:</td>
                 <td>{{ $initiative->objective->name }}</td>
