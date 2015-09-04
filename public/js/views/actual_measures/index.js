@@ -50,6 +50,21 @@ jQuery(document).ready(function() {
                 minorTickInterval: 0,
                 max: 100,
              
+            }, {// Secondary yAxis
+                title: {
+                    text: graphData.columnName,
+                    style: {
+                        color: Highcharts.getOptions().colors[0]
+                    }
+                },
+                labels: {
+                    format: '{value} ' + graphData.columnValueSuffix,
+                    style: {
+                        color: Highcharts.getOptions().colors[0]
+                    }
+                },
+                opposite: false
+             
             }],
         tooltip: {
             shared: true
