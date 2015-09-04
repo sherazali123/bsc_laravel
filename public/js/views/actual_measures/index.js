@@ -47,9 +47,9 @@ jQuery(document).ready(function() {
                     }
                 },
                 type: 'logarithmic',
-                 minorTickInterval: 0.1,
-                 max: 100,
-                 
+                minorTickInterval: 0,
+                max: 100,
+                min: 0
             }, {// Secondary yAxis
                 title: {
                     text: graphData.columnName,
