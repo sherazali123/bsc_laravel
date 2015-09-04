@@ -33,6 +33,7 @@ jQuery(document).ready(function() {
                     }
                 },
                 type: 'logarithmic',
+                 minorTickInterval: 0.1,
                 max: 100,
             },{// Secondary yAxis
                 title: {
