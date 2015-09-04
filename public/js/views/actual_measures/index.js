@@ -47,9 +47,8 @@ jQuery(document).ready(function() {
                     }
                 },
                 type: 'logarithmic',
-                minorTickInterval: 0,
-                max: 100,
-                min: 1
+                 max: 100,
+                 
             }, {// Secondary yAxis
                 title: {
                     text: graphData.columnName,
@@ -82,6 +81,7 @@ jQuery(document).ready(function() {
                 name: graphData.columnName,
                 type: 'spline',
                 // yAxis: 1,
+               
                 data: graphData.columnData,
                 tooltip: {
                     valueSuffix: graphData.columnValueSuffix
