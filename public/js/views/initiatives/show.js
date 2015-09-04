@@ -31,9 +31,10 @@ jQuery(document).ready(function() {
                         color: Highcharts.getOptions().colors[0]
                     }
                 },
-                type: 'logarithmic',
-                 minorTickInterval: 0.1,
+                 type: 'logarithmic',
+                 minorTickInterval: 0,
                 max: 100,
+                min:0.1,
                 
             },{// Secondary yAxis
                 title: {

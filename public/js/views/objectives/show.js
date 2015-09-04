@@ -33,8 +33,9 @@ jQuery(document).ready(function() {
                     }
                 },
                 type: 'logarithmic',
-                 minorTickInterval: 0.1,
+                 minorTickInterval: 0,
                 max: 100,
+                min:0.1,
             },{// Secondary yAxis
                 title: {
                     text: graphData.splineName,

@@ -47,8 +47,9 @@ jQuery(document).ready(function() {
                     }
                 },
                 type: 'logarithmic',
-                minorTickInterval: 0,
+                 minorTickInterval: 0,
                 max: 100,
+                min:0.1,
              
             }, {// Secondary yAxis
                 title: {
