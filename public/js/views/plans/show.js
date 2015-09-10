@@ -58,7 +58,24 @@ jQuery(document).ready(function() {
                         color: Highcharts.getOptions().colors[0]
                     }
                 },
-                opposite: true
+               type: 'logarithmic',
+                 minorTickInterval: 0,
+                max: 100,
+                min:0.1,
+            },{// Secondary yAxis
+                title: {
+                    text: graphData.splineName,
+                    style: {
+                        color: Highcharts.getOptions().colors[5]
+                    }
+                },
+                labels: {
+                    format: '{value} ' + graphData.splineValueSuffix,
+                    style: {
+                        color: Highcharts.getOptions().colors[5]
+                    }
+                },
+               max: 100,
             }],
         tooltip: {
             shared: true
@@ -87,7 +104,8 @@ jQuery(document).ready(function() {
                 data: graphData.splineData,
                 tooltip: {
                     valueSuffix: graphData.splineValueSuffix
-                }
+                },
+                 color: Highcharts.getOptions().colors[5]
             }]
       });
     }

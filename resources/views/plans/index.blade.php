@@ -36,7 +36,7 @@
                     	@foreach ($list as $row)
                      	   <tr class="gradeX">
                      	       <td>{{ $row->name }}</td>
-                     	       <td>{{ $row->vision }}</td>
+                               <td style="width: 20%">{{ $row->vision }}</td>
                                 <td>{{ $periods[$row->period] }}</td>
 
                                 <td>{{ Carbon\Carbon::createFromFormat('Y-m-d', $row->starting_date)->format('M j, Y') }}</td>

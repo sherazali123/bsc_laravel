@@ -111,3 +111,12 @@ jQuery(document).ready(function() {
 
 
 });
+/*
+  formatter: function() {
+                if(this.value === 0.1){
+                    return 0;
+                } else {
+                    return this.value;
+                }
+            }
+ */

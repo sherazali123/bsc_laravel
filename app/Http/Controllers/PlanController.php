@@ -355,7 +355,7 @@ class PlanController extends Controller
 
           // var_dump($list);die;
 
-          $graph['title'] = "BSC Report: ".$plan->name;
+          $graph['title'] = "CSP Report: ".$plan->name;
           $graph['subtitle'] = "Monthly and Cumulative";
           
           $graph['columnName'] = "Cumulative";
