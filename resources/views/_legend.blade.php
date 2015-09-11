@@ -1,0 +1,1 @@
+<div class="alert-class" style="background:none;margin: 0px auto;width: 100%;text-align: center;"><b>legend Color: </b>  <span style="color:red">Red</span> - High Risk, <span style="color:#FF9900">Orange</span> - Medium Risk and <span style="color:#55BF3B">Green</span> - Low/No Risk</div>
