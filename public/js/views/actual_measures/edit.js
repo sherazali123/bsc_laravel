@@ -7,9 +7,7 @@ jQuery(document).ready(function() {
       jQuery(label).closest('.control-group').addClass('error');
     },
     success: function(label) {
-      label
-        .text('Ok!').addClass('valid')
-        .closest('.control-group').addClass('success');
+      label.text('Ok!').addClass('valid').closest('.control-group').addClass('success');
     }
   });
 });
